@@ -1,0 +1,42 @@
+﻿@model FossTech.Models.ProductModels.Product
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "_Layout2";
+}
+
+
+<div id="app">
+    <div class="container">
+        <div class="row">
+            <product-edit productId="@Model.Id"></product-edit>
+        </div>
+    </div>
+</div>
+
+
+@*@section styles
+{
+    <link href="~/lib/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+}*@
+
+@section Scripts {
+
+
+    
+    @*<script src="~/lib/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+    <script src="~/lib/bootstrap-select/js/bootstrap-select.min.js"></script>*@
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+@section HeadScript
+{
+    
+    <script type="text/javascript">
+        
+        window.productId = @Model.Id;
+        
+    </script>
+}

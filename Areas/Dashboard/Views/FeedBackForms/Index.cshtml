@@ -1,0 +1,92 @@
+﻿@model IEnumerable<FossTech.Models.StudyMaterialModels.FeedBackForm>
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+    <div class="row">
+        <div class="col-12 text-end mb-2">
+            <a class="btn btn-success" asp-action="Create" style="float:inline-end">
+                <i class="fas fa-plus-circle"></i> Create New Feedback
+            </a>
+        </div>
+    </div>
+    <hr />
+    <div class="row d-flex justify-content-center">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3 col-md-2 mb-4">
+                <div class="card shadow-lg rounded border-light h-100">
+                    <img src="@Html.DisplayFor(modelItem => item.Image)" class="card-img-top" alt="@item.Title"
+                         style="height: 150px; object-fit: cover; width: 100%;" />
+                    <div class="card-body">
+                        <h5 class="card-title text-dark">@Html.DisplayFor(modelItem => item.Title)</h5>
+                        <p class="card-text text-muted">@Html.DisplayFor(modelItem => item.Description)</p>
+                        <p class="card-text"><small class="text-muted">Created on @Html.DisplayFor(modelItem => item.CreatedDate)</small></p>
+                        <hr />
+                        <p>
+                            Status:
+                            @if (item.IsSolved)
+                            {
+                                <span class="badge bg-success">Solved</span><br />
+                                <small class="text-muted">- Solved on: @item.SolvedDate?.ToString("yyyy-MM-dd HH:mm")</small>
+                                    }
+                            else
+                            {
+                                <span class="badge bg-danger">Not Solved</span>
+                            }
+                        </p>
+
+                    </div>
+                    <div class="card-footer text-center">
+                        <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Id">
+                            <i class="fas fa-eye"></i> Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+<style>
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-title {
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .btn:hover {
+        opacity: 0.85;
+        transform: translateY(-2px);
+    }
+
+    .btn {
+        transition: all 0.3s ease;
+    }
+
+    .card-footer .btn {
+        margin: 0 5px;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    @@media (max-width: 768px) {
+        .col-lg-3 {
+            max-width: 100%;
+        }
+        .col-md-2 {
+            max-width: 100%; /* Adjust to take full width for small screens */
+        }
+        .card-img-top {
+            height: 120px; /* Adjust image size for smaller screens */
+        }
+    }
+</style>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

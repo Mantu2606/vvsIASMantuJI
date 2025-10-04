@@ -1,0 +1,204 @@
+﻿@model FossTech.Models.StudyMaterialModels.StudyMaterial
+
+@{
+	ViewData["Title"] = "Edit";
+}
+<div class="col-sm-12">
+	<div class="card">
+		<div class="card-header pb-1 d-flex">
+			<h2>Edit Study Material</h2>
+		</div>
+		<form asp-action="Edit" enctype="multipart/form-data">
+			<div class="card-body">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<input type="hidden" asp-for="Id" />
+				<div class="row">
+					<div class="form-group col-md-8">
+						<label asp-for="Name" class="control-label"></label>
+						<input asp-for="Name" class="form-control" />
+						<span asp-validation-for="Name" class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-4">
+						<label asp-for="ThumbnailImage" class="control-label"></label>
+						<input accept="image/*" name="image" type="file" class="form-control" onchange="checkImageSize(event)" />
+						<span asp-validation-for="ThumbnailImage" class="text-danger"></span>
+					</div>
+					@*  <div class="form-group">
+                    <label asp-for="ProductId" class="control-label"></label>
+                    <select asp-for="ProductId" class="form-control" asp-items="ViewBag.ProductId"></select>
+                    </div> *@
+				</div>
+				<div class="row">
+					<div class="form-group col-md-3">
+						<label asp-for="BoardId" class="control-label"></label>
+						<select asp-for="BoardId" class="form-control" asp-items="ViewBag.BoardId" onchange="getStandards()"></select>
+					</div>
+					<div class="form-group col-md-3">
+						<label asp-for="StandardId" class="control-label"></label>
+						<select asp-for="StandardId" class="form-control" asp-items="ViewBag.StandardId" onchange="getSubjects()"></select>
+					</div>
+					<div class="form-group col-md-3">
+						<label asp-for="SubjectId" class="control-label"></label>
+						<select asp-for="SubjectId" class="form-control" asp-items="ViewBag.SubjectId" onchange="getChapters()"></select>
+					</div>
+					<div class="form-group col-md-3">
+						<label asp-for="ChapterId" class="control-label"></label>
+						<select asp-for="ChapterId" class="form-control" asp-items="ViewBag.ChapterId"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">PDFs</label>
+					<input type="file" multiple name="PDFs" class="form-control" />
+				</div>
+
+				<div class="row">
+					@foreach (var pdf in Model.PDFs)
+					{
+						<div class="col-md-2">
+							<embed src="@pdf.PDF" style="width:100%; height:200px" />
+							<div>
+								<a asp-action="DeleteStudyMaterialPdf" asp-route-pdfId="@pdf.Id" asp-route-StudyMaterialId="@Model.Id" style="position: absolute; top: 0; right: 20px;" class="text-danger"><i class="fa fa-trash"></i></a>
+							</div>
+						</div>
+					}
+				</div>
+				<div class="form-group">
+					<label asp-for="IsPaid"></label>
+					<input type="checkbox" asp-for="IsPaid" id="IsPaid" />
+					<span>@(Model.IsPaid ? "Paid" : "Free")</span>
+				</div>
+				<div id="priceFields" style="display:none;">
+					<div class="row">
+						<div class="form-group col-md-4">
+							<label asp-for="BasePrice" class="control-label"></label>
+							<input asp-for="BasePrice" class="form-control" />
+							<span asp-validation-for="BasePrice" class="text-danger"></span>
+						</div>
+						<div class="form-group col-md-4">
+							<label asp-for="DiscountAmount" class="control-label"></label>
+							<input asp-for="DiscountAmount" class="form-control" />
+							<span asp-validation-for="DiscountAmount" class="text-danger"></span>
+						</div>
+						<div class="form-group col-md-4">
+							<label asp-for="FinalPrice" class="control-label"></label>
+							<input asp-for="FinalPrice" class="form-control" id="FinalPrice" disabled="disabled" />
+							<span asp-validation-for="FinalPrice" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label asp-for="SortOrder" class="control-label"></label>
+					<input asp-for="SortOrder" class="form-control" />
+					<span asp-validation-for="SortOrder" class="text-danger"></span>
+				</div>
+				<div class="form-group col-12">
+					<input type="submit" value="Save" class="btn btn-primary" />
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div>
+	</div>
+	<div class="mt-3">
+		<a asp-action="Index" class="btn btn-info">Back to List</a>
+	</div>
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+		function checkImageSize(event) {
+			const fileInput = event.target;
+			if (fileInput.files && fileInput.files[0]) {
+				const fileSize = fileInput.files[0].size; // Size in bytes
+				const maxSize = 250 * 1024; // 250KB in bytes
+
+				const errorMessageSpan = document.querySelector('[data-valmsg-for="ThumbnailImage"]');
+				if (fileSize > maxSize) {
+					errorMessageSpan.textContent = "Please upload an image size up to 250KB.";
+					fileInput.value = null;
+				} else {
+					errorMessageSpan.textContent = "";
+				}
+			}
+		}
+
+		 function getStandards() {
+			var boardId = $('select[name="BoardId"]').val();
+			if (boardId) {
+				$.getJSON('@Url.Action("GetStandardsByBoardId", "StudyMaterials")', { boardId: boardId }, function(data) {
+					var options = '<option value="">Select Standard</option>';
+					$.each(data, function(i, item) {
+						options += '<option value="' + item.id + '">' + item.name + '</option>';
+					});
+					$('select[name="StandardId"]').html(options);
+					getSubjects();
+				});
+			} else {
+				$('select[name="StandardId"]').html('<option value="">Select Standard</option>');
+				$('select[name="SubjectId"]').html('<option value="">Select Subject</option>');
+				$('select[name="ChapterId"]').html('<option value="">Select Chapter</option>');
+			}
+		}
+
+		function getSubjects() {
+			var standardId = $('select[name="StandardId"]').val();
+			if (standardId) {
+				$.getJSON('@Url.Action("GetSubjectsByStandardId", "StudyMaterials")', { standardId: standardId }, function(data) {
+					var options = '<option value="">Select Subject</option>';
+					$.each(data, function(i, item) {
+						options += '<option value="' + item.id + '">' + item.name + '</option>';
+					});
+					$('select[name="SubjectId"]').html(options);
+					getChapters();
+				});
+			} else {
+				$('select[name="SubjectId"]').html('<option value="">Select Subject</option>');
+				$('select[name="ChapterId"]').html('<option value="">Select Chapter</option>');
+			}
+		}
+
+		function getChapters() {
+			var subjectId = $('select[name="SubjectId"]').val();
+			if (subjectId) {
+				$.getJSON('@Url.Action("GetChaptersBySubjectId", "StudyMaterials")', { subjectId: subjectId }, function(data) {
+					var options = '<option value="">Select Chapter</option>';
+					$.each(data, function(i, item) {
+						options += '<option value="' + item.id + '">' + item.name + '</option>';
+					});
+					$('select[name="ChapterId"]').html(options);
+				});
+			} else {
+				$('select[name="ChapterId"]').html('<option value="">Select Chapter</option>');
+			}
+		}
+		// onchange = "checkImageSize(event)"
+	</script>
+	<script>
+		function togglePriceFields() {
+			var isPaid = $('#IsPaid').is(':checked');
+			if (isPaid) {
+				$('#priceFields').show();
+			} else {
+				$('#priceFields').hide();
+			}
+		}
+		$(document).ready(function(){
+			togglePriceFields();
+			$('#IsPaid').change(function(){
+				togglePriceFields();
+			});
+			var BasePrice = $('#BasePrice');
+			var DiscountAmount = $('#DiscountAmount');
+			var FinalPrice = $('#FinalPrice');
+			BasePrice.on('change', function() {
+				FinalPrice.val((BasePrice.val() - DiscountAmount.val()).toFixed(2));
+			});
+			DiscountAmount.on('change', function() {
+				FinalPrice.val((BasePrice.val() - DiscountAmount.val()).toFixed(2));
+			});
+		});
+	</script>
+}

@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    @await Component.InvokeAsync("Seo")
+
+    @await Component.InvokeAsync("Favicon")
+
+    <link href="~/dashboard/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <link href="~/dashboard/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <link href="~/admin/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet" asp-append-version="true">
+    <link rel="stylesheet" href="~/admin/plugins/chartist/css/chartist.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/admin/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css" asp-append-version="true">
+    <script src="https://kit.fontawesome.com/f3efde081d.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+
+
+    @await RenderSectionAsync("styles", required: false)
+    @await RenderSectionAsync("HeadScript", required: false)
+
+    <style>
+        .sidebar {
+            background-color: #233d81;
+            color: #ffffff;
+            font-family: 'Calibri', sans-serif;
+        }
+
+        /* Sidebar Brand */
+        .sidebar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        /* Sidebar Divider */
+        .sidebar-divider {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Sidebar Links */
+        .nav-link {
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+            .nav-link:hover {
+                color: #1abc9c;
+                text-decoration: none;
+            }
+
+            .nav-link .fas,
+            .nav-link .fa-solid {
+                margin-right: 10px;
+            }
+
+        /* Collapse Inner Styles */
+        .collapse-inner {
+            background-color: #2c3e50;
+        }
+
+        .collapse-item {
+            color: #ecf0f1;
+            padding: 0.5rem 1rem;
+        }
+
+            .collapse-item:hover {
+                background-color: #34495e;
+                color: #1abc9c;
+                text-decoration: none;
+            }
+
+        /* Sidebar Toggler */
+        #sidebarToggle {
+            color: #ffffff;
+            background-color: #34495e;
+        }
+
+        /* Active Link */
+        .nav-item.active .nav-link {
+            color: #1abc9c;
+            font-weight: bold;
+        }
+
+        form sup {
+            color: red;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+
+        .dashboard-row a {
+            text-decoration: none;
+        }
+
+        div.dataTables_wrapper div.dataTables_paginate {
+            width: fit-content;
+            display: block;
+            margin: 10px auto;
+            margin-bottom: 10px;
+        }
+
+        div.dataTables_wrapper div.dataTables_info {
+            width: fit-content;
+            text-align: center;
+            margin: 0px auto;
+            display: block;
+        }
+
+        .sidebar .sidebar-brand {
+            text-transform: none !important;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+
+    <div id="wrapper">
+        <partial name="_Navigation" />
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                @await Component.InvokeAsync("AdminHeader")
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="sticky-footer py-2" style="background-color: #233D81">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto d-flex flex-column flex-md-row align-items-center justify-content-between">
+                        <p class="m-0 text-white">Proudly Made for INDIA. <img style="height: 40px;width: 40px;" src="~/india.png" alt=""></p>
+                        <p class="m-0 text-white mt-0 mt-2 mt-md-0">Copyright © @DateTime.Now.Year <a href="https://fosstechuzon.com" style="color: #F7DA96;">FossTechUzon LLP</a> All Right Reserved. Designed & Developed by <a href="https://fosstechuzon.com" style="color: #F7DA96;">FossTechUzon LLP</a></p>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+
+    </div>
+
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top" style="background-color: #233D81">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="#" onclick="document.getElementById('logout').submit(); return false;">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form id="logout" style="display: none" class="form-inline" asp-area="" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})">
+        <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+    </form>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/dashboard/vendor/jquery/jquery.min.js"></script>
+    <script src="~/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/dashboard/js/sb-admin-2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <!-- Page level plugins -->
+    @*<script src="~/dashboard/vendor/chart.js/Chart.min.js"></script>*@
+
+    <!-- Page level custom scripts -->
+    @*<script src="~/dashboard/js/demo/chart-area-demo.js"></script>
+    <script src="~/dashboard/js/demo/chart-pie-demo.js"></script>*@
+
+    @if (TempData["_alert.type"] != null)
+    {
+        <script src="~/lib/notify/notify.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $.notify('@TempData["_alert.title"]', '@TempData["_alert.type"]');
+            });
+
+        </script>
+    }
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

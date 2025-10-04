@@ -1,0 +1,186 @@
+﻿/* navbar.css - turn your existing ul/nav into a bootstrap-like horizontal navbar */
+
+/* top bar background (blue bar) */
+.tl-8-top-header {
+    background: var(--headerbackground);
+}
+
+/* ensure the bottom header area shows as the blue bar */
+.tl-4-bottom-header {
+    background: var(--headerbackground);
+    width: 100%;
+}
+
+    /* center the nav inside the container and remove default list styles */
+    .tl-4-bottom-header .tl-nav-menu {
+        width: 100%;
+    }
+
+        .tl-4-bottom-header .tl-nav-menu ul.nav {
+            display: flex !important;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+            /* remove bullets and reset li */
+            .tl-4-bottom-header .tl-nav-menu ul.nav li {
+                margin: 0;
+                list-style: none;
+            }
+
+                /* anchor styles (row-wise look) */
+                .tl-4-bottom-header .tl-nav-menu ul.nav li a {
+                    display: inline-block;
+                    padding: 14px 12px;
+                    color: #fff;
+                    text-decoration: none;
+                    font-weight: 600;
+                    transition: color .15s ease;
+                }
+
+                    /* hover */
+                    .tl-4-bottom-header .tl-nav-menu ul.nav li a:hover {
+                        color: var(--buttontext);
+                    }
+
+/* dropdown container (desktop) */
+.tl-nav-item.tl-dropdown {
+    position: relative;
+}
+
+    .tl-nav-item.tl-dropdown .tl-submenu,
+    .tl-nav-item.tl-dropdown .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 200px;
+        background: #fff;
+        padding: 8px 0;
+        border-radius: 4px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        z-index: 2000;
+    }
+
+    .tl-nav-item.tl-dropdown:hover > .tl-submenu,
+    .tl-nav-item.tl-dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+
+    .tl-nav-item.tl-dropdown .tl-submenu li a {
+        color: #333;
+        padding: 8px 14px;
+    }
+
+/* container width control (keeps nav centered inside a fixed width) */
+.tl-4-bottom-header .container {
+    max-width: 1200px;
+}
+
+/* logo area vertical centering */
+.logo {
+    display: flex;
+    align-items: center;
+    height: 90px;
+}
+
+    .logo img {
+        max-height: 64px;
+    }
+
+/* ================= MOBILE (<= 991px) ================= */
+.tl-hamburger {
+    display: none;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    font-size: 20px;
+}
+
+/* mobile breakpoint follows Bootstrap lg (992px) */
+@media (max-width: 991px) {
+
+    /* hide the horizontal nav by default on mobile */
+    .tl-4-bottom-header .tl-nav-menu {
+        display: none;
+        width: 100%;
+    }
+
+        /* show when .active is added by the JS toggler */
+        .tl-4-bottom-header .tl-nav-menu.active {
+            display: flex !important;
+            flex-direction: column;
+            gap: 0;
+            padding: 10px 0;
+            background: var(--headerbackground);
+        }
+
+        .tl-4-bottom-header .tl-nav-menu ul.nav {
+            flex-direction: column;
+            gap: 0;
+        }
+
+            .tl-4-bottom-header .tl-nav-menu ul.nav li a {
+                padding: 12px 16px;
+                border-bottom: 1px solid rgba(255,255,255,0.06);
+            }
+
+    .tl-hamburger {
+        display: inline-block !important;
+    }
+
+    /* dropdown: on mobile we switch to click-to-open (JS adds .open) */
+    .tl-nav-item.tl-dropdown .tl-submenu,
+    .tl-nav-item.tl-dropdown .dropdown-menu {
+        position: static;
+        background: none;
+        box-shadow: none;
+        padding: 0;
+        display: none;
+    }
+
+    .tl-nav-item.tl-dropdown.open > .tl-submenu,
+    .tl-nav-item.tl-dropdown.open > .dropdown-menu {
+        display: block;
+    }
+
+    .tl-nav-item.tl-dropdown .tl-submenu li a {
+        color: #fff;
+        padding-left: 30px;
+    }
+}
+
+/* ========== Inline-style overrides (non-invasive, only to fix your screenshot issues) ========== */
+
+/* Override that specific row with margin-left:100px — keep on desktop, remove on mobile */
+.tl-4-bottom-header .row[style*="margin-left:100px"] {
+    margin-left: 0 !important;
+}
+
+@media (min-width: 992px) {
+    .tl-4-bottom-header .row[style*="margin-left:100px"] {
+        margin-left: 100px !important;
+    }
+}
+
+/* override negative margin-top on the small-screen logo wrapper (keeps desktop behavior) */
+.d-lg-none.d-flex.justify-content-end {
+    margin-top: 0 !important;
+}
+
+@media (min-width: 992px) {
+    .d-lg-none.d-flex.justify-content-end {
+        margin-top: -60px !important;
+    }
+}
+
+/* tiny accessibility / spacing helpers */
+.tl-4-bottom-header .tl-nav-menu ul.nav li a:focus {
+    outline: none;
+    text-decoration: underline;
+}

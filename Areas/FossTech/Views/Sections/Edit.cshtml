@@ -1,0 +1,68 @@
+﻿@model FossTech.Models.Section
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="col-sm-12">
+    <!-- Basic Form Inputs card start -->
+    <div class="card">
+        <div class="card-header pb-1">
+            <h2>Section</h2>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group row mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Name" class="control-label"></label>
+                        <textarea asp-for="Name" class="form-control" oninput="generateSlug()" ></textarea>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Slug" class="control-label"></label>
+                        <input asp-for="Slug" class="form-control" />
+                        <span asp-validation-for="Slug" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Image" class="control-label"></label>
+                        <input accept="image/*" name="mainImage" type="file" class="form-control" onchange="checkImageSize(event)" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="SortOrder" class="control-label"></label>
+                        <input asp-for="SortOrder" class="form-control" />
+                        <span asp-validation-for="SortOrder" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="form-group d-flex justify-content-between">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a class="btn btn-primary float-right text-white" target="_blank" asp-area="" asp-controller="Products" asp-action="Index" asp-route-category="@Model.Name">Preview</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-info">Back to List</a>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function generateSlug() {
+            var title = document.getElementById("Name").value;
+            var slug = title.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "").replace(/ /g, "-");
+            document.getElementById("Slug").value = slug;
+            //oninput = "generateSlug()"
+        }
+    </script>
+}

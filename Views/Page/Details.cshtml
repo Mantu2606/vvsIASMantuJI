@@ -1,0 +1,42 @@
+﻿@model FossTech.Models.Page
+@{
+    ViewData["Title"] = @Model.Name;
+}
+
+
+
+<!--================Home Banner Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center" style="background:aliceblue">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        @* <h2>@Model.Name</h2> *@
+                        <div class="page_link">
+                            <a asp-controller="Home" asp-action="Index" style="margin:0 5px">Home</a>/
+                            <a href="#">@Model.Name</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+
+
+
+
+
+<!-- content start -->
+<section>
+    <div class="container-fluid mt-5 mb-5">
+        <h2 class="text-center mb-2">@Model.Name</h2>
+        <div>
+            @Html.Raw(Model.Content)
+        </div>
+    </div>
+</section>
+<!-- /.content end -->

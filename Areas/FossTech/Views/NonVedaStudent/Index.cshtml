@@ -1,0 +1,112 @@
+﻿@model IEnumerable<FossTech.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "Non-Student Users";
+}
+
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <h2>Non-Veda Students</h2>
+
+        </div>
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table id="simpletable" class="table table-striped table-bordered nowrap">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>IsVedaStudent</th>
+                            <th>CreatedAt</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.FirstName</td>
+                                <td>@user.LastName</td>
+                                <td>@user.Email</td>
+                                <td>@user.PhoneNumber</td>
+                                <td>
+                                    <input type="checkbox" class="isStudentCheckbox" id="@user.Id" @(user.isStudent ? "checked" : "") />
+                                </td>
+                                <td>@user.CreatedAt.ToString("dd MMMM yyyy")</td>
+                                <td class="dropdown">
+                                    <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item text-primary" asp-action="Details" asp-route-id="@user.Id"><i class="icofont icofont-eye-alt"></i> View</a></li>
+                                        <li><a class="dropdown-item text-success" asp-action="Edit" asp-route-id="@user.Id"><i class="icofont icofont-edit"></i> Edit</a></li>
+                                        <li><a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@user.Id"><i class="icofont icofont-ui-delete"></i> Delete</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+}
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#simpletable').DataTable({
+                "lengthMenu": [10, 25, 50, 100],
+                "searching": true,
+                "ordering": true,
+                "paging": true,
+                "info": true,
+                "responsive": true
+            });
+
+            $('.isStudentCheckbox').on('change', function () {
+                var userId = $(this).attr('id');
+                var isStudent = $(this).prop('checked');
+
+                $.ajax({
+                    url: '/FossTech/NonVedaStudent/UpdateIsVedaStudent',
+                    type: 'POST',
+                    data: {
+                        userId: userId,
+                        isStudent: isStudent
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success('User status updated successfully.', 'Success');
+                            $("#" + userId).prop('checked', isStudent);
+
+                            if (isStudent) {
+                                var row = $("#" + userId).closest("tr");
+                                $("#studentsTable tbody").append(row);
+                            } else {
+                                var row = $("#" + userId).closest("tr");
+                                $("#nonStudentsTable tbody").append(row);
+                            }
+                        } else {
+                            toastr.error('Failed to update user status.', 'Error');
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Error occurred while updating.', 'Error');
+                    }
+                });
+            });
+        });
+    </script>
+}

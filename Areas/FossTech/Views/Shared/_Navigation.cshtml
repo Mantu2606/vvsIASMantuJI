@@ -1,0 +1,478 @@
+﻿<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-area="FossTech" asp-controller="FossTech" asp-action="Index">
+        <div class="sidebar-brand-text mx-3">FossTech.EDU</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" asp-area="FossTech" asp-controller="FossTech" asp-action="Index">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Nav Item - Manage Customers -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseManageCustomers"
+           aria-expanded="true" aria-controls="collapseManageCustomers">
+            <i class="fas fa-users"></i>
+            <span>Manage Customers</span>
+        </a>
+        <div id="collapseManageCustomers" class="collapse" aria-labelledby="headingManageCustomers" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-area="FossTech" asp-controller="WhatsappClickCounts" asp-action="Index">
+                    <i class="fas fa-comment-dots"></i> Whatsapp Click Chart
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="CallClickCounts" asp-action="Index">
+                    <i class="fas fa-phone-alt"></i> Call Click Chart
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="ContactMessages" asp-action="Index">
+                    <i class="fas fa-envelope"></i> Contact Enquiries
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="CoursesEnquiries" asp-action="Index">
+                    <i class="fas fa-book-open"></i> Courses Enquiries
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="FranchiseEnquiries" asp-action="Index">
+                    <i class="fas fa-store"></i> Franchise Enquiries
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="DemoLecturesEnquiries" asp-action="Index">
+                    <i class="fas fa-chalkboard-teacher"></i> Lectures Enquiries
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="StudyMaterialEnquiries" asp-action="Index">
+                    <i class="fas fa-book"></i> Study Material Enquiries
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Subscribers" asp-action="Index">
+                    <i class="fas fa-newspaper"></i> Newsletter Subscribers
+                </a>
+            </div>
+        </div>
+
+    </li>
+
+    <!-- Nav Item - Manage Profile -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseManageProfile"
+           aria-expanded="true" aria-controls="collapseManageProfile">
+            <i class="fas fa-address-card"></i>
+            <span>Manage Profile</span>
+        </a>
+        <div id="collapseManageProfile" class="collapse" aria-labelledby="headingManageProfile" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-area="FossTech" asp-controller="BusinessProfiles" asp-action="Index">
+                    <i class="fas fa-briefcase"></i> Business Profile
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Teams" asp-action="Index">
+                    <i class="fas fa-users"></i> TEAM VEdA
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="OurToppers" asp-action="Index">
+                    <i class="fas fa-trophy"></i> Toppers
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="OurDirectors" asp-action="Index">
+                    <i class="fas fa-chalkboard-teacher"></i> Founder & Co-Founder
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="OurHODs" asp-action="Index">
+                    <i class="fas fa-user-tie"></i> CORE TEAM
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Testimonials" asp-action="Index">
+                    <i class="fas fa-quote-left"></i> Testimonials
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Logoes" asp-action="Index">
+                    <i class="fas fa-image"></i> Logo & Favicon Images
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Images" asp-action="Index">
+                    <i class="fas fa-images"></i> Image Gallery
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="SliderImages" asp-action="Index">
+                    <i class="fas fa-sliders-h"></i> Slider/Banner Images
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="RegistrationBanners" asp-action="Index">
+                    <i class="fas fa-ad"></i> Registration/Banner Images
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Branches" asp-action="Index">
+                    <i class="fas fa-map-marker-alt"></i> Branches
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Placements" asp-action="Index">
+                    <i class="fas fa-clipboard-list"></i> Placements
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Counters" asp-action="Index">
+                    <i class="fas fa-tachometer-alt"></i> Counters
+                </a>
+            </div>
+        </div>
+
+    </li>
+
+    <!-- Nav Item - Manage Content -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseManageContent"
+           aria-expanded="true" aria-controls="collapseManageContent">
+            <i class="fas fa-folder"></i>
+            <span>Manage Content</span>
+        </a>
+        <div id="collapseManageContent" class="collapse" aria-labelledby="headingManageContent" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Sections" asp-action="Index">
+                    <i class="fas fa-columns"></i> Section
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Products" asp-action="Index">
+                    <i class="fas fa-cogs"></i> Catalogue
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Categories" asp-action="Index">
+                    <i class="fas fa-th-large"></i> Categories
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="AboutUs" asp-action="Index">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Posts" asp-action="Index">
+                    <i class="fas fa-blog"></i> Blog - Latest Posts
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Updates" asp-action="Index">
+                    <i class="fas fa-sync-alt"></i> Updates
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="LatestNews" asp-action="Index">
+                    <i class="fas fa-newspaper"></i> Latest News
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Pages" asp-action="Index">
+                    <i class="fas fa-file-alt"></i> Custom Pages
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="FAQs" asp-action="Index">
+                    <i class="fas fa-question-circle"></i> FAQ's
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Videos" asp-action="Index">
+                    <i class="fas fa-video"></i> Videos
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="ProdutFaqs" asp-action="Index">
+                    <i class="fas fa-question-circle"></i> Courses FAQ's
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Franchises" asp-action="Index">
+                    <i class="fas fa-store"></i> Franchises
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Highlighters" asp-action="Index">
+                    <i class="fas fa-highlighter"></i> Highlighter
+                </a>
+            </div>
+        </div>
+
+    </li>
+
+    <!-- Nav Item - SEO Functions -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSEOFunctions"
+           aria-expanded="true" aria-controls="collapseSEOFunctions">
+            <i class="fas fa-gears"></i>
+            <span>SEO Functions</span>
+        </a>
+        <div id="collapseSEOFunctions" class="collapse" aria-labelledby="headingSEOFunctions" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Sitemap" asp-action="Index">
+                    <i class="fas fa-sitemap"></i> Site-map
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Seo" asp-action="Index">
+                    <i class="fas fa-search"></i> Google Search Console
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Robots" asp-action="Index">
+                    <i class="fas fa-robot"></i> robot.txt
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="HeaderCodes" asp-action="Index">
+                    <i class="fas fa-code"></i> Header Codes
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="FooterCodes" asp-action="Index">
+                    <i class="fas fa-code-branch"></i> Footer Codes
+                </a>
+            </div>
+        </div>
+
+    </li>
+
+    <!-- Nav Item - Settings -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSettings"
+           aria-expanded="true" aria-controls="collapseSettings">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+        <div id="collapseSettings" class="collapse" aria-labelledby="headingSettings" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-area="FossTech" asp-controller="WebSettings" asp-action="Index">
+                    <i class="fas fa-home"></i> Home Page Settings
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Menus" asp-action="Index">
+                    <i class="fas fa-bars"></i> Navigation Menu System
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Themes" asp-action="Index">
+                    <i class="fas fa-palette"></i> Change Theme
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="FontChanges" asp-action="Index">
+                    <i class="fas fa-font"></i> Change Font
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="ColorCombinations" asp-action="Index">
+                    <i class="fas fa-paint-brush"></i> Change Color
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="KeyWords" asp-action="Index">
+                    <i class="fas fa-key"></i> Key Words
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Users" asp-action="Index">
+                    <i class="fas fa-user-circle"></i> My Account
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="BackUp" asp-action="Now">
+                    <i class="fas fa-database"></i> BackUp Database
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="BotAttempts" asp-action="Index">
+                    <i class="fas fa-robot"></i> Bot Attempt
+                </a>
+
+            </div>
+        </div>
+
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVedaSettings"
+           aria-expanded="true" aria-controls="collapseSettings">
+            <i class="fas fa-cog"></i>
+            <span class="ml-2">VedaEdTech</span>
+        </a>
+        <div id="collapseVedaSettings" class="collapse" aria-labelledby="headingSettings" data-parent="#accordionSidebar">
+            <div class="bg-light py-2 collapse-inner rounded">
+                <h6 class="collapse-header text-muted">Learning Resources</h6>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="StudyMaterials" asp-action="Index">
+                    <i class="fas fa-book-open"></i> Study Material
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="FlashCards" asp-action="Index">
+                    <i class="fas fa-clone"></i> Flash Card
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="TestPapers" asp-action="Index">
+                    <i class="fas fa-file-alt"></i> Test Paper
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Purchase" asp-action="Index">
+                    <i class="fas fa-shopping-cart"></i> Purchase History
+                </a>
+   
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Students" asp-action="Index">
+                    <i class="fas fa-users"></i> Students
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="NonVedaStudent" asp-action="Index">
+                    <i class="fas fa-users"></i> OtherStudents
+                </a>
+                <hr class="my-2">
+                <h6 class="collapse-header text-muted">Administration</h6>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Boards" asp-action="Index">
+                    <i class="fas fa-chalkboard"></i> Add Board
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Standards" asp-action="Index">
+                    <i class="fas fa-graduation-cap"></i> Add Standard
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Subjects" asp-action="Index">
+                    <i class="fas fa-book"></i> Add Subject
+                </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Chapters" asp-action="Index">
+                    <i class="fas fa-file-alt"></i> Add Chapter
+                </a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>
+
+
+@* <ul style="background-color: #233d81;" class="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-area="FossTech" asp-controller="FossTech" asp-action="Index">
+        @*<div class="sidebar-brand-icon">
+            <i class="fas fa-user"></i>
+        </div>*@
+       @*  <div class="sidebar-brand-text mx-3">FossTech.EDU</div>
+    </a> *@
+
+    <!-- Divider -->
+   @*  <hr class="sidebar-divider my-0"> *@
+
+    <!-- Nav Item - Dashboard -->
+  @*   <li class="nav-item active">
+        <a class="nav-link" asp-area="FossTech" asp-controller="FossTech" asp-action="Index">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li> *@
+
+    <!-- Divider -->
+   @*  <hr class="sidebar-divider"> *@
+
+    
+
+    <!-- Nav Item - Pages Collapse Menu -->
+  @*   <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+           aria-expanded="true" aria-controls="collapseTwo"> *@
+            @* <i class="fas fa-fw fa-cog"></i> *@
+           @*  <i class="fa-solid fa-fw fa-users-between-lines"></i>
+            <span>Manage Customers</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-area="FossTech" asp-controller="WhatsappClickCounts" asp-action="Index">Whatsapp Click Chart</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="CallClickCounts" asp-action="Index">Call Click Chart</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="ContactMessages" asp-action="Index" >Contact Enquiries</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="CoursesEnquiries" asp-action="Index">Courses Enquiries</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="FranchiseEnquiries" asp-action="Index">Franchise Enquiries</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="DemoLecturesEnquiries" asp-action="Index">Lectures Enquiries</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Subscribers" asp-action="Index" >Newsletter Subscribers</a>
+            </div>
+        </div>
+    </li>
+
+
+    
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecoins"
+           aria-expanded="true" aria-controls="collapseUtilities"> *@
+            @* <i class="fas fa-fw fa-wrench"></i> *@
+            @* <i class="fa-solid fa-fw fa-address-card"></i>
+            <span>Manage Profile</span>
+        </a>
+        <div id="collapsecoins" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-area="FossTech" asp-controller="BusinessProfile" asp-action="Index" >Business Profile</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Teams" asp-action="Index" >Teacher</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="OurToppers" asp-action="Index" >Toppers</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="OurDirectors" asp-action="Index">Director</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="OurHODs" asp-action="Index">HOD</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Testimonials" asp-action="Index">Testimonials</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Logoes" asp-action="Index" >Logo & Favicon Images</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Images" asp-action="Index" >Image Gallery</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="SliderImages" asp-action="Index" >Slider/Banner Images</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Branches" asp-action="Index">Branches</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Placements" asp-action="Index">Placements</a>
+                <a class="collapse-item" asp-area="FossTech" asp-action="Index" asp-controller="Counters">Counters</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecontent"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Manage Content</span>
+        </a>
+        <div id="collapsecontent" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Products" asp-action="Index" >Catalogue </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Categories" asp-action="Index">Categories </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="StudyMaterials" asp-action="Index">Study Material </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="TestPapers" asp-action="Index">Test Paper </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="AboutUs" asp-action="Index">About </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Posts" asp-action="Index" >Blog - Latest Posts </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Updates" asp-action="Index">Updates </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="LatestNews" asp-action="Index">Latest News </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Pages" asp-action="Index" >Custom Pages </a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Videos" asp-action="Index" >Videos</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="FAQs" asp-action="Index" >FAQ's</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="ProdutFaqs" asp-action="Index">Courses FAQ's</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Franchises" asp-action="Index">Franchises</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Highlighters" asp-action="Index">Highlighter</a>
+            </div>
+        </div>
+    </li>
+ *@
+
+   
+
+    <!-- Nav Item - Pages Collapse Menu -->
+   @*  <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+           aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-gears"></i>
+            <span>SEO Functions</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Sitemap" asp-action="Index">Site-map</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Seo" asp-action="Index">Google Search Console</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Robots" asp-action="Index">robot.txt</a> *@
+              @*   <a class="collapse-item" asp-area="FossTech" asp-controller="Seo" asp-action="Index">
+                    Schema.org
+                </a> *@
+               @*  <a class="collapse-item" asp-area="FossTech" asp-action="Index" asp-controller="HeaderCodes">Header Codes</a>
+                <a class="collapse-item" asp-area="FossTech" asp-action="Index" asp-controller="FooterCodes">Footer Codes</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages1"
+           aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Settings</span>
+        </a>
+        <div id="collapsePages1" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-area="FossTech" asp-action="Index" asp-controller="WebSettings">Home Page Settings</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Menus" asp-action="Index" >Navigation Menu System</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="Themes" asp-action="Index" >Change Theme</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="FontChanges" asp-action="Index" >Change Font</a>
+                <a class="collapse-item" asp-area="FossTech" asp-controller="ColorCombinations" asp-action="Index" >Change Color</a>
+                <a class="collapse-item" asp-area="FossTech" asp-action="Index" asp-controller="KeyWords">Key Words</a>
+                <a class="collapse-item" asp-area="FossTech" asp-action="Index" asp-controller="Users">My Account</a>
+                <a class="collapse-item" asp-area="FossTech" asp-action="Index" asp-controller="Students">Students</a>
+                <a class="collapse-item" asp-area="FossTech" asp-action="Now" asp-controller="BackUp">BackUp Database</a>
+            </div>
+        </div>
+    </li>
+
+ *@
+    
+
+    <!-- Nav Item - Tables -->
+    @* <li class="nav-item">
+    <a class="nav-link" href="tables.html">
+    <i class="fas fa-fw fa-table"></i>
+    <span>Tables</span></a>
+    </li>*@
+
+    <!-- Divider -->
+   @*  <hr class="sidebar-divider d-none d-md-block"> *@
+
+    <!-- Sidebar Toggler (Sidebar) -->
+   @*  <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div> *@
+
+    <!-- Sidebar Message -->
+@* </ul> *@
+ 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.nav-link.collapsed').click(function () {
+            $('.nav-item').removeClass('active'); // Remove active class from all li elements
+            $(this).closest('.nav-item').addClass('active'); // Add active class to the clicked li
+            $('.collapsed').removeClass('show'); // Hide other open collapses
+            $(this).next('.collapsed').addClass('show'); // Show the clicked collapse
+            $('.collapse-item').removeClass('active'); // Hide other open collapses
+            $(this).next('.collapse-item').addClass('active'); // Show the clicked collapse
+        });
+    });
+</script>
+
+
+

@@ -1,0 +1,105 @@
+﻿@model IEnumerable<FossTech.Models.StudyMaterialModels.FeedBackForm>
+
+@{
+    ViewData["Title"] = "All Feedback Forms";
+}
+
+<h1>All Feedback Forms</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Image))
+                    {
+                        <img src="@item.Image" alt="Feedback Image" style="width: 100px; height: auto;" />
+                    }
+                    else
+                    {
+                        <span>No Image</span>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @if (item.User != null)
+                    {
+                        <span>@item.User.FullName</span>
+                    }
+                    else
+                    {
+                        <span>No User</span>
+                    }
+                </td>
+                <td>
+                    @if (item.IsSolved)
+                    {
+                        <span class="badge bg-success text-white">Solved</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-white">Not Solved</span>
+                    }
+                </td>
+                <td class="dropdown">
+                    <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i></button>
+                    <ul class="dropdown-menu">
+                        <li> <a class="dropdown-item text-primary" asp-area="FossTech" asp-action="Details" asp-route-id="@item.Id"><i class="icofont icofont-eye-alt"></i>View</a></li>
+                        @if (item.IsSolved)
+                        {
+                            <li>
+                                <form method="post" asp-action="MarkAsUnsolved" asp-route-id="@item.Id">
+                                    <button type="submit" class="dropdown-item text-warning">
+                                        <i class="icofont icofont-reload"></i> Mark as Unsolved
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <form method="post" asp-action="MarkAsSolved" asp-route-id="@item.Id">
+                                    <button type="submit" class="dropdown-item text-info">
+                                        <i class="icofont icofont-check-circled"></i> Mark as Solved
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        <li><a class="dropdown-item text-success" asp-action="Edit" asp-route-id="@item.Id"><i class="icofont icofont-edit"></i>Edit</a></li>
+                        <li><a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="icofont icofont-ui-delete"></i>Delete</a></li>
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

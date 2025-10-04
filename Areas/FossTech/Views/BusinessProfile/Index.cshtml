@@ -1,0 +1,216 @@
+﻿@model FossTech.Models.BusinessProfile
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header pb-1">
+            <h2>Business Profile</h2>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+
+        </div>
+        <div class="card-body">
+            <form asp-action="Index">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group mb-3 required">
+                    <label asp-for="BusinessName" class="control-label"></label>
+                    <input asp-for="BusinessName" class="form-control" style="border-radius: 10px;" />
+                    <span asp-validation-for="BusinessName" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" style="border-radius: 10px;" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+
+                </div>
+                <div class="form-group mb-3 required row">
+                    <div class="col-lg-4">
+                        <label asp-for="EmailAddress" class="control-label">Registered Email Address</label>
+                        <input asp-for="EmailAddress" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="AlternateEmailAddress" class="control-label"></label>
+                        <input asp-for="AlternateEmailAddress" class="form-control" style="border-radius: 10px;" />
+                        <span asp-validation-for="AlternateEmailAddress" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="AlternateEmailAddress1" class="control-label">Email Address 1</label>
+                        <input asp-for="AlternateEmailAddress1" class="form-control" style="border-radius: 10px;" />
+                        <span asp-validation-for="AlternateEmailAddress1" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 required row">
+                    <div class="col-lg-4">
+                        <label asp-for="RegisteredContactNumber" class="control-label"></label>
+                        <input asp-for="RegisteredContactNumber" class="form-control" style="border-radius: 10px;" />
+                        <span asp-validation-for="RegisteredContactNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="AlternateContactNumber" class="control-label"> Alternative Mobile Number</label>
+                        <input asp-for="AlternateContactNumber" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="AlternateContactNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="AlternateContactNumber1" class="control-label"></label>
+                        <input asp-for="AlternateContactNumber1" class="form-control" style="border-radius: 10px;" />
+                        <span asp-validation-for="AlternateContactNumber1" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 required row">
+                    <div class="col-lg-4">
+                        <label asp-for="WhatsAppNumber" class="control-label"></label>
+                        <input asp-for="WhatsAppNumber" class="form-control" style="border-radius: 10px;" />
+                        <span asp-validation-for="WhatsAppNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="BusinessWhatsAppNumber" class="control-label"> Alternative Mobile Number</label>
+                        <input asp-for="BusinessWhatsAppNumber" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="BusinessWhatsAppNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="BusinessWhatsAppNumber1" class="control-label"></label>
+                        <input asp-for="BusinessWhatsAppNumber1" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="BusinessWhatsAppNumber1" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+               
+
+                @*    <div class="form-group mb-3 required">
+            <label asp-for="State" class="control-label"></label>
+            <input asp-for="State" class="form-control" />
+            <span asp-validation-for="State" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3 required">
+            <label asp-for="Country" class="control-label"></label>
+            <input asp-for="Country" class="form-control" />
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3 required">
+            <label asp-for="Pincode" class="control-label"></label>
+            <input asp-for="Pincode" class="form-control" />
+            <span asp-validation-for="Pincode" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="WhatsAppForBusinessNumber" class="control-label"></label>
+            <input asp-for="WhatsAppForBusinessNumber" class="form-control" />
+            <span asp-validation-for="WhatsAppForBusinessNumber" class="text-danger"></span>
+        </div>
+                *@
+                  <div class="form-group mb-3 required">
+                    <label asp-for="WorkingHours" class="control-label"></label>
+                    <input asp-for="WorkingHours" class="form-control" style="border-radius:10px;" />
+                    <span asp-validation-for="WorkingHours" class="text-danger"></span>
+                </div>
+
+               
+                <div class="form-group mb-3 row">
+                    <div class="col-lg-4">
+                        <label asp-for="FacebookPageLink" class="control-label"></label>
+                        <input asp-for="FacebookPageLink" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="FacebookPageLink" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="InstagramPageLink" class="control-label"></label>
+                        <input asp-for="InstagramPageLink" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="InstagramPageLink" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="TwitterLink" class="control-label"></label>
+                        <input asp-for="TwitterLink" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="TwitterLink" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 row">
+                    <div class="col-lg-4">
+                        <label asp-for="LinkedInLink" class="control-label"></label>
+                        <input asp-for="LinkedInLink" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="LinkedInLink" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="YoutubeLink" class="control-label"></label>
+                        <input asp-for="YoutubeLink" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="YoutubeLink" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="OtherWebsite" class="control-label"></label>
+                        <input asp-for="OtherWebsite" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="OtherWebsite" class="text-danger"></span>
+                    </div>
+                </div>
+
+                @*
+        <div class="form-group mb-3">
+            <label asp-for="FacebookPageLink" class="control-label"></label>
+            <input asp-for="FacebookPageLink" class="form-control" />
+            <span asp-validation-for="FacebookPageLink" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="InstagramPageLink" class="control-label"></label>
+            <input asp-for="InstagramPageLink" class="form-control" />
+            <span asp-validation-for="InstagramPageLink" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="TwitterLink" class="control-label"></label>
+            <input asp-for="TwitterLink" class="form-control" />
+            <span asp-validation-for="TwitterLink" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="LinkedInLink" class="control-label"></label>
+            <input asp-for="LinkedInLink" class="form-control" />
+            <span asp-validation-for="LinkedInLink" class="text-danger"></span>
+        </div>
+                *@
+                
+                @*
+        <div class="form-group mb-3">
+            <label asp-for="YoutubeLink" class="control-label"></label>
+            <input asp-for="YoutubeLink" class="form-control" />
+            <span asp-validation-for="YoutubeLink" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="OtherWebsite" class="control-label"></label>
+            <input asp-for="OtherWebsite" class="form-control" />
+            <span asp-validation-for="OtherWebsite" class="text-danger"></span>
+        </div>
+                *@
+                <div class="form-group mb-3 row">
+                    <div class="col">
+                        <label asp-for="Copyright" class="control-label"></label>
+                        <input asp-for="Copyright" class="form-control" style="border-radius: 10px;" />
+                        <span asp-validation-for="Copyright" class="text-danger"></span>
+                    </div>
+                    @*
+                    <div class="col">
+                        <label asp-for="Copyright" class="control-label">Powered By</label>
+                        <br />
+                        <h2><a href="">FossTechUzon LLP</a></h2>
+                        <span asp-validation-for="Copyright" class="text-danger"></span>
+                    </div>
+                    *@
+                </div>
+                @*
+        <div class="form-group mb-3">
+            <label asp-for="Copyright" class="control-label"></label>
+            <input asp-for="Copyright" class="form-control" />
+            <span asp-validation-for="Copyright" class="text-danger"></span>
+        </div>
+                *@
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    @* <input type="button" value="cancel" class="btn btn-primary" /> *@
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+

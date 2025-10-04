@@ -1,0 +1,171 @@
+﻿@model FossTech.ViewModels.Otp
+
+@{
+    ViewData["Title"] = "Login";
+      Layout = "_LoginLayout";
+}
+
+<section class="section-md last-section bg-white novi-background">
+    <div class="container-fluid">
+        <div class="row" style="height: 100%;
+    display: flex;">
+            <div class="login-col col-md-4 offset-md-8" style="min-height: 100vh">
+                <div class="logo m-auto d-block text-center">
+                    <img src="~/logo.png" style="    height: 170px;
+    margin: 20px;" />
+                </div>
+                        <form asp-route-returnUrl="@ViewBag.ReturnUrl" method="post" style="max-width: 400px;
+    display: block;
+    margin: auto;">
+                         <h3 class="text-center" style="font-size: 37px;
+    font-weight: bolder;
+    margin-bottom: 29px;">Login with OTP</h3>
+
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <input type="hidden" asp-for="PhoneNumber" class="form-control">
+                            <div class="form-group row px-3">
+                                <label asp-for="Code"></label>
+                               
+                                    <input asp-for="Code" class="form-control" placeholder="OTP">
+                              
+                                <span asp-validation-for="Code" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                             
+                                 <div class="form-group row">
+                        <button style="
+                            background: #FFB901;
+                                border: none;
+                                border-radius: 10px;
+                                padding: 5px;
+                                font-size: 19px;
+                                text-transform: uppercase;
+                                font-weight: bolder;" type="submit" class="btn btn-primary btn-block" name="login">Verify</button>
+                    </div>
+                            </div>
+                        </form>
+                       </div>
+           <svg style="margin-left: -1px;" xmlns="http://www.w3.org/2000/svg" width="283" fill="none">
+            <path d="M0.5625 1198.63V0C55.7928 66.866 125.145 203.232 159.122 279.366L221.413 475.677L238.401 885.287L127.033 1198.63H0.5625Z" fill="white"></path>
+            <path d="M174.036 1200C434.712 721.066 165.394 178.606 0.989258 0.525391C242.319 336.652 277.285 907.299 57.51 1200H174.036Z" fill="#FFB900"></path>
+        </svg>
+           <div class="col-md-4 col-md-offset-1">
+           <!-- Slider main container -->
+            <div class="swiper">
+              <!-- Additional required wrapper -->
+              <div class="swiper-wrapper">
+                <!-- Slides -->
+              
+              </div>
+              <!-- If we need pagination -->
+              <div class="swiper-pagination"></div>
+
+              <!-- If we need navigation buttons -->
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>
+
+              <!-- If we need scrollbar -->
+              <div class="swiper-scrollbar"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+
+@section Styles {
+    <link href="~/lib/Swiper/swiper-bundle.css" rel="stylesheet"/>
+    <style>
+    
+      .swiper {
+        width: 100%;
+        height: 100vh;
+      }
+
+      .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        /*background: #fff;*/
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+      .swiper-button-prev, .swiper-button-next {
+              background: #rgba(255,255,255,.5);
+    color: #000;
+      }
+      </style>
+}
+
+
+@section Scripts {
+<script>
+
+    $("#resend").click(function (event) {
+        var data = {
+            PhoneNumber: $("#PhoneNumber").val()
+        }
+        console.log(data);
+
+        event.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: "/Account/ResendOtp",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (resultData) {
+                alert("OTP has been Sent.")
+            },
+             fail: function (xhr, textStatus, errorThrown) {
+                alert('request failed');
+            }
+        });
+    })
+     
+     <script src="~/lib/Swiper/swiper-bundle.min.js"></script>
+
+    <script>
+        var slides = [];
+        $.get( "https://usia.uzon.in/api/loginPageImages", function(data) {
+
+             $.each(data, function(index, item){
+                slides.push(`<div class="swiper-slide"><a href="https://www.fosstechuzon.com" target="_blank"><img src='https://usia.uzon.in${item.image}'/></a></div>`)
+            })
+             const swiper = new Swiper('.swiper', {
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                    slidesPerView: 1,
+                    speed: 400,
+                    spaceBetween: 100,
+                });
+                swiper.appendSlide(slides)
+        })
+          .fail(function() {
+            console.log( "error" );
+          })
+
+    </script>
+</script>
+}

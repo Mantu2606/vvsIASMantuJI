@@ -1,0 +1,76 @@
+﻿@model IEnumerable<FossTech.Models.AboutUs>
+
+@{
+    ViewData["Title"] = Model.FirstOrDefault()?.Title;
+}
+
+
+
+<!--================Home Banner Area =================-->
+<section class="banner_area my-3">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center" style="background:aliceblue">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        <div class="page_link">
+                            <a asp-controller="Home" asp-action="Index" style="color:black;margin:0 5px;">Home</a>/
+                            <a href="#" style="color:black">About Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+<!--================ Start About Area =================-->
+<section class="about_area section_gap">
+    <div class="container my-3">
+        <div class="row h_blog_item">
+            <div class="col-lg-5">
+                <div class="h_blog_img">
+                    <img class="img-fluid" src="@Model.FirstOrDefault().Image" alt="" />
+                </div>
+            </div>
+            <div class="col-lg-7 my-3">
+                <div class="h_blog_text">
+                    <div class="h_blog_text_inner left right">
+                        @Html.Raw(Model.FirstOrDefault().Description)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ End About Area =================-->
+
+<!--================ Start Our Mission =================-->
+@{
+    var missionContent = ViewData["MissionContent"] as FossTech.Models.AboutUs;
+}
+
+@if (missionContent != null)
+{
+    <section class="about_area section_gap">
+        <div class="container my-3">
+            <div class="row h_blog_item">
+                <div class="col-lg-5">
+                    <div class="h_blog_img">
+                        <img class="img-fluid" src="@missionContent.Image" alt="@missionContent.Title" />
+                    </div>
+                </div>
+                <div class="col-lg-7 my-3">
+                    <div class="h_blog_text">
+                        <h3>@missionContent.Title</h3>
+                        <div class="h_blog_text_inner left right">
+                            @Html.Raw(missionContent.Description)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

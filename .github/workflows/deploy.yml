@@ -1,0 +1,93 @@
+name: Build and Deploy to Ubuntu VPS
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+env:
+  PROJECT_PATH: vvsias.com.csproj
+  PUBLISH_DIR: publish
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+
+      - name: Build
+        run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release --no-restore
+
+      - name: Publish (linux-x64, framework-dependent)
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} \
+            --configuration Release \
+            --runtime linux-x64 \
+            --self-contained false \
+            -p:PublishSingleFile=false \
+            -o ${{ env.PUBLISH_DIR }}
+
+      - name: Archive publish output
+        run: |
+          tar -C ${{ env.PUBLISH_DIR }} -czf app.tar.gz .
+        shell: bash
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-tar
+          path: app.tar.gz
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app-tar
+          path: .
+
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: Copy deployment scripts to server
+        run: |
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no -p ${VPS_PORT:-22}" deploy/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/tmp/deploy/
+        env:
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+
+      - name: Copy app bundle to server
+        run: |
+          scp -P ${VPS_PORT:-22} -o StrictHostKeyChecking=no app.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/tmp/app.tar.gz
+        env:
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+
+      - name: Run remote setup (Docker, MSSQL, .NET runtime)
+        run: |
+          ssh -p ${VPS_PORT:-22} -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "sudo bash /tmp/deploy/setup.sh"
+        env:
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+
+      - name: Run remote deploy (systemd service + Nginx + optional TLS)
+        run: |
+          ssh -p ${VPS_PORT:-22} -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "sudo MSSQL_SA_PASSWORD='${{ secrets.MSSQL_SA_PASSWORD }}' APP_PORT='${{ secrets.APP_PORT }}' APP_ENV='${{ secrets.APP_ENV }}' APP_DOMAIN='${{ secrets.APP_DOMAIN }}' CERTBOT_EMAIL='${{ secrets.CERTBOT_EMAIL }}' bash /tmp/deploy/deploy.sh"
+        env:
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+
+

@@ -1,0 +1,394 @@
+﻿@using System.Text.Encodings.Web
+@using Microsoft.AspNetCore.Http
+@using FossTech.TagHelpers
+@using FossTech.Utility
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+
+@inject SignInManager<ApplicationUser> _signInManager
+@inject UserManager<ApplicationUser> _userManager
+@inject IHttpContextAccessor _httpContextAccessor
+@{
+    var user = await _userManager.Users
+                    .FirstOrDefaultAsync(a => a.Id == _userManager.GetUserId(User));
+}
+<style>
+    .agile_phone_mail ul li {
+        display: inline-block;
+        padding: 6px 6px;
+        color: #fff;
+        letter-spacing: 1px;
+    }
+
+    .flicker {
+        padding: 5px 10px;
+        background-color: #395886;
+        color: #fff;
+        border: 0;
+        border-radius: 5px;
+        outline: 0;
+        animation: wink 1.25s linear infinite;
+    }
+
+        .flicker:active {
+            animation: none;
+        }
+
+    @@keyframes wink {
+        50% {
+            background-color: #1D63B0;
+            color: white;
+            opacity: 0;
+        }
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .navbar-brand.logo_h {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+        .navbar-brand.logo_h img {
+            max-height: 100px;
+            max-width: 180px;
+            height: auto;
+            width: auto;
+        }
+
+    @@media (max-width: 768px) {
+        .navbar-brand.logo_h img {
+            max-height: 50px;
+            max-width: 120px;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .navbar-brand.logo_h img {
+            max-height: 80px;
+            max-width: 150px;
+        }
+    }
+
+    .logo-separator {
+        width: 1.5px;
+        height: 60px; 
+        background-color: #555;
+        margin-left: 20px; 
+    }
+</style>
+
+<div class="tl-4-header red-clr s-sm-none">
+    <div class="tl-8-top-header shadow" style="background:var(--headerbackground)">
+        @if (Model.WebSetting.TopNav)
+        {
+            <div class="container-fluid">
+                <div class="row align-items-center" style="height:90px">
+                    <div class="col-lg-1">
+                        <div class="logo">
+                            <a class="navbar-brand logo_h" asp-controller="Home" asp-action="Index">
+                                <img src="@Model.Logo.HeaderLogo" class="mobile-logo d-md-none" alt="Your Logo">
+                                <img src="@Model.Logo.HeaderLogo" class="desktop-logo d-none d-md-block" alt="Your Logo" style="margin-left:170px">
+                                <span class="logo-separator d-none d-md-inline-block"></span>
+
+                            </a>
+
+                        </div>
+                        <div class="d-lg-none d-flex justify-content-end col-md-2" style="margin-top: -60px;">
+                            <button class="tl-hamburger navbar-toggler" style="background:var(--footerbackground)">
+                                <i class="icofont-navigation-menu"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 d-none d-sm-block">
+                        <div class="tl-4-bottom-header">
+                            <div class="container">
+                                <div class="row justify-content-between align-items-center" style="margin-left:100px">
+                                    <div class="col-12">
+                                        <div class="tl-nav-menu tl-4-nav-menu">
+                                            <ul class="nav justify-content-center">
+                                                @foreach (var menu in Model.Menus)
+                                                {
+                                                    if (menu.Type == "externalLink" || menu.Type == null)
+                                                    {
+                                                        <li class="tl-nav-item ">
+                                                            <a target="_blank" href="@menu.Url" role="button">
+                                                                @menu.Name
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                    else if (menu.Type == "interLink" || menu.Type == null)
+                                                    {
+                                                        @if (menu.Name == "About")
+                                                        {
+                                                            @if (Model.AboutsList.Count > 1)
+                                                            {
+                                                                <li class="tl-nav-item tl-dropdown">
+                                                                    <a href="#" role="button" aria-haspopup="true" aria-expanded="false">@menu.Name</a>
+                                                                    <ul class="dropdown-menu" style="display:none;">
+
+                                                                        @foreach (var about in Model.AboutsList)
+                                                                        {
+                                                                            <li class="nav-item">
+                                                                                <a class="nav-link" asp-area="" asp-controller="About" asp-action="Details" asp-route-slug="@about.Slug">
+                                                                                    @(about.Title.Length > 20 ? about.Title.Substring(0, 20) + "..." : about.Title)
+                                                                                </a>
+                                                                            </li>
+                                                                        }
+                                                                    </ul>
+                                                                </li>
+                                                            }
+                                                            else
+                                                            {
+                                                                <li class="tl-nav-item">
+                                                                    <a href="@menu.Url" role="button">@menu.Name</a>
+                                                                </li>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <li class="tl-nav-item ">
+                                                                <a href="@menu.Url" role="button">
+                                                                    @menu.Name
+                                                                </a>
+                                                            </li>
+                                                        }
+                                                    }
+                                                    else if (menu.Type == "productCollection")
+                                                    {
+                                                        <li class="tl-nav-item tl-dropdown">
+                                                            <a href="Categories" role="button">
+                                                                @menu.Name <i class="fa-regular fa-angle-down"></i>
+                                                            </a>
+                                                            <ul class="tl-submenu">
+                                                                @foreach (var menuProduct in menu.MenuProducts)
+                                                                {
+                                                                    <li>
+                                                                        <a asp-area="" asp-controller="Courses" asp-action="Details" asp-route-id="@menuProduct.ProductId" asp-route-slug="@menuProduct.Product.Slug">@menuProduct.Product.Name</a>
+                                                                    </li>
+                                                                }
+
+                                                            </ul>
+                                                        </li>
+                                                    }
+                                                    else if (menu.Type == "customPageCollection")
+                                                    {
+                                                        <li class="tl-nav-item tl-dropdown">
+                                                            <a href="#" role="button">
+                                                                @menu.Name <i class="fa-regular fa-angle-down"></i>
+                                                            </a>
+                                                            <ul class="tl-submenu">
+                                                                @foreach (var menuPage in menu.MenuPages)
+                                                                {
+                                                                    <li>
+                                                                        <a asp-area="" asp-controller="Page" asp-action="Details" asp-route-slug="@menuPage.Page.Slug">@menuPage.Page.Name</a>
+                                                                    </li>
+                                                                }
+                                                            </ul>
+                                                        </li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 text-right d-none d-lg-block">
+
+                        <ul class="tl-8-top-header-contacts">
+                            <div class="d-none d-lg-block">
+                                <partial name="_LoginPartial" />
+                            </div>
+                            @*   <li>
+                        @if (Model.WebSetting.Button1)
+                        {
+                        <a href="@Model.WebSetting.Button1URL" target="_blank" class="btn btn-outline" style="font-size: 13px;background:var(--buttonbackground); color:var(--buttontext);">
+                        @Model.WebSetting.Button1Title
+                        </a>
+                        }
+                        </li>
+                            <li>
+                                <button style="width:180px;font-size: 15px;font-weight: bolder;" type="button" class="flicker btn btn-outline" id="myModalBtnn2">
+                                    Enquiry & Admission Login / Register
+                                </button>
+                            </li>
+                             <li>
+                        <a href="@Model.WebSetting.Button2URL" target="_blank" class="btn btn-outline" style="font-size: 13px;border: 1px solid var(--buttontext);    background:var(--buttonbackground); color:var(--buttontext);">
+                        @Model.WebSetting.Button2Title
+                        </a>
+                        </li> *@
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </div>
+
+
+
+
+
+</div>
+<div class="kidba-menu-sidebar " style="background:var(--footerbackground)">
+    <div class="kidba-menu-sidebar-inner">
+        <div class="sidebar__close">
+            <button class="sidebar__close-btn" id="sidebar__close-btn">
+                <span><i class="icofont-brand-nexus"></i></span>
+                <span>close</span>
+            </button>
+        </div>
+        <div class="kidba-menu-sidebar-top mb-40">
+            <nav>
+                @* <div class="nav nav-tabs border-0" id="nav-tab" role="tablist">
+                <button class="active " id="nav-menu-tab" data-bs-toggle="tab" data-bs-target="#nav-menu" type="button" role="tab" aria-controls="nav-menu" aria-selected="true">Menu</button> *@
+                @*                     <button id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button" role="tab" aria-controls="nav-info" aria-selected="false">Info</button>
+                *@                @* </div> *@
+            </nav>
+        </div>
+        <div class="kidba-menu-sidebar-bottom">
+
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-menu" role="tabpanel" aria-labelledby="nav-menu-tab">
+                    <div class="mobile-menu mean-container">
+                        <div>
+                            <partial name="_LoginPartial" />
+                        </div>
+                        @*  <div class="mean-bar">
+                        <a href="#nav" class="meanmenu-reveal" style="right: 0px; left: auto; display: inline-block;"><span><span><span></span></span></span></a><nav class="mean-nav">
+                        <ul class="justify-content-center" style="display: none;">
+                        @foreach (var menu in Model.Menus)
+                        {
+                        if (menu.Type == "externalLink")
+                        {
+                        <li class="tl-nav-item tl-dropdown">
+                        <a target="_blank" href="@menu.Url" role="button">
+                        @menu.Name
+                        </a>
+                        </li>
+                        }
+                        else if (menu.Type == "interLink" || menu.Type == null)
+                        {
+                        <li class="tl-nav-item tl-dropdown">
+                        <a href="@menu.Url" role="button">
+                        @menu.Name
+                        </a>
+                        </li>
+                        }
+
+                        else if (menu.Type == "productCollection")
+                        {
+                        <li class="tl-nav-item tl-dropdown">
+                        <a href="Categories" role="button">
+                        @menu.Name <i class="fa-regular fa-angle-down"></i>
+                        </a>
+                        <ul class="tl-submenu">
+                        @foreach (var menuProduct in menu.MenuProducts)
+                        {
+                        <li>
+                        <a asp-area="" asp-controller="Courses" asp-action="Details" asp-route-id="@menuProduct.ProductId" asp-route-slug="@menuProduct.Product.Slug">@menuProduct.Product.Name</a>
+                        </li>
+                        }
+
+                        </ul>
+                        </li>
+                        }
+
+                        else if (menu.Type == "customPageCollection")
+                        {
+                        <li class="tl-nav-item tl-dropdown">
+                        <a href="#" role="button">
+                        @menu.Name <i class="fa-regular fa-angle-down"></i>
+                        </a>
+                        <ul class="tl-submenu">
+                        @foreach (var menuPage in menu.MenuPages)
+                        {
+                        <li>
+                        <a asp-area="" asp-controller="Page" asp-action="Details" asp-route-slug="@menuPage.Page.Slug">@menuPage.Page.Name</a>
+                        </li>
+                        }
+
+                        </ul>
+                        </li>
+                        }
+                        }
+                        </ul>
+
+                        </nav>
+                        </div> *@
+                    </div>
+                </div>
+                @*                 <div class="tab-pane fade" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
+                <div class="kidba-sidebar-info-content-331">
+                <ul>
+                <li><i class="icofont-clock-time"></i> 9:30am - 6:30pm, Mon - Sun</li>
+                <li><a href="tel:http://80012345676587"><i class="icofont-phone"></i> +800-123-4567 6587</a></li>
+                <li><i class="icofont-google-map"></i> Anmoore Road Brooklyn, NY 230</li>
+                </ul>
+                </div>
+                <div class="kidba-sidebar-info-social-331">
+                <a href="#" class="header-right-txt"><i class="icofont-facebook"></i></a>
+                <a href="#" class="header-right-txt"><i class="icofont-twitter"></i></a>
+                <a href="#" class="header-right-txt"><i class="icofont-instagram"></i></a>
+                </div>
+                </div>
+                *@
+            </div>
+        </div>
+    </div>
+</div>
+<!-- HEADER SECTION ENDS HERE ↑-->
+<!--================ End Header Menu Area =================-->
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dropdowns = document.querySelectorAll('.tl-dropdown > a');
+
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const parent = this.parentElement;
+                    const menu = parent.querySelector('.dropdown-menu');
+
+                    // Toggle the dropdown menu's visibility
+                    if (menu.style.display === 'block') {
+                        menu.style.display = 'none';
+                        this.setAttribute('aria-expanded', 'false');
+                    } else {
+                        closeAllDropdowns();
+                        menu.style.display = 'block';
+                        this.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!e.target.closest('.tl-dropdown')) {
+                    closeAllDropdowns();
+                }
+            });
+
+            function closeAllDropdowns() {
+                dropdowns.forEach(dropdown => {
+                    const menu = dropdown.parentElement.querySelector('.dropdown-menu');
+                    if (menu) {
+                        menu.style.display = 'none';
+                        dropdown.setAttribute('aria-expanded', 'false'); // Update ARIA attribute
+                    }
+                });
+            }
+        });
+
+
+    </script>
+}

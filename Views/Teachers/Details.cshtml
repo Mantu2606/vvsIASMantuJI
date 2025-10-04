@@ -1,0 +1,197 @@
+﻿@model FossTech.Controllers.TeacherViewModel1
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+
+
+/* Main Container */
+.single-trainer {
+   /*  max-width: 1200px;
+    margin: 50px auto; */
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Image Section */
+.img-fluid {
+    max-width: 80%;
+    border-radius: 10%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.img-fluid:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Styling */
+.card {
+    background: transparent;
+    border: none;
+}
+
+/* Card Body */
+.card-body {
+    padding: 30px;
+}
+
+/* Director Name */
+.card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+/* Department & Subtitle */
+.card-text.text-muted {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+/* Info Row (Designation & Education) */
+.mb-2 {
+    font-size: 1rem;
+    color: #007bff;
+    font-weight: 500;
+}
+
+.mb-2 i {
+    margin-right: 8px;
+}
+
+/* Description Text */
+.description {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@@media (max-width: 768px) {
+    .single-trainer {
+        padding: 20px;
+    }
+
+    .img-fluid {
+        max-width: 90%;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.8rem;
+    }
+
+    .card-text.text-muted {
+        font-size: 1rem;
+    }
+
+    .description {
+        font-size: 1rem;
+    }
+}
+
+</style>
+
+@if (Model.Team != null)
+{
+    <div class="single-trainer">
+        <div class="row">
+            <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+
+                <img src="@Model.Team.Image" class="img-fluid rounded" alt="@Model.Team.Name" style="max-width: 80%; height: auto;" />
+
+            </div>
+            <div class="col-12 col-md-8">
+                <div class="card-body" style="background-color: #f8f9fa;">
+
+                    <h4 class="card-title" style="font-size: 1.8rem; font-weight: bold; color: var(--buttonbackground);">@Model.Team.Name</h4>
+                    <p class="card-text text-muted" style="font-size: 1.1rem;">@Model.Team.Subject</p>
+                    <p>@Model.Team.Experience</p>
+                    <p class="mb-1" style="font-size: 0.9rem;">
+                        <span class="text-info"><i class="fas fa-building"></i> @Model.Team.Designation</span> |
+                        <span class="text-info"><i class="fas fa-graduation-cap"></i> @Model.Team.Experience</span>
+                    </p>
+                    <div class="text-justify description" >
+                        @Html.Raw(Model.Team.Description)
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.Director != null)
+{
+    <div class="single-trainer">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-4 d-flex justify-content-center">
+                <img src="@Model.Director.Image" class="img-fluid shadow-sm" alt="@Model.Director.Name" />
+            </div>
+            <div class="col-12 col-md-8">
+                <div class="card border-0 bg-transparent">
+                    <div class="card-body">
+                        <h4 class="card-title" style="color:var(--buttonbackground)">@Model.Director.Name</h4>
+
+                        <p class="card-text text-muted">@Model.Director.Department</p>
+
+                        <p class="mb-2 text-muted">
+                            <span class="text-info"><i class="fas fa-building"></i> @Model.Director.Designation</span> |
+                            <span class="text-info"><i class="fas fa-graduation-cap"></i> @Model.Director.Education</span>
+                        </p>
+
+                        <div class="description mt-3">
+                            @Html.Raw(Model.Director.Description)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@if (Model.HOD != null)
+{
+    <div class="single-trainer">
+        <div class="row">
+            <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+
+                <img src="@Model.HOD.Image" class="img-fluid rounded" alt="@Model.HOD.Name" style="max-width: 80%; height: auto;" />
+
+            </div>
+            <div class="col-12 col-md-8">
+                <div class="card-body" style="background-color: #f8f9fa;">
+
+                    <h4 class="card-title" style="font-size: 1.8rem; font-weight: bold; color: var(--buttonbackground);">@Model.HOD.Name</h4>
+                    <p class="card-text text-muted" style="font-size: 1.1rem;">@Model.HOD.Designation</p>
+                    <p class="mb-1" style="font-size: 0.9rem;">
+                        <span class="text-info"><i class="fas fa-building"></i> @Model.HOD.Department</span> |
+                        <span class="text-info"><i class="fas fa-graduation-cap"></i> @Model.HOD.Education</span>
+                    </p>
+                    <div class="text-justify description">
+                        @Html.Raw(Model.HOD.Description)
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<a href="@Url.Action("Index", "Teachers")">Back to List</a>

@@ -1,0 +1,112 @@
+﻿@using FossTech.Models
+@model FossTech.Models.LatestNews
+@{
+    ViewData["Title"] = @Model.Title;
+    var httpContextAccessor = new Microsoft.AspNetCore.Http.HttpContextAccessor();
+    var request = httpContextAccessor.HttpContext.Request;
+    var imageUrl = $"{request.Scheme}://{request.Host}{request.PathBase}{Model.Image}";
+}
+
+@section MetaTags
+    {
+    <meta name="keywords" content="@Model.MetaKeywords" />
+    <meta name="description" content="@Model.MetaDescription" />
+    <!-- Image Meta Tags -->
+    <meta property="og:image" content="@imageUrl">
+    <meta property="og:image:width" content="400">
+    <meta property="og:image:height" content="400">
+    <meta property="og:image:type" content="image/jpg">
+    <meta property="og:image:alt" content="@Model.Title">
+}
+
+
+<!--================Home Banner Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center" style="background:aliceblue">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        @* <h2>@Model.Title</h2> *@
+                        <div class="page_link">
+                            <a asp-controller="Home" asp-action="Index" style="margin:0 5px">Home</a>/
+                            <a asp-controller="LatestNews" asp-action="Index">Latest News</a>
+                            <a href="#">@Model.Title</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+
+
+
+
+
+
+<!--================Blog Area =================-->
+<section class="blog_area single-post-area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 posts-list">
+                <div class="single-post row">
+                    <div class="col-lg-12">
+                        <div class="feature-img">
+                            <a asp-controller="LatestNews" asp-action="Details" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug">
+                                <img style="width: -webkit-fill-available;" src="@Model.Image" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-12 col-md-12 blog_details">
+                        <a asp-controller="LatestNews" asp-action="Details" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug">
+                            <small style="color: black;">@Model.CreatedAt.ToLongDateString() <i class="ti-calendar"></i></small> <small style="color: gray;margin-left: 10px;"> @Model.MetaKeywords</small>
+                            <h2>@Model.Title</h2>
+                        </a>
+                            @Html.Raw(Model.Content)
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <aside class="single_sidebar_widget search_widget">
+                        <form asp-action="Index" method="get">
+                            <div class="input-group">
+                                <input type="text" name="query" value="@ViewBag.Query" class="form-control" placeholder="Search Latest News">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </form>
+                        <div class="br"></div>
+                    </aside>
+                    <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title">Popular Latest News</h3>
+                        @foreach (var item in ViewBag.Posts)
+                        {
+                            <div class="media post_item">
+                                <img style="height: 60px;width: 100px;" src="@item.Image" alt="post">
+                                <div class="media-body">
+                                    <a asp-controller="LatestNews" asp-action="Details" asp-route-id="@item.Id" asp-route-slug="@item.Slug">
+                                        <h3>@item.Title</h3>
+                                    </a>
+                                    <p>@item.CreatedAt.ToLongDateString()</p>
+                                </div>
+                            </div>
+                        }
+                        <div class="br"></div>
+                    </aside>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================Blog Area =================-->
+
+
+

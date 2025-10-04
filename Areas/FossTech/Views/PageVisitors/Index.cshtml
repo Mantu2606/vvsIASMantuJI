@@ -1,0 +1,86 @@
+﻿@model List<FossTech.Areas.FossTech.Controllers.PageVisitorViewModel>
+
+@{
+    ViewData["Title"] = "Page Visitors Chart";
+}
+
+<div class="container">
+    <div class="card p-5 mx-auto" style="width:85%">
+        <canvas id="myChart"></canvas>
+    </div>
+    <div class="text-center">
+        <button onclick="downloadChart()" class="btn btn-primary m-5">Download Chart</button>
+    </div>
+</div>
+
+
+
+@section styles {
+    @*  <link rel="stylesheet" type="text/css" href="/lib/DataTables/DataTables-1.10.20/css/jquery.dataTables.min.css" />*@
+    <link rel="stylesheet" type="text/css" href="~/lib/DataTables/Buttons-1.6.1/css/buttons.dataTables.min.css" />
+    <link href="~/dashboard/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+}
+
+@section Scripts {
+
+    <!-- Page level plugins -->
+    <script src="~/dashboard/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/dashboard/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+    <script type="text/javascript" src="/lib/DataTables/JSZip-2.5.0/jszip.min.js"></script>
+    <script type="text/javascript" src="/lib/DataTables/Buttons-1.6.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="/lib/DataTables/pdfmake-0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="/lib/DataTables/pdfmake-0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="/lib/DataTables/Buttons-1.6.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="/lib/DataTables/Buttons-1.6.1/js/buttons.print.min.js"></script>
+
+
+    <script>
+        const ctx = document.getElementById('myChart');
+        var titles = [];
+        var listItems = [];
+        @{
+            var mydates = Model;
+            foreach (var item in mydates)
+            {
+                <Text>
+                titles.push("@item.URL");
+                listItems.push("@item.Count");
+                </Text>
+            }
+        }
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: titles,
+                    datasets: [{
+                        label: 'Page Visitors Chart',
+                        data: listItems,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+    </script>
+    <script>
+        function downloadChart() {
+            const canvas = document.getElementById('myChart');
+            const downloadLink = document.createElement('a');
+            downloadLink.setAttribute('download', 'pagevisitors.png');
+            canvas.toBlob(function (blob) {
+                const url = URL.createObjectURL(blob);
+                downloadLink.setAttribute('href', url);
+                downloadLink.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+    </script>
+}

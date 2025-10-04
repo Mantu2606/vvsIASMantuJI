@@ -1,0 +1,50 @@
+﻿@model IEnumerable<FossTech.Models.Category>
+
+
+<!--================Home Banner Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container my-3">
+            <div class="row justify-content-center" style="background:aliceblue">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        @* <h2>Blogs</h2> *@
+                        <div class="page_link">
+                            <a asp-controller="Home" asp-action="Index" style="margin:0 5px;">Home</a>/
+                            <a asp-controller="Blog" asp-action="Index">Blogs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+
+    @if (Model.Any())
+    {
+        <!--================ Start Feature Area =================-->
+    <section class="feature_area section_gap_top">
+        <div class="container my-3">
+            <div class="row justify-content-center">
+                @foreach (var item in Model)
+                {
+                    <div class="col-6 col-md-4 col-lg-3 mb-4">
+                        <a asp-controller="Courses" asp-action="Index" asp-route-category="@item.Slug" class="text-decoration-none">
+                            <div class="card h-100 shadow-sm border-0">
+                                <img src="@item.Image" class="card-img-top" alt="@item.Name">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-0" style="color:black">@item.Name</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+
+        <!--================ End Feature Area =================-->
+    }

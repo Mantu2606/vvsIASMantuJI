@@ -1,0 +1,227 @@
+﻿@model List<FossTech.Models.Testimonial>
+@{
+    ViewData["Title"] = "Testimonials";
+}
+<style>
+   
+    article {
+        /* limit the width of the article container */
+        width: 350px;
+        /* display the contents in a column */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: hsl(0, 0%, 100%);
+        line-height: 2;
+        border-radius: 10px;
+        margin: 0.5rem;
+        /* transition for the transform property, updated in the script */
+        transition: transform 0.2s ease-out;
+        box-shadow: 0 0 5px -2px hsla(0, 0%, 0%, 0.1);
+    }
+
+        article figure {
+            /* limit the width and height of the figure to show the image in a circle */
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            /* specify negative margin matching half the height of the element */
+            margin-top: -60px;
+            /* position relative for the pseudo element */
+            position: relative;
+        }
+
+            article figure:before {
+                /* add a border around the figure matching the color of the background, faking the clip */
+                content: "";
+                border-radius: inherit;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 100%;
+                height: 100%;
+                transform: translate(-50%, -50%);
+                border: 1rem solid hsl(250, 85%, 97%);
+                box-shadow: 0 1px hsla(0, 0%, 0%, 0.1);
+            }
+
+            article figure img {
+                /* stretch the image to cover the size of the wrapping container */
+                border-radius: inherit;
+                width: 100%;
+                height: 100%;
+                /* object fit to maintain the aspect ratio and fit the width/height */
+                object-fit: cover;
+            }
+
+        article div {
+            /* center the text in the div container */
+            text-align: center;
+            margin: 2rem;
+        }
+
+            article div p {
+                color: hsl(250, 5%, 45%);
+                font-weight: 400;
+                font-style: italic;
+                margin: 1rem 0 3rem;
+                font-family: "Noticia Text", serif;
+                /* position relative for the pseudo element */
+                position: relative;
+                z-index: 5;
+            }
+
+                article div p:before {
+                    /* with SVG elements include two icons for the quote */
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 100%;
+                    height: 100%;
+                    transform: translate(-50%, -50%);
+                    z-index: -5;
+                    opacity: 0.05;
+                    /* position the icons at either end of the paragraph, rotate the second to have a mirrorer image */
+                    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70" width="70" height="70"><rect x="0" y="40" width="30" height="30"></rect><path d="M 0 40 q 0 -40 30 -40 v 15 q -15 0 -15 25"></path><rect x="40" y="40" width="30" height="30"></rect><path d="M 40 40 q 0 -40 30 -40 v 15 q -15 0 -15 25"></path></svg>'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70" width="70" height="70" transform="rotate(180)"><rect x="0" y="40" width="30" height="30"></rect><path d="M 0 40 q 0 -40 30 -40 v 15 q -15 0 -15 25"></path><rect x="40" y="40" width="30" height="30"></rect><path d="M 40 40 q 0 -40 30 -40 v 15 q -15 0 -15 25"></path></svg>');
+                    background-position: 20% 20%, 80% 80%;
+                    background-repeat: no-repeat;
+                }
+
+            article div h1 {
+                /* considerably reduce the size of the heading */
+                color: hsl(260, 5%, 55%);
+                font-family: "Lato", sans-serif;
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05rem;
+            }
+.testimonial_area {
+    padding: 60px 0;
+}
+
+.testimonial-card {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    padding-top: 60px; /* Ensure space for the image */
+    margin-bottom: 30px; /* Space between cards */
+}
+
+.testimonial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+.quote-icon {
+    margin-top: 60px; /* Adjust based on the image placement */
+}
+
+.quote-icon svg {
+    fill: var(--footerbackground);
+}
+
+.author-image {
+    width: 80px;
+    height: 80px;
+    background-color: var(--footerbackground);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid white;
+}
+
+.author-info {
+    margin-top: 50px;
+}
+
+@@media (max-width: 767px) {
+    .testimonial-card {
+        margin-bottom: 30px; /* Space between cards on smaller screens */
+    }
+
+    .author-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .quote-icon {
+        margin-top: 40px;
+    }
+}
+
+</style>
+<!--================Home Banner Area =================-->
+<section class="banner_area my-3">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center" style="background:aliceblue">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        @* <h2>Testimonials</h2> *@
+                        <div class="page_link">
+                            <a asp-controller="Home" asp-action="Index" style="margin:0 5px">Home</a>/
+                            <a asp-controller="Testimonials" asp-action="Index">Testimonials</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+
+@if (Model.Any())
+{
+    <!--================ Start Testimonial Area =================-->
+    <div class="testimonial_area section_gap mb-5">
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-6">
+                        <div class="testimonial-card bg-light position-relative px-3 mt-5 text-center py-5">
+                            <div class="author-image position-absolute" style="top: -20px; left: 50%; transform: translateX(-50%);">
+                                <img class="rounded-circle border border-white" src="@item.Image" alt="" height="80px" width="80px">
+                            </div>
+                            <div class="quote-icon my-4">
+                                <svg fill="var(--footerbackground)" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                     width="30px" height="30px" viewBox="0 0 349.078 349.078" style="enable-background:new 0 0 349.078 349.078;"
+                                     xml:space="preserve">
+                                <g>
+                                <path d="M198.779,322.441v-58.245c0-7.903,6.406-14.304,14.304-14.304c28.183,0,43.515-28.904,45.643-85.961h-45.643
+	                                    c-7.897,0-14.304-6.41-14.304-14.304V26.64c0-7.9,6.406-14.301,14.304-14.301h121.69c7.896,0,14.305,6.408,14.305,14.301v122.988
+	                                    c0,27.349-2.761,52.446-8.181,74.611c-5.568,22.722-14.115,42.587-25.398,59.049c-11.604,16.917-26.132,30.192-43.155,39.437
+	                                    c-17.152,9.304-37.09,14.026-59.267,14.026C205.186,336.745,198.779,330.338,198.779,322.441z M14.301,249.887
+	                                    C6.404,249.887,0,256.293,0,264.185v58.257c0,7.896,6.404,14.298,14.301,14.298c22.166,0,42.114-4.723,59.255-14.026
+	                                    c17.032-9.244,31.558-22.508,43.161-39.437c11.29-16.462,19.836-36.328,25.404-59.061c5.423-22.165,8.178-47.263,8.178-74.6V26.628
+	                                    c0-7.9-6.41-14.301-14.304-14.301H14.301C6.404,12.327,0,18.734,0,26.628v122.988c0,7.899,6.404,14.304,14.301,14.304h45.002
+	                                    C57.201,220.982,42.09,249.887,14.301,249.887z" />
+                                        </g>
+                                    </svg>
+                            </div>
+                            <div class="px-3 text-center pb-3 mt-5">
+                                <p class="font-weight-light my-3 text-secondary" style="font-family:handwriting">
+                                    @item.Review
+                                </p>
+                            </div>
+                            <div class="author-info mt-4">
+                                <h5 class="font-weight-bold mb-0" style="color: var(--footerbackground);">@item.Name</h5>
+                                <small class="font-weight-bold" style="line-height: 1"></small>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <!--================ End Testimonial Area =================-->
+}
+
+
+

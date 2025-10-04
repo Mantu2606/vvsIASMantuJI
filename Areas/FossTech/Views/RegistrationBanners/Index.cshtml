@@ -1,0 +1,63 @@
+﻿@model IEnumerable<FossTech.Models.RegistrationBanner>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header pb-1 d-flex justify-content-between">
+            <div>
+                <h2>Registration Banner</h2>
+                <a class="btn btn-primary" style="border: none;" asp-action="Create">Create New</a>
+
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table id="simpletable" class="table table-striped table-bordered nowrap">
+                    <thead>
+                        <tr>
+                            <th>Actions</th>
+                            
+                            <th>
+                                @Html.DisplayNameFor(model => model.Section)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Image)
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="dropdown">
+
+                                    <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item text-success" asp-action="Edit" asp-route-id="@item.Id"><i class="icofont icofont-edit"></i>Edit</a></li>
+                                        <li><a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="icofont icofont-ui-delete"></i>Delete</a></li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Section.Name)    
+                                </td>
+
+                                <td class="ms-5">
+                                    <img src="@item.Image" style="width: 200px" class="" />
+                                </td>
+                           
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+

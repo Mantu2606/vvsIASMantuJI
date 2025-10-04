@@ -1,0 +1,305 @@
+﻿@model FossTech.Areas.Dashboard.ViewModels.PurchaseHistoryViewModel
+
+@{
+    ViewData["Title"] = "My Purchases";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h4 class="card-title mb-0">My Purchase History</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-end">
+                            <div class="search-box">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search purchases...">
+                                <i class="bx bx-search search-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Tab Navigation -->
+                <ul class="nav nav-tabs nav-tabs-custom" id="purchaseTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="study-materials-tab" data-toggle="tab" href="#study-materials" role="tab" aria-controls="study-materials" aria-selected="true" style="color:#000">
+                            <i class="fas fa-book mr-2"></i>Study Materials
+                            <span class="badge badge-primary ml-2">@Model.StudyMaterialAccesses.Count()</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="flash-cards-tab" data-toggle="tab" href="#flash-cards" role="tab" aria-controls="flash-cards" aria-selected="false" style="color:#000">
+                            <i class="fas fa-clone mr-2"></i>Flash Cards
+                            <span class="badge badge-primary ml-2">@Model.FlashCardAccesses.Count()</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content mt-3" id="purchaseTabsContent">
+                    <!-- Study Materials Tab -->
+                    <div class="tab-pane fade show active" id="study-materials" role="tabpanel" aria-labelledby="study-materials-tab">
+                        @if (!Model.StudyMaterialAccesses.Any())
+                        {
+                            <div class="text-center py-5">
+                                <div class="avatar-md mx-auto">
+                                    <div class="avatar-title bg-light text-primary rounded-circle font-size-24">
+                                        <i class="bx bx-book-open"></i>
+                                    </div>
+                                </div>
+                                <h5 class="mt-3">No Study Materials Found</h5>
+                                <p class="text-muted">You haven't purchased any study materials yet.</p>
+                                <a href="@Url.Action("Index", "StudyMaterials", new { area = "" })" class="btn btn-primary">
+                                    <i class="bx bx-plus me-1"></i>Browse Study Materials
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-centered table-nowrap mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Study Material</th>
+                                            <th>Board & Subject</th>
+                                            <th>Price</th>
+                                            <th>Payment Status</th>
+                                            <th>Purchase Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.StudyMaterialAccesses)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar-sm bg-light rounded me-3">
+                                                            @if (!string.IsNullOrEmpty(item.StudyMaterial?.ThumbnailImage))
+                                                            {
+                                                                <img src="@item.StudyMaterial.ThumbnailImage" alt="@item.StudyMaterial.Name" class="avatar-title rounded" height="60px;">
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="avatar-title bg-primary rounded">
+                                                                    <i class="bx bx-book-open"></i>
+                                                                </span>
+                                                            }
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="mb-0">@item.StudyMaterial?.Name</h6>
+                                                            <small class="text-muted"><span class="badge bg-light text-dark">Order: @item.OrderId</span></small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <span class="badge bg-light text-dark">@item.StudyMaterial?.Board?.Name</span>
+                                                        @if (item.StudyMaterial?.Subject != null)
+                                                        {
+                                                            <span class="badge bg-light text-dark ms-1">@item.StudyMaterial.Subject.Name</span>
+                                                        }
+                                                        @if (item.StudyMaterial?.Standard != null)
+                                                        {
+                                                            <span class="badge bg-light text-dark ms-1">@item.StudyMaterial.Standard.Name</span>
+                                                        }
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @if (item.StudyMaterial?.FinalPrice.HasValue == true)
+                                                    {
+                                                        <span class="fw-bold">₹@item.StudyMaterial.FinalPrice.Value.ToString("N2")</span>
+                                                        @if (item.StudyMaterial.DiscountAmount > 0)
+                                                        {
+                                                            <small class="text-muted text-decoration-line-through d-block">₹@item.StudyMaterial.BasePrice?.ToString("N2")</small>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-muted">Free</span>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @{
+                                                        var statusClass = item.PaymentStatus switch
+                                                        {
+                                                            "SUCCESS" => "bg-success",
+                                                            "PENDING" => "bg-warning",
+                                                            "Failed" => "bg-danger",
+                                                            _ => "bg-secondary"
+                                                        };
+                                                        var statusIcon = item.PaymentStatus switch
+                                                        {
+                                                            "SUCCESS" => "bx-check-circle",
+                                                            "PENDING" => "bx-time",
+                                                            "Failed" => "bx-x-circle",
+                                                            _ => "bx-question-mark"
+                                                        };
+                                                    }
+                                                    <span class="badge @statusClass">
+                                                        <i class="bx @statusIcon me-1"></i>@item.PaymentStatus
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <span class="fw-medium">@item.PurchasedAt.ToString("MMM dd, yyyy")</span>
+                                                        <small class="text-muted d-block">@item.PurchasedAt.ToString("hh:mm tt")</small>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Flash Cards Tab -->
+                    <div class="tab-pane fade" id="flash-cards" role="tabpanel" aria-labelledby="flash-cards-tab">
+                        @if (!Model.FlashCardAccesses.Any())
+                        {
+                            <div class="text-center py-5">
+                                <div class="avatar-md mx-auto">
+                                    <div class="avatar-title bg-light text-primary rounded-circle font-size-24">
+                                        <i class="bx bx-clone"></i>
+                                    </div>
+                                </div>
+                                <h5 class="mt-3">No Flash Cards Found</h5>
+                                <p class="text-muted">You haven't purchased any flash cards yet.</p>
+                                <a href="@Url.Action("Index", "FlashCards", new { area = "Dashboard" })" class="btn btn-primary">
+                                    <i class="bx bx-plus me-1"></i>Browse Flash Cards
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-centered table-nowrap mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Flash Card</th>
+                                            <th>Board & Subject</th>
+                                            <th>Price</th>
+                                            <th>Payment Status</th>
+                                            <th>Purchase Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.FlashCardAccesses)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar-sm bg-light rounded me-3">
+                                                            @if (!string.IsNullOrEmpty(item.FlashCard?.QuestionImagePath))
+                                                            {
+                                                                <img src="@item.FlashCard.QuestionImagePath" alt="@item.FlashCard.Name" class="avatar-title rounded" height="60px;">
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="avatar-title bg-primary rounded">
+                                                                    <i class="bx bx-clone"></i>
+                                                                </span>
+                                                            }
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="mb-0">@item.FlashCard?.Name</h6>
+                                                            <small class="text-muted"><span class="badge bg-light text-dark">Order: @item.OrderId</span></small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <span class="badge bg-light text-dark">@item.FlashCard?.Board?.Name</span>
+                                                        @if (item.FlashCard?.Subject != null)
+                                                        {
+                                                            <span class="badge bg-light text-dark ms-1">@item.FlashCard.Subject.Name</span>
+                                                        }
+                                                        @if (item.FlashCard?.Standard != null)
+                                                        {
+                                                            <span class="badge bg-light text-dark ms-1">@item.FlashCard.Standard.Name</span>
+                                                        }
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @if (item.FlashCard?.FinalPrice.HasValue == true)
+                                                    {
+                                                        <span class="fw-bold">₹@item.FlashCard.FinalPrice.Value.ToString("N2")</span>
+                                                        @if (item.FlashCard.DiscountAmount > 0)
+                                                        {
+                                                            <small class="text-muted text-decoration-line-through d-block">₹@item.FlashCard.BasePrice?.ToString("N2")</small>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-muted">Free</span>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @{
+                                                        var statusClass = item.PaymentStatus switch
+                                                        {
+                                                            "SUCCESS" => "bg-success",
+                                                            "PENDING" => "bg-warning",
+                                                            "Failed" => "bg-danger",
+                                                            _ => "bg-secondary"
+                                                        };
+                                                        var statusIcon = item.PaymentStatus switch
+                                                        {
+                                                            "SUCCESS" => "bx-check-circle",
+                                                            "PENDING" => "bx-time",
+                                                            "Failed" => "bx-x-circle",
+                                                            _ => "bx-question-mark"
+                                                        };
+                                                    }
+                                                    <span class="badge @statusClass">
+                                                        <i class="bx @statusIcon me-1"></i>@item.PaymentStatus
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <span class="fw-medium">@item.PurchasedAt.ToString("MMM dd, yyyy")</span>
+                                                        <small class="text-muted d-block">@item.PurchasedAt.ToString("hh:mm tt")</small>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+
+            // Add search functionality for active tab
+            $('#searchInput').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                var activeTab = $('.tab-pane.active');
+                activeTab.find('table tbody tr').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            // Update search when tab changes
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                $('#searchInput').val('').trigger('keyup');
+            });
+        });
+    </script>
+}

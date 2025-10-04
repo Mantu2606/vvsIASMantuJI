@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="Anil z" name="author">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    @await RenderSectionAsync("MetaTags", false)
+
+    @await Component.InvokeAsync("Seo")
+    @await Component.InvokeAsync("Favicon")
+    <link rel="shortcut icon" href="assets/images/logo/favicon.ico" type="image/x-icon" asp-append-version="true">
+    <link rel="stylesheet" href="~/temp/vendor/bootstrap/bootstrap.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/temp/vendor/owl-carousel/owl.carousel.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/temp/css/icofont.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/temp/vendor/font-awesome/all.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/temp/vendor/font-awesome/sharp-regular.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/temp/vendor/font-awesome/sharp-solid.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/temp/vendor/mean-menu/meanmenu.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/temp/vendor/swiper-js/swiper-bundle.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/temp/vendor/slick-slider/slick.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/temp/css/style.css" asp-append-version="true">
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css" asp-append-version="true">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" asp-append-version="true"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="~/temp/css/dark-v.css" asp-append-version="true">
+
+    @* Mantu Ji *@
+    @* <link rel="stylesheet" href="~/wwwroot/dashboard/css/MantuNavbar.css" /> *@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        .owl-carousel .owl-dots.disabled, .owl-carousel .owl-nav.disabled {
+            display: none !important;
+        }
+
+        .modal-backdrop {
+            background-color: rgba(17, 23, 32, 0.5); /* Semi-transparent background */
+            backdrop-filter: blur(15px); /* Blur effect */
+        }
+
+        .modal-content {
+            background: rgba(17, 23, 32, 0.7);
+        }
+
+        .form-control input {
+            background: rgba(17, 23, 32);
+            color: white;
+        }
+
+    </style>
+    @await RenderSectionAsync("Styles", required: false)
+    @await Component.InvokeAsync("HeaderCode")
+    @await Component.InvokeAsync("ColorCombination")
+    @await Component.InvokeAsync("FontChange")
+</head>
+
+<body>
+
+    @await Component.InvokeAsync("Navigation")
+
+    @await RenderSectionAsync("PageHeader", required: false)
+
+    @RenderBody()
+
+    @await Component.InvokeAsync("Footer")
+    @*@await Component.InvokeAsync("SideSocialIcons")*@
+
+    @*@await Component.InvokeAsync("ChatBot")*@
+
+    <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form asp-controller="DemoLecturesEnquiries" asp-action="Create">
+                <div class="modal-content">
+                    <div class="modal-header" style="background:var(--footerbackground);color:var(--footertext)">
+                        <h5 class="modal-title text-white" id="exampleModalLabel">Registration Form</h5>
+                        <button type="button" class="close text-white" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="background:var(--footerbackground);color:var(--footertext)">
+                        <div class="form-group mb-2">
+                            <input type="text" name="Name" placeholder="Enter Your Name" class="form-control" />
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-2">
+                            <input type="text" name="PhoneNumber" placeholder="Enter Your Phone Number" class="form-control" />
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-2">
+                            <input type="email" name="Email" placeholder="Enter Your Email" class="form-control" />
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-4">
+                            <select class="form-control" name="products" class="form-select" asp-items="ViewBag.Products">
+                                <option value="" disabled selected>Select Courses</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <select name="BranchId" class="form-control" asp-items="ViewBag.Branches">
+                                <option value="" disabled selected>Select Branch</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="background:var(--footerbackground);color:var(--footertext)">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="~/temp/vendor/jquery/jquery-3.7.0.min.js" asp-append-version="true"></script>
+    <script src="~/temp/vendor/bootstrap/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="~/temp/vendor/owl-carousel/owl.carousel.min.js" asp-append-version="true"></script>
+    <script src="~/temp/vendor/fs-lightbox/fslightbox.js" asp-append-version="true"></script>
+    <script src="~/temp/vendor/mean-menu/jquery.meanmenu.min.js" asp-append-version="true"></script>
+    <script src="~/temp/vendor/swiper-js/swiper-bundle.min.js" asp-append-version="true"></script>
+    <script src="~/temp/vendor/slick-slider/slick.min.js" asp-append-version="true"></script>
+    <script src="~/temp/vendor/bx-slider/jquery.bxslider.min.js" asp-append-version="true"></script>
+    <script src="~/temp/vendor/eocjs-newsticker/eocjs-newsticker.js" asp-append-version="true"></script>
+    <script src="~/temp/vendor/syotimer/jquery.syotimer.min.js" asp-append-version="true"></script>
+    <script src="~/temp/js/main.js" asp-append-version="true"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var formSubmittedDate = localStorage.getItem('formSubmittedDate');
+            var currentDate = new Date().toISOString().split('T')[0];
+
+            if (formSubmittedDate === currentDate) {
+                console.log("Form already submitted today. Modal will not be shown.");
+                return;
+            }
+                setTimeout(function () {
+                var myModal = new bootstrap.Modal(document.getElementById('exampleModall'));
+                myModal.show();
+            }, 30000); 
+        });
+
+        $(document).ready(function () {
+            $("form").submit(function () {
+                var currentDate = new Date().toISOString().split('T')[0];
+                localStorage.setItem('formSubmittedDate', currentDate);
+            });
+        });
+    </script>
+
+    @if (TempData["_alert.type"] != null)
+    {
+        <script src="~/lib/notify/notify.min.js" asp-append-version="true"></script>
+        <script>
+            $(document).ready(function () {
+                $.notify('@TempData["_alert.title"]', '@TempData["_alert.type"]');
+            });
+
+        </script>
+    }
+
+    <script>
+
+        var clickCount = 0;
+        function handleClick(clickType) {
+            clickCount++;
+            console.log('Click count:', clickCount);
+            if (clickType == "Whatsapp") {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Home/WhatsappClickCounts', 
+                    data: { count: clickCount },
+                    success: function (data) {
+                        console.log('Click count sent to the server:', data);
+                    },
+                    error: function (error) {
+                        console.error('Error sending click count:', error);
+                    }
+                });
+            }
+            else if (clickType == "Call") {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Home/CallClickCounts', // Replace 'YourController' with the actual name of your controller
+                    data: { count: clickCount },
+                    success: function (data) {
+                        console.log('Click count sent to the server:', data);
+                    },
+                    error: function (error) {
+                        console.error('Error sending click count:', error);
+                    }
+                });
+            }
+        }
+
+    </script>
+
+    @* Mantu Ji  *@
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const hamburger = document.querySelector(".tl-hamburger");
+            const navMenu = document.querySelector(".tl-nav-menu");
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener("click", function () {
+                    navMenu.classList.toggle("active");
+                });
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const hamburger = document.querySelector('.tl-hamburger');
+          const navMenu = document.querySelector('.tl-nav-menu');
+
+          if (hamburger && navMenu) {
+            hamburger.addEventListener('click', function (e) {
+              e.preventDefault();
+              navMenu.classList.toggle('active');
+            });
+          }
+
+          // Mobile dropdown toggle: if a menu item is tl-dropdown, clicking its <a> toggles submenu on mobile
+          function isMobile() { return window.innerWidth <= 991; }
+
+          document.querySelectorAll('.tl-nav-item.tl-dropdown > a').forEach(function (link) {
+            link.addEventListener('click', function (e) {
+              if (isMobile()) {
+                e.preventDefault();
+                const parent = this.parentElement;
+                parent.classList.toggle('open');
+              }
+            });
+          });
+
+          // optional: close nav if user taps outside (mobile)
+          document.addEventListener('click', function (e) {
+            if (!isMobile()) return;
+            const insideNav = e.target.closest('.tl-4-top-header');
+            if (!insideNav) {
+              if (navMenu) navMenu.classList.remove('active');
+              document.querySelectorAll('.tl-nav-item.tl-dropdown.open').forEach(el => el.classList.remove('open'));
+            }
+          });
+
+          // handle resize: remove mobile-only classes when back to desktop
+          window.addEventListener('resize', function () {
+            if (!isMobile()) {
+              document.querySelectorAll('.tl-nav-item.tl-dropdown.open').forEach(el => el.classList.remove('open'));
+              if (navMenu) navMenu.classList.remove('active');
+            }
+          });
+        });
+    </script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    @await Component.InvokeAsync("FooterCode")
+</body>
+</html>
+
+

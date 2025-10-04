@@ -1,0 +1,344 @@
+﻿@model FossTech.Areas.FossTech.ViewModels.AdminViewModel
+
+@{
+    ViewBag.Title = "Admin Dashboard";
+    Layout = "_Layout";
+}
+
+
+@section Styles {
+    <style>
+
+        .card-body i {
+            color: #fff;
+        }
+    </style>
+}
+
+
+
+
+<div class="row dashboard-row">
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="UniqueVisitors" asp-action="Index">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Unique Visitors
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.UniqueVisitors</div>
+                        </div>
+                        <div class="col-auto">
+                            @* <i class="fas fa-users fa-2x text-gray-300"></i> *@
+                            <i class="fa fa-eye fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="TotalVisitors" asp-action="Index">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Visitors
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalVisitors</div>
+                        </div>
+                        <div class="col-auto">
+                            @* <i class="fas fa-users fa-2x text-gray-300"></i> *@
+                            <i class="fa fa-eye fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="WhatsappClickCounts" asp-action="Index">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Whatsapp Clicks
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.WhatsappClick</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa-brands fa-whatsapp fa-2x text-gray-300"></i>
+                            @* <i class="fas fa-users fa-2x text-gray-300"></i> *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="CallClickCounts" asp-action="Index">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Call Clicks
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.CallClick</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-phone fa-2x text-gray-300"></i>
+                            @* <i class="fas fa-users fa-2x text-gray-300"></i> *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="ContactMessages" asp-action="Index">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Contact Enquiries
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Enquiry</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-headset fa-2x text-gray-300"></i>
+                            @* <i class="fas fa-users fa-2x text-gray-300"></i> *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="CoursesEnquiries" asp-action="Index">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Courses Enquiries
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.CoursesEnquiry</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-headset fa-2x text-gray-300"></i>
+                            @* <i class="fas fa-users fa-2x text-gray-300"></i> *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="FranchiseEnquiries" asp-action="Index">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Franchise Enquiries
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.FranchiseEnquiry</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-headset fa-2x text-gray-300"></i>
+                            @* <i class="fas fa-users fa-2x text-gray-300"></i> *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="DemoLecturesEnquiries" asp-action="Index">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Demo Lectures Enquiries
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.DemoLecturesEnquiry</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-headset fa-2x text-gray-300"></i>
+                            @* <i class="fas fa-users fa-2x text-gray-300"></i> *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="Products" asp-action="Index">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Courses
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Products</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-book fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="Posts" asp-action="Index">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Blog
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Posts</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-blog fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="Updates" asp-action="Index">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Updates
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Updates</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-newspaper fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="LatestNews" asp-action="Index">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Latest News
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.latestNews</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-newspaper fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="Testimonials" asp-action="Index">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Testimonials
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Testimonials</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa-regular fa-message fa-2x text-gray-300"></i>
+                            @* <i class="fas fa-users fa-2x text-gray-300"></i> *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="FAQs" asp-action="Index">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                FAQ's
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.FAQs</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa-solid fa-circle-question fa-2x text-gray-300"></i>
+                            @* <i class="fas fa-users fa-2x text-gray-300"></i> *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="FossTech" asp-controller="FeedBackForms" asp-action="Index">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                FeedBack Enquiry
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-grey-800"></div>
+                        </div>
+
+                        <div class="col-auto">
+                            <i class="fa-solid fa-circle-info fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Fosstech" asp-controller="Users" asp-action="Index">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Users
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Users</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+﻿<ul class="navbar-nav sidebar sidebar-dark accordion d-none d-md-block" id="accordionSidebar">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+        <div class="sidebar-brand-text mx-3 font-weight-bold">FossTech.EDU</div>
+    </a>
+
+    <hr class="sidebar-divider my-0">
+
+    <li class="nav-item">
+        <a class="nav-link" href="/Dashboard/Home/Index">
+            <i class="fas fa-tachometer-alt"></i>
+            <span class="ml-2">Dashboard</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Dashboard/FeedBackForms/Index">
+            <i class="fas fa-book"></i>
+            <span class="ml-2">FeedBack Form</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Dashboard/StudyMaterials/Index">
+            <i class="fas fa-book"></i>
+            <span class="ml-2">Study Materials</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="/Dashboard/FlashCards/Index">
+            <i class="fas fa-clone"></i>
+            <span class="ml-2">Flash Cards</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="/Dashboard/TestPapers/Index">
+            <i class="fas fa-file-alt"></i>
+            <span class="ml-2">Test Papers</span>
+        </a>
+    </li>
+    @if (!User.IsInRole("Student"))
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="/Dashboard/Purchases">
+                <i class="fas fa-file-alt"></i>
+                <span class="ml-2">Purchase Details</span>
+            </a>
+        </li>
+    }
+
+    <hr class="sidebar-divider">
+
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</ul>
+
+<div class="d-md-none fixed-bottom shadow-lg" id="mobileBottomMenu" style="background:#24569c; padding: 5px 0; margin: 0;">
+    <div class="container p-1">
+        <div class="row">
+            <div class="col-3 text-center tab-item" data-tab="dashboard">
+                <a href="/Dashboard/Home/Index" class="text-white d-block py-2">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <div>Dashboard</div>
+                </a>
+            </div>
+            <div class="col-3 text-center tab-item" data-tab="studyMaterials">
+                <a href="/Dashboard/StudyMaterials/Index" class="text-white d-block py-2">
+                    <i class="fas fa-book"></i>
+                    <div>Study Materials</div>
+                </a>
+            </div>
+            <div class="col-3 text-center tab-item" data-tab="flashCards">
+                <a href="/Dashboard/FlashCards/Index" class="text-white d-block py-2">
+                    <i class="fas fa-clone"></i>
+                    <div>Flash Cards</div>
+                </a>
+            </div>
+            <div class="col-3 text-center tab-item" data-tab="testPapers">
+                <a href="/Dashboard/TestPapers/Index" class="text-white d-block py-2">
+                    <i class="fas fa-file-alt"></i>
+                    <div>Test Papers</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<FossTech.Models.Theme>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="col-sm-12">
+    <!-- Zero config.table start -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div><h2>Change Themes</h2></div>
+        </div>
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table id="simpletable" class="table table-striped table-bordered nowrap">
+
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SortOrder)
+                            </th>
+                            <th>Show</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                                    <div class="dropdown-menu dropdown-menu-right b-none contact-menu" x-placement="top-end" style="position: absolute; transform: translate3d(-77px, -95px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                        <a class="dropdown-item text-success" asp-action="Edit" asp-route-id="@item.Id"><i class="icofont icofont-edit"></i>Edit</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SortOrder)
+                                </td>
+                                <td>
+                                    @if (item.Status == false)
+                                    {
+                                        <a asp-action="Activate" class="btn btn-primary" asp-route-id="@item.Id">Activate</a>
+
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

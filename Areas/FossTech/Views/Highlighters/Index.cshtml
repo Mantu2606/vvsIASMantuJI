@@ -1,0 +1,120 @@
+﻿@model FossTech.Models.Highlighter
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="col-sm-12">
+    <form id="togglesubmit" asp-action="Index">
+    <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <h1>Highlighter</h1>
+                <div>
+                    <label class="form-check-label switch">
+                        <input type="checkbox" onchange="submitform()" class="form-check-input" asp-for="IsHighlighted" />
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        <div class="card-body">
+            
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Text" class="control-label"></label>
+                    <input asp-for="Text" onchange="submitform()" class="form-control" />
+                    <span asp-validation-for="Text" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <input hidden type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            
+        </div>
+    </div>
+    </form>
+</div>
+
+@section Styles{
+    <style>
+        /* Basic Rules */
+        .switch input {
+            display: none;
+        }
+
+        .switch {
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+            margin: 8px;
+            transform: translateY(50%);
+            position: relative;
+            top: -15px;
+        }
+        /* Style Wired */
+        .slider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: 30px;
+            box-shadow: 0 0 0 2px #777, 0 0 4px #777;
+            cursor: pointer;
+            border: 4px solid transparent;
+            overflow: hidden;
+            transition: .4s;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                width: 100%;
+                height: 100%;
+                background: #777;
+                border-radius: 30px;
+                transform: translateX(-30px);
+                transition: .4s;
+            }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+            background: limeGreen;
+        }
+
+        input:checked + .slider {
+            box-shadow: 0 0 0 2px limeGreen,0 0 2px limeGreen;
+        }
+
+        /* Style Flat */
+        .switch.flat .slider {
+            box-shadow: none;
+        }
+
+            .switch.flat .slider:before {
+                background: #FFF;
+            }
+
+        .switch.flat input:checked + .slider:before {
+            background: white;
+        }
+
+        .switch.flat input:checked + .slider {
+            background: limeGreen;
+        }
+    </style>
+    
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function submitform() {
+            $("#togglesubmit").submit();
+        }
+    </script>
+}

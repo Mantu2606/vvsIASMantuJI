@@ -1,0 +1,128 @@
+﻿@model FossTech.Models.ProductModels.Product
+@{
+    Layout = "";
+}
+
+<div class="col-lg-6 col-md-6 col-sm-12">
+    <div class="single-product-tab">
+        <div class="zoomWrapper">
+            <div id="img-1" class="zoomWrapper single-zoom">
+                <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id">
+                    <img id="zoom1" src="@Model.Image" data-zoom-image="@Model.Image" alt="@Model.Name">
+                </a>
+            </div>
+            <div class="single-zoom-thumb">
+                <ul class="s-tab-zoom single-product-active owl-carousel" id="gallery_01">
+                    @foreach (var image in Model.Images)
+                    {
+                        <li>
+                            <a href="#" class="elevatezoom-gallery active" data-update="" data-image="@image.Img" data-zoom-image="@image.Img"><img src="@image.Img" alt="@Model.Name" /></a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-12">
+    <!-- product-thumbnail-content start -->
+    <div class="quick-view-content">
+        <div class="product-info">
+            <h2>@Model.Name</h2>
+            @*<div class="rating-box">
+                    <ul class="rating d-flex">
+                        <li><i class="ion-ios-star"></i></li>
+                        <li><i class="ion-ios-star"></i></li>
+                        <li><i class="ion-ios-star"></i></li>
+                        <li><i class="ion-android-star-outline"></i></li>
+                        <li><i class="ion-android-star-outline"></i></li>
+                    </ul>
+                </div>*@
+            @Html.Raw(Model.Description)
+            <div class="price-box">
+                <span class="new-price"><span style="font-family: Arial, sans-serif;">₹</span>@Model.FinalPrice</span>
+                @if (Model.DiscountAmount > 0)
+                {
+                    <span class="old-price"><span style="font-family: Arial, sans-serif;">₹</span>@Model.BasePrice</span>
+                }
+            </div>
+
+            <ul class="list-unstyled">
+                @if (Model.ProductCategories.Any())
+                {
+                    <li>
+                        Categories:
+                        @foreach (var pc in Model.ProductCategories)
+                        {
+                            <a asp-area="" asp-controller="Products" asp-action="Index" asp-route-category="@pc.Category.Name">@pc.Category.Name</a> @:|
+                        }
+                    </li>
+
+                }
+                <li>Availability: In Stock</li>
+            </ul>
+
+
+            <div class="quick-add-to-cart">
+                <form class="modal-cart" id="buy-add-form" method="get" asp-controller="Cart" asp-action="AddToCart">
+                    <div class="quantity">
+                        <label>Quantity</label>
+                        <div class="cart-plus-minus">
+                            <input type="number" id="qty" value="1" min="1" step="1" class="input-box">
+                        </div>
+                    </div>
+
+                    <ul class="wishlist-compare-btn">
+                        <li><a id="addToCart" href="#" class="btn btn-primary border-0 text-white" style="background: #3F428F;">Add To Cart</a></li>
+                        <li><a id="buyNow" href="#" class="btn btn-primary border-0 text-white" style="background: #3F428F;">Buy Now</a></li>
+                    </ul>
+                </form>
+            </div>
+            <ul class="wishlist-compare-btn">
+                <li><a class="wishlist" asp-controller="Wishlists" asp-action="Add" asp-route-productId="@Model.Id"><i class="ion-heart"></i>Add to Wish List</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+         $(document).ready(function() {
+            $("#addToCart").click(function(event) {
+                event.preventDefault();
+
+                var qty = $("#qty").val();
+
+                if (qty < 1) {
+                    alert("Please Select Quantity more than 1.");
+                } else {
+                    $('#buy-add-form').append('<input type="hidden" name="qty" value="' + qty + '" />');
+                    $('#buy-add-form').append('<input type="hidden" name="productId" value="' + @Model.Id + '" />');
+                    $("#buy-add-form").submit();
+                }
+            });
+
+
+            $("#buyNow").click(function(event) {
+                event.preventDefault();
+
+                $("#buy-add-form").attr("action", "/BuyNow");
+
+                var qty = $("#qty").val();
+
+                if (qty < 1) {
+                    alert("Please Select Quantity more than 1.");
+                } else {
+                    $('#buy-add-form').append('<input type="hidden" name="qty" value="' + qty + '" />');
+                    $('#buy-add-form').append('<input type="hidden" name="productId" value="' + @Model.Id + '" />');
+                    $("#buy-add-form").submit();
+                }
+            });
+
+        });
+    });
+</script>

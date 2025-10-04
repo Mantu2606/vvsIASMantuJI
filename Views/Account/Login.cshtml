@@ -1,0 +1,337 @@
+﻿@model FossTech.ViewModels.Login
+
+@{
+    ViewData["Title"] = "Login";
+}
+<style>
+    .blog_area {
+        background-color: #f9f9f9;
+        padding: 60px 0;
+    }
+
+    .comment-form {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 30px;
+        border:3px solid var(--footerbackground);
+    }
+
+    .form-control {
+        border-radius: 0.25rem;
+        box-shadow: none;
+        font-size: 14px;
+        height: 45px;
+        padding-left: 30px;
+        border: 2px solid var(--footerbackground);
+    }
+
+        .form-control:focus {
+            border-color: var(--footerbackground);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+    .btn-primary {
+        background-color: #f7951e;
+        border-color: #f7951e;
+        padding: 12px 0;
+        font-size: 16px;
+    }
+
+        .btn-primary:hover {
+            background-color: #f7951e;
+            border-color: #f7951e;
+        }
+
+    .position-relative i {
+        color: #6c757d;
+        top: 37px;
+        right: 10px;
+    }
+
+    .form-check-label {
+        margin-left: 0.5rem;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .line-with-text {
+        border: 0;
+        border-top: 2px solid #f7951e;
+        margin: 0;
+        width: 40%;
+        display: inline-block;
+    }
+
+    .or-text {
+        display: inline-block;
+        position: relative;
+        top: 3px;
+        padding: 0 10px;
+        font-weight: bold;
+        color: var(--footerbackground);
+        font-size: 14px;
+    }
+
+    .google-sign-in .google-icon-btn {
+        font-size: 30px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        border: 2px solid #db4437;
+        color: #db4437;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+        .google-sign-in .google-icon-btn:hover {
+            background-color: #db4437;
+            color: white;
+            border-color: #db4437;
+        }
+
+    .google-sign-in .fab.fa-google {
+        font-size: 25px;
+    }
+
+    .form-note a {
+        color: var(--footerbackground);
+        font-weight: 500;
+    }
+
+        .form-note a:hover {
+            text-decoration: underline;
+        }
+
+    .login-logo {
+        max-width: 30%;
+    }
+
+    h3 {
+        color: var(--footerbackground);
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .d-flex.justify-content-center.mb-4,
+    .text-center.my-4 {
+        margin-bottom: 20px;
+    }
+
+    .form-note {
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .text-center.my-4 {
+        margin: 20px 0;
+    }
+
+    .d-flex.justify-content-between.align-items-center.mb-3 {
+        margin-bottom: 20px;
+    }
+
+    .form-group.mb-3 {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-check-input {
+        margin-left: -20px;
+    }
+</style>
+<script>
+    window.onload = function () {
+        google.accounts.id.initialize({
+            client_id: '964201490595-8bkr1krccc4b2ib7m79fuo4lj36lknrh.apps.googleusercontent.com',
+            callback: handleCredentialResponse
+        });
+        google.accounts.id.prompt();
+    };
+
+    function handleCredentialResponse(credential) {
+        //if (credential.authResponse) {
+        fetch('/Account/OneTapSignIn', {
+            method: 'POST',
+            body: JSON.stringify(credential),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    // Sign-in failed
+                    alert("Failed");
+                }
+            });
+        //}
+    }
+</script>
+
+<!--================Login Banner Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        @* <h2>Login</h2> *@
+                        @*   <div class="page_link">
+                        <a asp-controller="Home" asp-action="Index">Home</a>
+                        <a asp-controller="Accounts" asp-action="Login">Login</a>
+                        </div> *@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Login Banner Area =================-->
+<!--================Login Area =================-->
+
+<section class="blog_area single-post-area section_gap py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 posts-list">
+                <div class="comment-form p-4 shadow rounded bg-white">
+                    <div class="d-flex justify-content-center mb-4">
+                        <img src="~/veda-Logo.png" alt="login logo" class="login-logo" />
+                    </div>
+                    <h3 class="text-center mb-3">Login</h3>
+                    <form asp-route-returnUrl="@ViewBag.ReturnUrl" method="post">
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                        <div class="form-group position-relative mb-3">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" asp-for="Email" placeholder="Enter your email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <i class="fas fa-envelope position-absolute"></i>
+                        </div>
+                        <div class="form-group position-relative mb-4">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" asp-for="Password" placeholder="Enter your password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <i id="passwordEye" class="fas fa-eye position-absolute"></i>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" asp-for="RememberMe" />
+                                <label class="form-check-label" asp-for="RememberMe">Remember me</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                        <div class="d-flex justify-content-end mt-2">
+                            <a asp-action="ForgotPassword" class="text-decoration-none text-dark">Forgot password?</a>
+
+                        </div>
+                    </form>
+                    <div class="text-center my-4">
+                        <hr class="line-with-text">
+                        <span class="or-text">Or</span>
+                        <hr class="line-with-text">
+                    </div>
+                    <div class="google-sign-in text-center my-3">
+                        <a href="#" class="btn btn-outline-danger ">
+                            @{
+                                if ((Model.ExternalLogins?.Count ?? 0) != 0)
+                                {
+                                    <form id="external-account" asp-action="ExternalLogin" asp-route-returnUrl="@ViewBag.ReturnUrl" method="post">
+                                        <ul class="login-form__social p-0">
+                                            @foreach (var provider in Model.ExternalLogins)
+                                            {
+                                                @if (provider.Name == "Google")
+                                                {
+                                                    <li style="list-style-type: none; text-align:center;"><button type="submit" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account" style="border: 0px solid;padding: 0px;"><i class="fab fa-google"></i></button></li>
+                                                }
+                                               
+                                            }
+                                        </ul>
+                                    </form>
+                                }
+                            }
+                        </a>
+                    </div>
+                    <div class="form-note text-center mt-3">Don't have an account? <a asp-action="Register">Sign up now</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@* <section class="blog_area single-post-area section_gap">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 posts-list">
+                <div class="comment-form">
+                    <h3>Login to Access FossTechDashboard</h3>
+                    <form asp-route-returnUrl="@ViewBag.ReturnUrl" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div style="position: relative;" class="form-group">
+                            <input type="email" class="form-control" asp-for="Email" placeholder="Email">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <i style="position: absolute;top: 12px;right: 12px;" class="fas fa-envelope"></i>
+                        </div>
+                        <div style="position: relative;" class="form-group">
+                            <input type="password" class="form-control" asp-for="Password" placeholder="Password">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <i style="position: absolute;top: 12px;right: 12px;" id="passwordEye" class="fas fa-eye"></i>
+                        </div>
+                        <div class="d-flex justify-content-between form-group">
+                            <div style="margin-left: 20px;" class="chek-form">
+                                <div class="custome-checkbox">
+                                    <input class="form-check-input" type="checkbox" name="checkbox" asp-for="RememberMe" value="">
+                                    <label class="form-check-label" asp-for="RememberMe"><span>Remember me</span></label>
+
+                                </div>
+                            </div>
+                            <a asp-action="ForgotPassword">Forgot password?</a>
+                        </div>
+                        <button style="line-height: 38px; width:38px" type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+                    @*<div class="form-note text-center mt-3">Don't Have an Account? <a asp-action="Register">Sign up now</a></div>*@
+@*  </div>
+            </div>
+        </div>
+    </div>
+</section> *@
+<!--================Login Area =================-->
+@section Styles {
+    <style>
+        #passwordEye {
+            cursor: pointer;
+        }
+
+        m
+    </style>
+}
+
+@section Scripts {
+        /* <script type="text/javascript">
+               $(document).ready(function () {
+                   $("#passwordEye").click(function (e) {
+                       // toggle the type attribute
+                       const type = $("#Password").attr('type') === 'password' ? 'text' : 'password';
+                       $("#Password").attr('type', type);
+
+                   });
+               });
+
+    </script> */
+    <script type="text/javascript">
+        document.getElementById('passwordEye').addEventListener('click', function () {
+            const passwordField = document.querySelector('[asp-for="Password"]');
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+}

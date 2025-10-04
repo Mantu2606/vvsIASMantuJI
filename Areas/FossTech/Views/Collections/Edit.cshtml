@@ -1,0 +1,65 @@
+﻿@model FossTech.Models.Collection
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header pb-1">
+            <h2>Product Collection</h2>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Slug" class="control-label"></label>
+                    <input asp-for="Slug" class="form-control" />
+                    <span asp-validation-for="Slug" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input type="file" name="CollectionImage" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+                <div id="products" class="form-group mb-3" style="">
+                    <label asp-for="Products" class="control-label"></label>
+                    <select multiple="multiple" data-style="btn-info" id="product-select" data-live-search="true" name="products" class="selectpicker form-control" asp-items="ViewBag.Products"></select>
+                    <span asp-validation-for="Products" class="text-danger"></span>
+                </div>
+                <div class="form-group ">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-info">Back to List</a>
+    </div>
+</div>
+
+@section styles
+{
+    <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="~/lib/select2/js/select2.min.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            $("#product-select").select2();
+        });
+    </script>
+}

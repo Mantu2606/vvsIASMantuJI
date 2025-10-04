@@ -1,0 +1,412 @@
+﻿@model FossTech.Models.WebSetting
+@{
+    ViewData["Title"] = "Home Page Setting";
+}
+
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <h1>Web Settings</h1>
+        </div>
+        <div class="card-body">
+            <form asp-action="Index">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="row">
+                    <div class="form-group col-6 form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Slider" /> @Html.DisplayNameFor(model => model.Slider)
+                        </label>
+                    </div>
+                    <div class="form-group col-6 form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="TopNav" /> @Html.DisplayNameFor(model => model.TopNav)
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-4 form-check d-flex align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="AboutUs" /> @Html.DisplayNameFor(model => model.AboutUs)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label asp-for="AboutTitle" class="control-label"></label>
+                        <input asp-for="AboutTitle" class="form-control" />
+                        <span asp-validation-for="AboutTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label asp-for="AboutSubTitle" class="control-label"></label>
+                        <input asp-for="AboutSubTitle" class="form-control" />
+                        <span asp-validation-for="AboutSubTitle" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-3 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Categories" /> @Html.DisplayNameFor(model => model.Categories)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="CategoryTitle" class="control-label"></label>
+                        <input asp-for="CategoryTitle" class="form-control" />
+                        <span asp-validation-for="CategoryTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="CategorySubTitle" class="control-label"></label>
+                        <input asp-for="CategorySubTitle" class="form-control" />
+                        <span asp-validation-for="CategorySubTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="CategoryCount" class="control-label"></label>
+                        <input asp-for="CategoryCount" class="form-control" />
+                        <span asp-validation-for="CategoryCount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-3 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Courses" /> @Html.DisplayNameFor(model => model.Courses)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="CourseTitle" class="control-label"></label>
+                        <input asp-for="CourseTitle" class="form-control" />
+                        <span asp-validation-for="CourseTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="CourseSubTitle" class="control-label"></label>
+                        <input asp-for="CourseSubTitle" class="form-control" />
+                        <span asp-validation-for="CourseSubTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="CoursesCount" class="control-label"></label>
+                        <input asp-for="CoursesCount" class="form-control" />
+                        <span asp-validation-for="CoursesCount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-4 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Register" /> @Html.DisplayNameFor(model => model.Register)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label asp-for="RegisterTitle" class="control-label"></label>
+                        <input asp-for="RegisterTitle" class="form-control" />
+                        <span asp-validation-for="RegisterTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label asp-for="RegisterSubTitle" class="control-label"></label>
+                        <input asp-for="RegisterSubTitle" class="form-control" />
+                        <span asp-validation-for="RegisterSubTitle" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-12 col-md-4 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Section" /> @Html.DisplayNameFor(model => model.Section)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label asp-for="SectionTitle" class="control-label"></label>
+                        <input asp-for="SectionTitle" class="form-control" />
+                        <span asp-validation-for="SectionTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label asp-for="SectionSubTitle" class="control-label"></label>
+                        <input asp-for="SectionSubTitle" class="form-control" />
+                        <span asp-validation-for="SectionSubTitle" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-3 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Teacher" /> @Html.DisplayNameFor(model => model.Teacher)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="TeacherTitle" class="control-label"></label>
+                        <input asp-for="TeacherTitle" class="form-control" />
+                        <span asp-validation-for="TeacherTitle" class="text-danger"></span>
+                    </div><div class="form-group col-12 col-md-3">
+                        <label asp-for="TeacherSubTitle" class="control-label"></label>
+                        <input asp-for="TeacherSubTitle" class="form-control" />
+                        <span asp-validation-for="TeacherSubTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="TeachersCount" class="control-label"></label>
+                        <input asp-for="TeachersCount" class="form-control" />
+                        <span asp-validation-for="TeachersCount" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-12 col-md-3 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Director" /> @Html.DisplayNameFor(model => model.Director)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="DirectorTitle" class="control-label"></label>
+                        <input asp-for="DirectorTitle" class="form-control" />
+                        <span asp-validation-for="DirectorTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="DirectorSubTitle" class="control-label"></label>
+                        <input asp-for="DirectorSubTitle" class="form-control" />
+                        <span asp-validation-for="DirectorSubTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="DirectorsCount" class="control-label"></label>
+                        <input asp-for="DirectorsCount" class="form-control" />
+                        <span asp-validation-for="DirectorsCount" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-12 col-md-3 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="HOD" /> @Html.DisplayNameFor(model => model.HOD)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="HODTitle" class="control-label"></label>
+                        <input asp-for="HODTitle" class="form-control" />
+                        <span asp-validation-for="HODTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="HODSubTitle" class="control-label"></label>
+                        <input asp-for="HODSubTitle" class="form-control" />
+                        <span asp-validation-for="HODSubTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="HODCount" class="control-label"></label>
+                        <input asp-for="HODCount" class="form-control" />
+                        <span asp-validation-for="HODCount" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-12 col-md-3 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="FAQs" /> @Html.DisplayNameFor(model => model.FAQs)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="FAQsTitle" class="control-label"></label>
+                        <input asp-for="FAQsTitle" class="form-control" />
+                        <span asp-validation-for="FAQsTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="FAQsSubTitle" class="control-label"></label>
+                        <input asp-for="FAQsSubTitle" class="form-control" />
+                        <span asp-validation-for="FAQsSubTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="FAQsCount" class="control-label"></label>
+                        <input asp-for="FAQsCount" class="form-control" />
+                        <span asp-validation-for="FAQsCount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-3 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Blog" /> @Html.DisplayNameFor(model => model.Blog)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="BlogTitle" class="control-label"></label>
+                        <input asp-for="BlogTitle" class="form-control" />
+                        <span asp-validation-for="BlogTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="BlogSubTitle" class="control-label"></label>
+                        <input asp-for="BlogSubTitle" class="form-control" />
+                        <span asp-validation-for="BlogSubTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="BlogCount" class="control-label"></label>
+                        <input asp-for="BlogCount" class="form-control" />
+                        <span asp-validation-for="BlogCount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-3 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="LatestNews" /> @Html.DisplayNameFor(model => model.LatestNews)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="LatestNewsTitle" class="control-label"></label>
+                        <input asp-for="LatestNewsTitle" class="form-control" />
+                        <span asp-validation-for="LatestNewsTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="LatestNewsSubTitle" class="control-label"></label>
+                        <input asp-for="LatestNewsSubTitle" class="form-control" />
+                        <span asp-validation-for="LatestNewsSubTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="LatestNewsCount" class="control-label"></label>
+                        <input asp-for="LatestNewsCount" class="form-control" />
+                        <span asp-validation-for="LatestNewsCount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-3 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Updates" /> @Html.DisplayNameFor(model => model.Updates)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="UpdatesTitle" class="control-label"></label>
+                        <input asp-for="UpdatesTitle" class="form-control" />
+                        <span asp-validation-for="UpdatesTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="UpdatesSubTitle" class="control-label"></label>
+                        <input asp-for="UpdatesSubTitle" class="form-control" />
+                        <span asp-validation-for="UpdatesSubTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="UpdatesCount" class="control-label"></label>
+                        <input asp-for="UpdatesCount" class="form-control" />
+                        <span asp-validation-for="UpdatesCount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-3 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Testimonial" /> @Html.DisplayNameFor(model => model.Testimonial)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="TestimonialTitle" class="control-label"></label>
+                        <input asp-for="TestimonialTitle" class="form-control" />
+                        <span asp-validation-for="TestimonialTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="TestimonialSubTitle" class="control-label"></label>
+                        <input asp-for="TestimonialSubTitle" class="form-control" />
+                        <span asp-validation-for="TestimonialSubTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-3">
+                        <label asp-for="TestimonialsCount" class="control-label"></label>
+                        <input asp-for="TestimonialsCount" class="form-control" />
+                        <span asp-validation-for="TestimonialsCount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-4 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Topper" /> @Html.DisplayNameFor(model => model.Topper)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label asp-for="TopperTitle" class="control-label"></label>
+                        <input asp-for="TopperTitle" class="form-control" />
+                        <span asp-validation-for="TopperTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label asp-for="TopperSubTitle" class="control-label"></label>
+                        <input asp-for="TopperSubTitle" class="form-control" />
+                        <span asp-validation-for="TopperSubTitle" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-4 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Placement" /> @Html.DisplayNameFor(model => model.Placement)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label asp-for="PlacementTitle" class="control-label"></label>
+                        <input asp-for="PlacementTitle" class="form-control" />
+                        <span asp-validation-for="PlacementTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label asp-for="PlacementSubTitle" class="control-label"></label>
+                        <input asp-for="PlacementSubTitle" class="form-control" />
+                        <span asp-validation-for="PlacementSubTitle" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-4 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Button1" /> @Html.DisplayNameFor(model => model.Button1)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label asp-for="Button1Title" class="control-label"></label>
+                        <input asp-for="Button1Title" class="form-control" />
+                        <span asp-validation-for="Button1Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label asp-for="Button1URL" class="control-label"></label>
+                        <input asp-for="Button1URL" class="form-control" />
+                        <span asp-validation-for="Button1URL" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-4 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Button2" /> @Html.DisplayNameFor(model => model.Button2)
+                        </label>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label asp-for="Button2Title" class="control-label"></label>
+                        <input asp-for="Button2Title" class="form-control" />
+                        <span asp-validation-for="Button2Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label asp-for="Button2URL" class="control-label"></label>
+                        <input asp-for="Button2URL" class="form-control" />
+                        <span asp-validation-for="Button2URL" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6 col-md-3">
+                        <label asp-for="FooterTitle1" class="control-label"></label>
+                        <input asp-for="FooterTitle1" class="form-control" />
+                        <span asp-validation-for="FooterTitle1" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-6 col-md-3">
+                        <label asp-for="FooterTitle2" class="control-label"></label>
+                        <input asp-for="FooterTitle2" class="form-control" />
+                        <span asp-validation-for="FooterTitle2" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-6 col-md-3">
+                        <label asp-for="FooterTitle3" class="control-label"></label>
+                        <input asp-for="FooterTitle3" class="form-control" />
+                        <span asp-validation-for="FooterTitle3" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-6 col-md-3">
+                        <label asp-for="FooterTitle4" class="control-label"></label>
+                        <input asp-for="FooterTitle4" class="form-control" />
+                        <span asp-validation-for="FooterTitle4" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-4 form-check align-items-center">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsUnderConstruction" /> @Html.DisplayNameFor(model => model.IsUnderConstruction)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

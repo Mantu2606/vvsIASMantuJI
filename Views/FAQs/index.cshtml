@@ -1,0 +1,89 @@
+@model IEnumerable<FossTech.Models.FAQ>
+@{
+    ViewBag.Title = "FAQ's";
+}
+
+
+<!--================Home Banner Area =================-->
+<section class="banner_area my-3">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center" style="background:aliceblue">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        @* <h2>FAQ's</h2> *@
+                        <div class="page_link">
+                            <a asp-controller="Home" asp-action="Index" style="margin:0 5px">Home</a>/
+                            <a asp-controller="FAQs" asp-action="Index">FAQ's</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+
+<div style="" class="my-4">
+    <div class="container">
+        <section class="faq-section p-0">
+            <div class="container">
+                <div class="row">
+                    <!-- ***** FAQ Start ***** -->
+                    <div class="col-md-12 card-body">
+                        <div class="faq" id="accordion">
+                            @foreach (var item in Model)
+                            {
+                                @if (item == Model.First())
+                                {
+                                    <div class="card">
+                                        <div class="card-header" id="faqHeading-1" style="background:var(--footerbackground)">
+                                            <div class="d-flex align-items-center mb-0" style="color:var(--footertext)">
+                                                <i class="fas fa-plus me-2"></i>
+                                                <h5 class="faq-title mb-0" data-bs-toggle="collapse" data-bs-target="#faqCollapse-@item.Id" aria-expanded="true" aria-controls="faqCollapse-1" >
+                                                    <span class="badge ">@* @item.Order *@</span>@item.Question
+                                                </h5>
+                                            </div>
+
+                                        </div>
+                                        <div id="faqCollapse-@item.Id" class="collapse show" aria-labelledby="faqHeading-1" data-bs-parent="#accordion">
+                                            <div class="card-body">
+                                                <p>@Html.Raw(item.Answer) </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="card">
+                                        <div class="card-header" id="faqHeading-1" style="background:var(--footerbackground)">
+                                            <div class="d-flex align-items-center mb-0" style="color:var(--footertext)">
+                                                <i class="fas fa-plus me-2"></i>
+                                                <h5 class="faq-title mb-0" data-bs-toggle="collapse" data-bs-target="#faqCollapse-@item.Id" data-aria-expanded="true" data-aria-controls="faqCollapse-1" style="cursor:pointer">
+                                                    <span class="badge">@* @item.Order *@</span>@item.Question
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div id="faqCollapse-@item.Id" class="collapse" aria-labelledby="faqHeading-1" data-bs-parent="#accordion">
+                                            <div class="card-body">
+                                                <p>@Html.Raw(item.Answer) </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+    
+
+
+
+
+

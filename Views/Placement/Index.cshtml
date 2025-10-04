@@ -1,0 +1,57 @@
+﻿@model List<FossTech.Models.Placement>
+@{
+    ViewData["Title"] = "Placement";
+}
+
+<!--================Home Banner Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center" style="background:aliceblue">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        @* <h2>Placement</h2> *@
+                        <div class="page_link">
+                            <a asp-controller="Home" asp-action="Index" style="margin:0 5px">Home</a>/
+                            <a asp-controller="Placement" asp-action="Index">Placement</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+
+    @if (Model.Any())
+    {
+        <!--================ Start Popular Courses Area =================-->
+    <div style="padding-top: 100px;" class="popular_courses">
+            <div class="container">
+                <div class="row">
+                @foreach (var item in Model)
+                {
+                    <!-- single course -->
+                    <div class="col-lg-4">
+                                <div class="single_course">
+                                    <div class="course_head">
+                                            <img class="img-fluid" src="@item.Image" alt="@item.Name" />
+                                    </div>
+                                    <div class="course_content">
+                                        @* <span class="price">@item.Percentage</span> *@
+                                        <span class="tag mb-4 d-inline-block">@item.CompanyName</span>
+                                        <h4 class="mb-3">
+                                            <a>@item.Name</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                    </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+        <!--================ End Popular Courses Area =================-->
+    }
+

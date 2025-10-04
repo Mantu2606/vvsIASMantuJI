@@ -1,0 +1,210 @@
+﻿@using FossTech.Models
+@model FossTech.Models.Update
+@{
+    ViewData["Title"] = @Model.Title;
+    var httpContextAccessor = new Microsoft.AspNetCore.Http.HttpContextAccessor();
+    var request = httpContextAccessor.HttpContext.Request;
+    var imageUrl = $"{request.Scheme}://{request.Host}{request.PathBase}{Model.Image}";
+}
+
+@section MetaTags
+{
+    <meta name="keywords" content="@Model.MetaKeywords" />
+    <meta name="description" content="@Model.MetaDescription" />
+    <!-- Image Meta Tags -->
+    <meta property="og:image" content="@imageUrl">
+    <meta property="og:image:width" content="400">
+    <meta property="og:image:height" content="400">
+    <meta property="og:image:type" content="image/jpg">
+    <meta property="og:image:alt" content="@Model.Title">
+}
+<!--================Home Banner Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container-fluid">
+            <div class="row justify-content-center" style="background:aliceblue">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        @* <h2>@Model.Title</h2> *@
+                        <div class="page_link">
+                            <a asp-controller="Home" asp-action="Index" style="margin:0 5px">Home</a>/
+                            <a asp-controller="Updates" asp-action="Index">Updates</a>/
+                            <a href="#" class="text-muted" style="font-size:15px">@Model.Title</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+<!--================Blog Area =================-->
+<section class="blog_area single-post-area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 posts-list">
+                <div class="single-post row">
+                    <div class="col-lg-12 card">
+                        <div class="feature-img">
+                            <a asp-controller="Updates" asp-action="Details" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug">
+                                <img style="width: -webkit-fill-available;" src="@Model.Image" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 blog_details my-4">
+                        <a asp-controller="Updates" asp-action="Details" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug">
+                            <small style="color: black;" class="text-muted">@Model.CreatedAt.ToLongDateString() <i class="ti-calendar"></i></small> <small style="color: gray;margin-left: 10px;"> @Model.MetaKeywords</small>
+                            <h2 style="font-size:24px">@Model.Title</h2>
+                        </a>
+                        <div class="container ms-1 me-1">
+                            @Html.Raw(Model.Content)
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-12">
+                <div class="blog_right_sidebar">
+                    @*   <aside class="single_sidebar_widget search_widget">
+                    <form asp-action="Index" method="get">
+                    <div class="input-group">
+                    <input type="text" name="query" value="@ViewBag.Query" class="form-control" placeholder="Search updates">
+                    <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                    </span>
+                    </div>
+                    </form>
+                    <div class="br"></div>
+                    </aside> *@
+                    <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title text-center">Popular Updates</h3>
+                        <hr />
+
+                        <!-- Marquee Carousel Section -->
+                        <div class="marquee-wrapper" style="user-select: none;">
+                            <div class="marquee-content scrollingX">
+                                @foreach (var item in ViewBag.Posts)
+                                {
+                                    <div class="card-testimonial">
+                                        <article>
+                                             <a asp-controller="Updates" asp-action="Details" asp-route-id="@item.Id" asp-route-slug="@item.Slug">
+                                            <picture>
+                                                <source media="(min-width: 768px)" srcset="@item.Image">
+                                                <img src="@item.Image" alt="Post Image">
+                                            </picture>
+                                            </a>
+                                             <a asp-controller="Updates" asp-action="Details" asp-route-id="@item.Id" asp-route-slug="@item.Slug">
+                                            <h4>@item.Title</h4>
+                                            </a>
+                                            <article class="short-description">
+                                                <p></p>
+                                            </article>
+                                        </article>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="br"></div>
+                    </aside>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!--================Blog Area =================-->
+@section Styles {
+    <style>
+        .post-item {
+            border-right: 2px dotted var(--acedemic);
+            padding-right: 15px;
+        }
+
+        .row > .post-item:nth-child(3n) {
+            border-right: none;
+        }
+        /* Marquee wrapper styles */
+.marquee-wrapper {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    gap: 1rem;
+    border-radius: 1rem;
+}
+
+/* Marquee content style */
+.marquee-wrapper .marquee-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 1rem;
+    cursor: grab;
+}
+
+.marquee-wrapper .marquee-content .card-testimonial {
+    max-width: 300px;
+    background-color: #333;
+    padding: 1rem;
+    border-radius: 1rem;
+    color: #f5f5f5;
+}
+
+.marquee-wrapper .marquee-content .card-testimonial article picture {
+    position: relative;
+    min-width: 200px;
+}
+.marquee-wrapper .marquee-content .card-testimonial article picture img {
+    width: 100%;
+    /* height: 340px; */
+    border-radius: 0.5rem;
+    /* object-fit: cover;
+    object-position: 50% 15%; */
+}
+
+.marquee-wrapper .marquee-content .card-testimonial article h4 {
+    font-size: 20px;
+    text-transform: capitalize;
+    margin-block: 1rem;
+}
+
+.marquee-wrapper .marquee-content .card-testimonial article .short-description p {
+    font-family: var(--ff-heading);
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    margin-bottom: 1.2rem;
+}
+
+@@media (max-width: 1024px) {
+    .marquee-wrapper {
+        overflow: auto;
+    }
+}
+
+.scrollingX {
+    animation: scroll 45s linear infinite;
+}
+
+.marquee-wrapper:hover .scrollingX {
+    animation-play-state: paused;
+}
+
+@@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(-100% - 1rem));
+    }
+}
+
+    </style>
+}

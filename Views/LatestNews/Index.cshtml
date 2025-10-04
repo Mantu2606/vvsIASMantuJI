@@ -1,0 +1,90 @@
+﻿@model X.PagedList.IPagedList<FossTech.Models.LatestNews>
+@using X.PagedList.Mvc.Core
+
+@{ ViewData["Title"] = "Latest News"; }
+
+
+
+<!--================Home Banner Area =================-->
+<section class="banner_area my-3">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center" style="background:aliceblue">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        @* <h2>Latest News</h2> *@
+                        <div class="page_link">
+                            <a asp-controller="Home" asp-action="Index" style="margin:0 5px">Home</a>/
+                            <a asp-controller="LatestNews" asp-action="Index">Latest News</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+<!--================Blog Area =================-->
+<section class="blog_area section_gap">
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-12 mb-5">
+                <div class="blog_right_sidebar mt-0">
+                    <aside class="single_sidebar_widget search_widget">
+                        <form method="get">
+                            <div class="input-group">
+                                <input type="text" name="query" value="@ViewBag.Query" class="form-control" placeholder="Search Latest News">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </form>
+                       
+                    </aside>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="blog_left_sidebar">
+                    
+                        <article class="row blog_item">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-md-3 mb-4 col-12 border shadow ms-2 me-2">
+                                <div class="blog_post">
+                                    <a asp-controller="LatestNews" asp-action="Details" asp-route-id="@item.Id" asp-route-slug="@item.Slug">
+                                        <img style="width: -webkit-fill-available;" src="@item.Image" alt="">
+                                    </a>
+                                    <div class="blog_details">
+                                        <a asp-controller="LatestNews" asp-action="Details" asp-route-id="@item.Id" asp-route-slug="@item.Slug">
+                                            <small class="text-muted pt-1">@item.CreatedAt.ToLongDateString() <i class="fa fa-calendar"></i></small> 
+                                            <h5 class="text-dark pt-2 pb-2">@item.Title</h5>
+                                        </a>
+                                        <a asp-controller="LatestNews" asp-action="Details" asp-route-id="@item.Id" asp-route-slug="@item.Slug" class="blog_btn">View More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        </article>
+                    
+                    <nav class="blog-pagination justify-content-center d-flex">
+                        @Html.PagedListPager(Model, pageindex => Url.Action("Index", new
+                        {
+                        pageindex,
+                        pageSize = ViewBag.PerPageItems,
+                        orderby = ViewBag.orderby
+                        }),
+                        new PagedListRenderOptions
+                        {
+                        LiElementClasses = new string[] { "page-item" },
+                        PageClasses = new string[] { "page-link" },
+                        UlElementClasses = new string[] { "pagination" }
+                        })
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================Blog Area =================-->
+

@@ -1,0 +1,139 @@
+﻿@model IEnumerable<FossTech.Models.StudyMaterialEnquiry>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <h2>StudyMaterial Enquiries</h2>
+            <button id="deleteSelected" class="btn btn-danger">Delete Selected</button>
+        </div>
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table id="simpletable" class="table table-striped table-bordered nowrap">
+                    <thead>
+                        
+                        <tr>
+                            <th><input type="checkbox" id="selectAll" /></th>
+                            <th>Enquiry ID</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MobileNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MaterialName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Message)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedAt)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="selectRow" data-id="@item.Id" /> 
+                                </td>
+                                <td>@item.Id</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MaterialName)
+                                </td>
+                                <td class="text-wrap">
+                                    @Html.DisplayFor(modelItem => item.Message)
+                                </td>
+                                <td class="text-wrap">
+                                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                                </td>
+                                <td class="dropdown">
+                                    <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item text-primary" asp-action="Details" asp-route-id="@item.Id"><i class="icofont icofont-eye-alt"></i>View</a></li>
+                                        <li> <a class="dropdown-item text-success" asp-action="Edit" asp-route-id="@item.Id"><i class="icofont icofont-edit"></i>Edit</a></li>
+                                        <li> <a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="icofont icofont-ui-delete"></i>Delete</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+}
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <!-- Initialize DataTables -->
+    <script>
+        $(document).ready(function() {
+            $('#simpletable').DataTable({
+                "lengthMenu": [10, 25, 50, 100],  
+                "searching": true,              
+                "ordering": true,                
+                "paging": true,                 
+                "info": true,
+                "responsive": true
+            });
+            $('#selectAll').on('click', function() {
+                var isChecked = $(this).prop('checked');
+                $('.selectRow').prop('checked', isChecked);
+            });
+
+            // Handle Delete Selected Button click
+            $('#deleteSelected').on('click', function() {
+                var selectedIds = [];
+                $('.selectRow:checked').each(function() {
+                    selectedIds.push($(this).data('id'));
+                });
+
+                if (selectedIds.length > 0) {
+                    // You can handle the actual delete action here (send the selectedIds to the server)
+                    if (confirm('Are you sure you want to delete the selected records?')) {
+                        $.ajax({
+                            url: '@Url.Action("DeleteSelected", "StudyMaterialEnquiries")',
+                            type: 'POST',
+                            data: { ids: selectedIds },
+                            success: function(response) {
+                                toastr.sucess('Selected records deleted successfully.');
+                                location.reload(); 
+                            },
+                            error: function() {
+                                alert('An error occurred while deleting records.');
+                            }
+                        });
+                    }
+                } else {
+                    alert('Please select at least one record to delete.');
+                }
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,65 @@
+﻿@model FossTech.Models.Video
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header pb-1">
+            <h2>Add Video</h2>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mb-3 row">
+                    <div class="form-group mb-3 col-lg-6" >
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" style=" border-radius: 10px;" oninput="generateSlug()"/>
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3 col-lg-6">
+                        <label asp-for="Slug" class="control-label"></label>
+                        <input asp-for="Slug" class="form-control" style="border-radius: 10px;"/>
+                        <span asp-validation-for="Slug" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3 col-lg-6">
+                        <label asp-for="Code" class="control-label"></label>
+                        <input asp-for="Code" class="form-control" style="border-radius: 10px;"/>
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+                
+                    <div class="form-group mb-3 col-lg-6">
+                        <label asp-for="SortOrder" class="control-label"></label>
+                        <input asp-for="SortOrder" class="form-control" style="border-radius: 10px;"/>
+                        <span asp-validation-for="SortOrder" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-info">Back to List</a>
+    </div>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script>
+            function generateSlug() {
+                var title = document.getElementById("Title").value;
+                var slug = title.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "").replace(/ /g, "-");
+                document.getElementById("Slug").value = slug;
+                //oninput = "generateSlug()"
+            }
+        </script>
+    }

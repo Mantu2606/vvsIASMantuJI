@@ -1,0 +1,78 @@
+﻿@model FossTech.Areas.Dashboard.ViewModels.UserViewModel
+
+@{
+    ViewBag.Title = "User Dashboard";
+    Layout = "_Layout";
+}
+
+
+@section Styles {
+    <style>
+
+        .card-body i {
+            color: #fff;
+        }
+    </style>
+}
+
+
+
+<div class="row dashboard-row">
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Dashboard" asp-controller="StudyMaterials" asp-action="Index">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Study Material
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            @* <i class="fas fa-users fa-2x text-gray-300"></i> *@
+                            <i class="fa fa-eye fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>  
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Dashboard" asp-controller="FlashCards" asp-action="Index">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Flash Card
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            @* <i class="fas fa-users fa-2x text-gray-300"></i> *@
+                            <i class="fa fa-eye fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <a asp-area="Dashboard" asp-controller="FeedBackForms" asp-action="Index">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Feedback Form
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-check-square fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

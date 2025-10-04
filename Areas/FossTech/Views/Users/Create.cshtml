@@ -1,0 +1,101 @@
+﻿@model FossTech.Areas.FossTech.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header pb-1">
+
+            <h2>Create User</h2>
+        </div>
+        <div class="card-body">
+
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3 row">
+                    <div class="col-lg-6">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" style="border-radius: 10px;" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group mb-3 row">
+                    <div class="col-lg-6">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="MobileNumber" class="control-label"></label>
+                        <input asp-for="MobileNumber" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+
+                <div class="form-group mb-3">
+                    <label asp-for="Roles"></label>
+                    <select multiple="multiple" data-style="btn-info" asp-for="Roles" style="border-radius: 10px;" class="selectpicker form-control" asp-items="ViewBag.Roles"></select>
+                    <span asp-validation-for="Roles" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3 row">
+                    <div class="col-lg-6">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" style="border-radius: 10px;" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="ConfirmPassword" class="control-label"></label>
+                        <input asp-for="ConfirmPassword" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!-- Basic Form Inputs card end -->
+
+</div>
+<div class="mt-3">
+    <a asp-action="Index" class="btn btn-info">Back to List</a>
+</div>
+
+@section styles
+{
+    <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    @{
+
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="~/lib/select2/js/select2.min.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+
+            $("#Roles").select2();
+        });
+    </script>
+}

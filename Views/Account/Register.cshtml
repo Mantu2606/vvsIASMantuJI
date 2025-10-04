@@ -1,0 +1,258 @@
+﻿@model FossTech.ViewModels.Register
+@{
+    ViewData["Title"] = "Register";
+}
+
+<style>
+    .blog_area {
+        background-color: #f9f9f9;
+        padding: 60px 0;
+    }
+
+    .comment-form {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 30px;
+        border: 3px solid var(--footerbackground);
+    }
+    h3{
+        font-weight:bolder;
+    }
+    .form-control {
+        border-radius: 0.25rem;
+        box-shadow: none;
+        font-size: 14px;
+        height: 45px;
+        padding-left: 30px;
+        border: 2px solid var(--footerbackground);
+    }
+
+        .form-control:focus {
+            border-color: var(--footerbackground);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+    .btn-primary {
+        background-color: #f7951e;
+        border-color: #f7951e;
+        padding: 12px 0;
+        font-size: 16px;
+    }
+
+        .btn-primary:hover {
+            background-color: #f7951e;
+            border-color: #f7951e;
+        }
+
+    .position-relative i {
+        color: #6c757d;
+        top: 37px;
+        right: 10px;
+    }
+
+    .form-check-label {
+        margin-left: 0.5rem;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .line-with-text {
+        border: 0;
+        border-top: 2px solid #f7951e;
+        margin: 0;
+        width: 40%;
+        display: inline-block;
+    }
+
+    .or-text {
+        display: inline-block;
+        position: relative;
+        top: 3px;
+        padding: 0 10px;
+        font-weight: bold;
+        color: var(--footerbackground);
+        font-size: 14px;
+    }
+
+    .google-sign-in .google-icon-btn {
+        font-size: 30px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        border: 2px solid #db4437;
+        color: #db4437;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+        .google-sign-in .google-icon-btn:hover {
+            background-color: #db4437;
+            color: white;
+            border-color: #db4437;
+        }
+
+    .google-sign-in .fab.fa-google {
+        font-size: 25px;
+    }
+
+    .form-note a {
+        color: var(--footerbackground);
+        font-weight: 500;
+    }
+
+        .form-note a:hover {
+            text-decoration: underline;
+        }
+
+    .login-logo {
+        max-width: 30%;
+    }
+
+    h3 {
+        color: var(--footerbackground);
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .d-flex.justify-content-center.mb-4,
+    .text-center.my-4 {
+        margin-bottom: 20px;
+    }
+
+    .form-note {
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .text-center.my-4 {
+        margin: 20px 0;
+    }
+
+    .d-flex.justify-content-between.align-items-center.mb-3 {
+        margin-bottom: 20px;
+    }
+
+    .form-group.mb-3 {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-check-input {
+        margin-left: -20px;
+    }
+</style>
+
+<section class="blog_area single-post-area section_gap">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 posts-list">
+                <div class="comment-form">
+                    <div class="d-flex justify-content-center mb-4">
+                        <img src="~/veda-Logo.png" alt="login logo" class="login-logo" />
+                    </div>
+                    <h3 class="mb-4">Register <span class="">*</span></h3>
+                    <form asp-route-returnUrl="@ViewBag.ReturnUrl" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row">
+                        <div style="position: relative;" class="form-group col-md-6">
+                            <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name">
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                            <i style="position: absolute;top: 12px;right: 25px;" class="fas fa-user"></i>
+                        </div>
+                        <div style="position: relative;" class="form-group col-md-6">
+                            <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name">
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                            <i style="position: absolute;top: 12px;right: 25px;" class="fas fa-user"></i>
+                        </div>
+                        </div>
+                        <div style="position: relative;" class="form-group">
+                            <input type="email" class="form-control" asp-for="Email" placeholder="Email">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <i style="position: absolute;top: 12px;right: 12px;" class="fas fa-envelope"></i>
+                        </div>
+                        <div style="position: relative;" class="form-group">
+                            <input class="form-control" asp-for="MobileNumber" placeholder="Phone Number">
+                            <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                            <i style="position: absolute;top: 12px;right: 12px;" class="fas fa-phone"></i>
+                        </div>
+                        <div class="row mb-4">
+                       
+                            <div class="form-group col-md-6" style="position: relative;">
+                                <i class="fa fa-chevron-up" style="position: absolute;top: 14px;right: 25px;"></i>
+                                <select class="form-control pr-5" asp-for="BoardId" asp-items="ViewBag.Board">
+                                    <option value="" disabled selected>Select Board</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6" style="position: relative;">
+                                <i class="fa fa-chevron-up" style="position: absolute;top: 14px;right: 25px;"></i>
+                                <select class="form-control pr-5" asp-for="StandardId" asp-items="ViewBag.Standard">
+                                    <option value="" disabled selected>Select Standard</option>
+                                </select>
+                            </div>
+                            <div style="display:none;">
+                                <input type="text" name="honeypot" id="honeypot" />
+                            </div>
+                            <!-- Branch Dropdown with Arrow-Up Icon -->
+                        @*     <div class="form-group col-md-4" style="position: relative;">
+                                <i class="fa fa-chevron-up" style="position: absolute;top: 14px;right: 25px;"></i>
+                                @if (ViewBag.Branches != null)
+                                {
+                                    <select class="form-control pr-5" name="BranchId" asp-items="ViewBag.Branches">
+                                        <option value="" disabled selected>Select Branch</option>
+                                    </select>
+                                }
+                            </div> *@
+                        </div>
+
+                        <div style="position: relative;" class="form-group">
+                            <input type="password" class="form-control" asp-for="Password" placeholder="Password">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <i style="position: absolute;top: 12px;right: 12px;" id="passwordEye1" class="fas fa-eye"></i>
+                        </div>
+                        <div style="position: relative;" class="form-group">
+                            <input type="password" class="form-control" asp-for="ConfirmPassword" placeholder="Confirm Password">
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            <i style="position: absolute;top: 12px;right: 12px;" id="passwordEye2" class="fas fa-eye"></i>
+                        </div>
+                        <div class="form-group">
+                            <div class="g-recaptcha" data-sitekey="6Lcl-bUqAAAAAEYsmvqxuqEPFKnDHZ-Q0de0h4FH"></div>
+                        </div>
+                        <button  type="submit" class="btn btn-primary w-100">Register</button>
+                    </form>
+                    <div class="form-note text-center mt-3">Already Have an Account? <a asp-action="Login">Login</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+@section Styles{
+    <style>
+        #passwordEye1, #passwordEye2 {
+            cursor: pointer;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#passwordEye1").click(function (e) {
+                const type = $("#Password").attr('type') === 'password' ? 'text' : 'password';
+                $("#Password").attr('type', type);
+
+            });
+
+            $("#passwordEye2").click(function (e) {
+                const type = $("#ConfirmPassword").attr('type') === 'password' ? 'text' : 'password';
+                $("#ConfirmPassword").attr('type', type);
+
+            });
+        });
+
+    </script>
+}

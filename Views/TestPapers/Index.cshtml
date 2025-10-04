@@ -1,0 +1,49 @@
+﻿@model IEnumerable<FossTech.Models.TestPaperModels.TestPaper>
+
+@{
+    ViewData["Title"] = "Test Papers";
+}
+
+
+<!--================Home Banner Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center" style="background:aliceblue">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        @* <h2>Study Materials</h2> *@
+                        <div class="page_link">
+                            <a asp-controller="Home" asp-action="Index" style="margin:0 5px">Home</a>/
+                            <a href="#">Test Papers</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+<!--================ Start Feature Area =================-->
+<section class="feature_area section_gap_top">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-6 col-md-2 hovcat">
+                    <a asp-controller="TestPapers" asp-action="Details" asp-route-id="@item.Id">
+                        <div class="single_feature">
+                            <img style="width: -webkit-fill-available;" src="@item.ThumbnailImage" />
+                            <div class="desc text-center">
+                                <h4 class="mt-3 mb-2">@item.Name</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!--================ End Feature Area =================-->
+

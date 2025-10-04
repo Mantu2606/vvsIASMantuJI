@@ -1,0 +1,257 @@
+﻿@model FossTech.Models.StudyMaterialModels.FlashCard
+@{
+	ViewData["Title"] = "Edit FlashCard";
+}
+
+<h1 class="display-4 text-center text-primary">Edit FlashCard</h1>
+<h4 class="text-center text-muted">Update the details of your flashcard</h4>
+<hr />
+
+<div class="row justify-content-center">
+	<div class="col-md-12">
+		<form asp-action="Edit" method="post" enctype="multipart/form-data" class="bg-light p-4 rounded shadow-sm">
+			<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+			<input type="hidden" asp-for="Id" />
+
+			<!-- Name Field -->
+			<div class="form-group">
+				<label asp-for="Name" class="control-label font-weight-bold"></label>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text"><i class="fas fa-tag"></i></span>
+					</div>
+					<input asp-for="Name" class="form-control" placeholder="Enter Flashcard Name" />
+				</div>
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+
+			<!-- Question Field -->
+			<div class="form-group">
+				<label asp-for="Question" class="control-label font-weight-bold"></label>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text"><i class="fas fa-question-circle"></i></span>
+					</div>
+					<input asp-for="Question" class="form-control" placeholder="Enter Flashcard Question" />
+				</div>
+				<span asp-validation-for="Question" class="text-danger"></span>
+			</div>
+
+			<!-- Question Image Upload -->
+			<div class="form-group">
+				<label class="font-weight-bold">Upload Question Image (Optional)</label>
+				<input type="file" name="QuestionImage" class="form-control" accept="image/*" />
+				@if (!string.IsNullOrEmpty(Model.QuestionImagePath))
+				{
+					<div class="mt-2">
+						<strong>Current Image:</strong>
+						<img src="@Model.QuestionImagePath" alt="Question Image" class="img-thumbnail" style="max-width: 150px; height: auto;" />
+					</div>
+				}
+				<span asp-validation-for="QuestionImagePath" class="text-danger"></span>
+			</div>
+
+			<!-- Answer Field -->
+			<div class="form-group">
+				<label asp-for="Answer" class="control-label font-weight-bold"></label>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text"><i class="fas fa-check-circle"></i></span>
+					</div>
+					<input asp-for="Answer" class="form-control" placeholder="Enter Flashcard Answer" />
+				</div>
+				<span asp-validation-for="Answer" class="text-danger"></span>
+			</div>
+
+			<!-- Answer Image Upload -->
+			<div class="form-group">
+				<label class="font-weight-bold">Upload Answer Image (Optional)</label>
+				<input type="file" name="AnswerImage" class="form-control" accept="image/*" />
+				@if (!string.IsNullOrEmpty(Model.AnswerImagePath))
+				{
+					<div class="mt-2">
+						<strong>Current Image:</strong>
+						<img src="@Model.AnswerImagePath" alt="Answer Image" class="img-thumbnail" style="max-width: 150px; height: auto;" />
+					</div>
+				}
+				<span asp-validation-for="AnswerImagePath" class="text-danger"></span>
+			</div>
+
+			<!-- Board, Standard, Subject, Chapter (Grouped) -->
+			<div class="row">
+				<div class="form-group col-md-3">
+					<label asp-for="BoardId" class="control-label font-weight-bold">Board</label>
+					<select asp-for="BoardId" class="form-control" asp-items="ViewBag.BoardId" onchange="getStandards()">
+						<option value="">Select Board</option>
+					</select>
+					<span asp-validation-for="BoardId" class="text-danger"></span>
+				</div>
+
+				<div class="form-group col-md-3">
+					<label asp-for="StandardId" class="control-label font-weight-bold">Standard</label>
+					<select asp-for="StandardId" class="form-control" asp-items="ViewBag.StandardId" onchange="getSubjects()">
+						<option value="">Select Standard</option>
+					</select>
+					<span asp-validation-for="StandardId" class="text-danger"></span>
+				</div>
+
+				<div class="form-group col-md-3">
+					<label asp-for="SubjectId" class="control-label font-weight-bold">Subject</label>
+					<select asp-for="SubjectId" class="form-control" asp-items="ViewBag.SubjectId" onchange="getChapters()">
+						<option value="">Select Subject</option>
+					</select>
+					<span asp-validation-for="SubjectId" class="text-danger"></span>
+				</div>
+
+				<div class="form-group col-md-3">
+					<label asp-for="ChapterId" class="control-label font-weight-bold">Chapter</label>
+					<select asp-for="ChapterId" class="form-control" asp-items="ViewBag.ChapterId">
+						<option value="">Select Chapter</option>
+					</select>
+					<span asp-validation-for="ChapterId" class="text-danger"></span>
+				</div>
+			</div>
+
+			<!-- CreatedAt, LastModified, SortOrder -->
+			<div class="row">
+				<div class="form-group col-md-3">
+					<label asp-for="CreatedAt" class="control-label font-weight-bold"></label>
+					<input asp-for="CreatedAt" class="form-control" readonly />
+					<span asp-validation-for="CreatedAt" class="text-danger"></span>
+				</div>
+
+				<div class="form-group col-md-3">
+					<label asp-for="LastModified" class="control-label font-weight-bold"></label>
+					<input asp-for="LastModified" class="form-control" readonly />
+					<span asp-validation-for="LastModified" class="text-danger"></span>
+				</div>
+				<div class="form-group col-md-3 mt-4">
+					<input asp-for="IsPaid" type="checkbox" id="IsPaid" />
+					<label class="control-label" asp-for="IsPaid">
+						<span class="">Check this box if the material is paid</span>
+					</label>
+				</div>
+				<div class="form-group col-md-3">
+					<label asp-for="SortOrder" class="control-label font-weight-bold"></label>
+					<input asp-for="SortOrder" class="form-control" placeholder="Enter Sort Order (optional)" />
+					<span asp-validation-for="SortOrder" class="text-danger"></span>
+				</div>
+			</div>
+			<div id="priceFields" style="display:none;">
+				<div class="row">
+					<div class="form-group col-md-4">
+						<label asp-for="BasePrice" class="control-label"></label>
+						<input asp-for="BasePrice" class="form-control" placeholder="Enter Base Price " />
+						<span asp-validation-for="BasePrice" class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-4">
+						<label asp-for="DiscountAmount" class="control-label"></label>
+						<input asp-for="DiscountAmount" class="form-control" placeholder="Enter Discounted Price" />
+						<span asp-validation-for="DiscountAmount" class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-4">
+						<label asp-for="FinalPrice" class="control-label"></label>
+						<input asp-for="FinalPrice" class="form-control" id="FinalPrice" disabled="disabled" />
+						<span asp-validation-for="FinalPrice" class="text-danger"></span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Submit Button -->
+			<div class="form-group text-center">
+				<input type="submit" value="Save Changes" class="btn btn-success btn-lg" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="text-center mt-4">
+	<a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+		function getStandards() {
+			var boardId = $('select[name="BoardId"]').val();
+			if (boardId) {
+				$.getJSON('@Url.Action("GetStandardsByBoardId", "FlashCards")', { boardId: boardId }, function(data) {
+					var options = '<option value="">Select Standard</option>';
+					$.each(data, function(i, item) {
+						options += '<option value="' + item.id + '">' + item.name + '</option>';
+					});
+					$('select[name="StandardId"]').html(options);
+					getSubjects();
+				});
+			} else {
+				$('select[name="StandardId"]').html('<option value="">Select Standard</option>');
+				$('select[name="SubjectId"]').html('<option value="">Select Subject</option>');
+				$('select[name="ChapterId"]').html('<option value="">Select Chapter</option>');
+			}
+		}
+
+		function getSubjects() {
+			var standardId = $('select[name="StandardId"]').val();
+			if (standardId) {
+				$.getJSON('@Url.Action("GetSubjectsByStandardId", "FlashCards")', { standardId: standardId }, function(data) {
+					var options = '<option value="">Select Subject</option>';
+					$.each(data, function(i, item) {
+						options += '<option value="' + item.id + '">' + item.name + '</option>';
+					});
+					$('select[name="SubjectId"]').html(options);
+					getChapters();
+				});
+			} else {
+				$('select[name="SubjectId"]').html('<option value="">Select Subject</option>');
+				$('select[name="ChapterId"]').html('<option value="">Select Chapter</option>');
+			}
+		}
+
+		function getChapters() {
+			var subjectId = $('select[name="SubjectId"]').val();
+			if (subjectId) {
+				$.getJSON('@Url.Action("GetChaptersBySubjectId", "FlashCards")', { subjectId: subjectId }, function(data) {
+					var options = '<option value="">Select Chapter</option>';
+					$.each(data, function(i, item) {
+						options += '<option value="' + item.id + '">' + item.name + '</option>';
+					});
+					$('select[name="ChapterId"]').html(options);
+				});
+			} else {
+				$('select[name="ChapterId"]').html('<option value="">Select Chapter</option>');
+			}
+		}
+	</script>
+	<script>
+		function togglePriceFields() {
+			var isPaid = $('#IsPaid').is(':checked');
+			if (isPaid) {
+				$('#priceFields').show();
+			} else {
+				$('#priceFields').hide();
+			}
+		}
+		$(document).ready(function(){
+			togglePriceFields();
+			$('#IsPaid').change(function(){
+				togglePriceFields();
+			});
+			var BasePrice = $('#BasePrice');
+			var DiscountAmount = $('#DiscountAmount');
+			var FinalPrice = $('#FinalPrice');
+			BasePrice.on('input', function() {
+				var basePrice = parseFloat(BasePrice.val()) || 0;
+				var discountAmount = parseFloat(DiscountAmount.val()) || 0;
+				FinalPrice.val((basePrice - discountAmount).toFixed(2));
+			});
+			DiscountAmount.on('input', function() {
+				var basePrice = parseFloat(BasePrice.val()) || 0;
+				var discountAmount = parseFloat(DiscountAmount.val()) || 0;
+				FinalPrice.val((basePrice - discountAmount).toFixed(2));
+			});
+		});
+	</script>
+}

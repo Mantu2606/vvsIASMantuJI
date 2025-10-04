@@ -1,0 +1,93 @@
+﻿@model FossTech.Models.Seo
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+
+            <h2>SEO - Your Website's Power</h2>
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="card-body">
+            <form asp-action="Index">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group mb-3 row">
+                    <div class="col-lg-6">
+                        <label asp-for="MetaTitle" class="control-label"></label>
+                        <input asp-for="MetaTitle" class="form-control" style=" border-radius: 10px;">
+                        <span asp-validation-for="MetaTitle" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="MetaDiscription" class="control-label"></label>
+                        <input asp-for="MetaDiscription" class="form-control" style=" border-radius: 10px;">
+                        <span asp-validation-for="MetaDiscription" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group mb-3 row">
+                    <div class="col-lg-6">
+                        <label asp-for="MsValidate" class="control-label"></label>
+                        <input asp-for="MsValidate" class="form-control" style=" border-radius: 10px;">
+                        <span asp-validation-for="MsValidate" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="MetaDiscription" class="control-label"></label>
+                        <input asp-for="MetaDiscription" class="form-control" style=" border-radius: 10px;">
+                        <span asp-validation-for="MetaDiscription" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                
+                @*<div class="form-group mb-3">
+            <label asp-for="CanonicalTag" class="control-label"></label>
+            <input asp-for="CanonicalTag" class="form-control" />
+            <span asp-validation-for="CanonicalTag" class="text-danger"></span>
+        </div>*@
+                @*<div class="form-group mb-3">
+            <label asp-for="OgTitle" class="control-label"></label>
+            <input asp-for="OgTitle" class="form-control" />
+            <span asp-validation-for="OgTitle" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="OgDescription" class="control-label"></label>
+            <input asp-for="OgDescription" class="form-control" />
+            <span asp-validation-for="OgDescription" class="text-danger"></span>
+        </div>*@
+                @*<div class="form-group mb-3">
+            <label asp-for="OgUrl" class="control-label"></label>
+            <input asp-for="OgUrl" class="form-control" />
+            <span asp-validation-for="OgUrl" class="text-danger"></span>
+        </div>*@
+                @*<div class="form-group mb-3">
+            <label asp-for="OgSiteName" class="control-label"></label>
+            <input asp-for="OgSiteName" class="form-control" />
+            <span asp-validation-for="OgSiteName" class="text-danger"></span>
+        </div>*@
+                @*<div class="form-group mb-3">
+            <label asp-for="MetaTwitter" class="control-label"></label>
+            <input asp-for="MetaTwitter" class="form-control" />
+            <span asp-validation-for="MetaTwitter" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="MetaTwitterDescription" class="control-label"></label>
+            <input asp-for="MetaTwitterDescription" class="form-control" />
+            <span asp-validation-for="MetaTwitterDescription" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="TwitterTitle" class="control-label"></label>
+            <input asp-for="TwitterTitle" class="form-control" />
+            <span asp-validation-for="TwitterTitle" class="text-danger"></span>
+        </div>*@
+
+                
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+

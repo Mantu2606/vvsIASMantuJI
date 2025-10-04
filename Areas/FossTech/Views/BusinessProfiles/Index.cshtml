@@ -1,0 +1,218 @@
+﻿@model IEnumerable<FossTech.Models.BusinessProfile>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header pb-1 d-flex justify-content-between">
+            <div><h2>Business Profile</h2></div>
+            <div>
+                <a class="btn btn-primary" style="border: none;" asp-action="Create">Create New</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table id="simpletable" class="table table-striped table-bordered nowrap">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Section)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BusinessName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Title)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmailAddress)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AlternateEmailAddress)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AlternateEmailAddress1)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.RegisteredContactNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AlternateContactNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AlternateContactNumber1)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.WhatsAppNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BusinessWhatsAppNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BusinessWhatsAppNumber1)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.GoogleMap)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Section.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BusinessName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmailAddress)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AlternateEmailAddress)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AlternateEmailAddress1)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RegisteredContactNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AlternateContactNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AlternateContactNumber1)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.WhatsAppNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BusinessWhatsAppNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BusinessWhatsAppNumber1)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.GoogleMap)
+                                </td>
+
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    @section styles {
+        <link rel="stylesheet" type="text/css" href="/lib/DataTables/DataTables-1.10.20/css/jquery.dataTables.min.css" />
+        <link rel="stylesheet" type="text/css" href="/lib/DataTables/Buttons-1.6.1/css/buttons.dataTables.min.css" />
+    }
+
+    @section Scripts {
+        <script type="text/javascript" src="/lib/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="/lib/DataTables/JSZip-2.5.0/jszip.min.js"></script>
+        <script type="text/javascript" src="/lib/DataTables/Buttons-1.6.1/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" src="/lib/DataTables/pdfmake-0.1.36/pdfmake.min.js"></script>
+        <script type="text/javascript" src="/lib/DataTables/pdfmake-0.1.36/vfs_fonts.js"></script>
+        <script type="text/javascript" src="/lib/DataTables/Buttons-1.6.1/js/buttons.html5.min.js"></script>
+        <script type="text/javascript" src="/lib/DataTables/Buttons-1.6.1/js/buttons.print.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#simpletable').DataTable({
+                    dom: 'lBfrtip',
+                    buttons: [{
+                        extend: 'pdf',
+                        title: 'sachem',
+                        filename: "@DateTime.Now.ToFileTime()",
+                        exportOptions: {
+                            columns: [3, 4, 5]
+                        }
+                    }, {
+                        extend: 'excel',
+                        title: 'sachem',
+                        filename: "@DateTime.Now.ToFileTime()",
+                        exportOptions: {
+                            columns: [3, 4, 5]
+                        }
+                    }, {
+                        extend: 'csv',
+                        title: 'sachem',
+                        filename: "@DateTime.Now.ToFileTime()",
+                        exportOptions: {
+                            columns: [3, 4, 5]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        title: 'sachem',
+                        filename: "@DateTime.Now.ToFileTime()",
+                        exportOptions: {
+                            columns: [3, 4, 5]
+                        }
+                    }],
+                    "order": [],
+                    "columnDefs": [{
+                        "targets": 'no-sort',
+                        "orderable": false,
+                    }],
+
+                });
+
+                // Select or deselect all checkboxes when the "Select All" checkbox is clicked
+                $('#selectAll').change(function () {
+                    $('.checkbox-item').prop('checked', $(this).prop('checked'));
+                });
+
+                var itemIds = [];
+
+                // Add click event handler to the delete button
+                $('#deleteButton').click(function () {
+                    var selectedItems = $('.checkbox-item:checked');
+
+                    selectedItems.each(function () {
+                        var leadId = parseInt($(this).attr("data-id"));
+                        itemIds.push(leadId);
+                    });
+
+                    // Send the selected item IDs to the server for deletion
+                    $.ajax({
+                        url: '/FossTech/Categories/DeleteSelected',
+                        type: 'POST', // Add this line if necessary
+                        data: { leadIds: itemIds },
+                        success: function (response) {
+
+                            if (response == "Success") {
+                                selectedItems.closest('tr').remove();
+                                itemIds = [];
+                                window.location.reload();
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle the error response
+                            console.log(error);
+                        }
+                    });
+
+                });
+
+            });
+
+        </script>
+    }

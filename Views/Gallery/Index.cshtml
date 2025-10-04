@@ -1,0 +1,125 @@
+﻿﻿
+@model IEnumerable<FossTech.Models.Image>
+
+@{ ViewData["Title"] = "Gallery"; }
+
+
+
+<!--================Home Banner Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center" style="background:aliceblue">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        @* <h2>Gallery</h2> *@
+                        <div class="page_link">
+                            <a asp-controller="Home" asp-action="Index" style="margin:0px 5px">Home</a>/
+                            <a asp-controller="Gallery" asp-action="Index">Gallery</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+
+<div class="container">
+    <div class="section-top-border">
+        <div class="row">
+            <div class="col-md-12">
+
+                <ul class="gallery-cat-list">
+                    <li>
+                        @if (@ViewBag.category == null)
+                        {
+                            <a asp-controller="Gallery" asp-action="Index" style="background: transparent;
+                                                                              background: var(--buttonbackground);
+                                                                              color: var(--buttontext);">All</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Gallery" asp-action="Index">All</a>
+                        }
+
+                    </li>
+                    @foreach (var item in Model.GroupBy(x => x.Category).Where(x => x.Key != null).Select(x => x.Key))
+                    {
+                        <li>
+                            @if (@ViewBag.category == item)
+                            {
+                                <a asp-controller="Gallery" asp-action="Index" asp-route-category="@item" style="background: transparent;
+                                                                              background: var(--buttonbackground);
+                                                                              color: var(--buttontext);">@item</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Gallery" asp-action="Index" asp-route-category="@item">@item</a>
+                            }
+
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="row gallery-item">
+            @foreach (var item in Model)
+            {
+                if (@ViewBag.category != null)
+                {
+                    if (item.Category == ViewBag.category)
+                    {
+                        <div class="col-md-4">
+                            <a data-fancybox="gallery" href="@Url.Content(item.Img)">
+                                <img src="@Url.Content(item.Img)" width="100%">
+                                <h3 class="text-center">@item.Title</h3>
+                            </a>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-md-4">
+                        <a data-fancybox="gallery" href="@Url.Content(item.Img)">
+                            <img src="@Url.Content(item.Img)" width="100%">
+                            <h3 class="text-center">@item.Title</h3>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+
+
+    @section Styles{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
+        <style>
+        .gallery-cat-list {
+            padding: 0;
+        }
+
+        .gallery-cat-list li {
+            display: inline-block;
+        }
+
+            .gallery-cat-list li a {
+                margin: 10px;
+                    border: 1px solid var(--buttonbackground);
+                    color: var(--buttonbackground);
+                padding: 5px 24px;
+                min-width: 150px;
+                text-align: center;
+            }
+    </style>
+    }
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+    <script type="text/javascript">
+        $("a.grouped_elements").fancybox();
+    </script>
+    }

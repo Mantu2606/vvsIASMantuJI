@@ -1,0 +1,362 @@
+@model FossTech.Areas.FossTech.ViewModels.AdminPurchaseHistoryViewModel
+
+@{
+	ViewData["Title"] = "Purchase History - Admin";
+}
+
+<div class="row">
+	<div class="col-12">
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<div class="row align-items-center">
+					<div class="col-md-6">
+						<h6 class="m-0 font-weight-bold text-primary">All User Purchases</h6>
+					</div>
+					<div class="col-md-6">
+						<div class="d-flex justify-content-end">
+							<div class="input-group" style="max-width: 300px;">
+								<input type="text" id="searchInput" class="form-control" placeholder="Search purchases...">
+								<div class="input-group-append">
+									<span class="input-group-text">
+										<i class="fas fa-search"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<form method="get" asp-action="Index" class="mt-3">
+					<div class="form-row">
+						<div class="col-md-3 mb-2">
+							<select class="form-control" name="boardId" onchange="this.form.submit()">
+								<option value="">All Boards</option>
+								@foreach (var board in Model.Boards)
+								{
+									var selected = Model.SelectedBoardId == board.Id ? "selected" : "";
+									<option value="@board.Id" @@selected>@board.Name</option>
+								}
+							</select>
+						</div>
+						<div class="col-md-3 mb-2">
+							<select class="form-control" name="standardId" onchange="this.form.submit()">
+								<option value="">All Standards</option>
+								@foreach (var standard in Model.Standards)
+								{
+									var selected = Model.SelectedStandardId == standard.Id ? "selected" : "";
+									<option value="@standard.Id" @@selected>@standard.Name</option>
+								}
+							</select>
+						</div>
+						<div class="col-md-3 mb-2">
+							<select class="form-control" name="subjectId" onchange="this.form.submit()">
+								<option value="">All Subjects</option>
+								@foreach (var subject in Model.Subjects)
+								{
+									var selected = Model.SelectedSubjectId == subject.Id ? "selected" : "";
+									<option value="@subject.Id" @@selected>@subject.Name</option>
+								}
+							</select>
+						</div>
+						<div class="col-md-3 mb-2">
+							<select class="form-control" name="paymentStatus" onchange="this.form.submit()">
+								<option value="">All Payment Statuses</option>
+								@foreach (var status in Model.PaymentStatuses)
+								{
+									var selected = Model.SelectedPaymentStatus == status ? "selected" : "";
+									<option value="@status" @@selected>@status</option>
+								}
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="card-body">
+				<ul class="nav nav-tabs" id="purchaseTabs" role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link active" id="study-materials-tab" data-toggle="tab" href="#study-materials" role="tab" aria-controls="study-materials" aria-selected="true">
+							<i class="fas fa-book mr-2"></i>Study Materials
+							<span class="badge badge-primary ml-2">@Model.StudyMaterialAccesses.Count()</span>
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" id="flash-cards-tab" data-toggle="tab" href="#flash-cards" role="tab" aria-controls="flash-cards" aria-selected="false">
+							<i class="fas fa-clone mr-2"></i>Flash Cards
+							<span class="badge badge-primary ml-2">@Model.FlashCardAccesses.Count()</span>
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" id="pending-payments-tab" data-toggle="tab" href="#pending-payments" role="tab" aria-controls="pending-payments" aria-selected="false">
+							<i class="fas fa-clock mr-2"></i>Pending Payments
+							<span class="badge badge-warning ml-2">@(Model.PendingStudyMaterials.Count() + Model.PendingFlashCards.Count())</span>
+						</a>
+					</li>
+				</ul>
+
+				<!-- Tab Content -->
+				<div class="tab-content mt-3" id="purchaseTabsContent">
+					<!-- Study Materials Tab -->
+					<div class="tab-pane fade show active" id="study-materials" role="tabpanel" aria-labelledby="study-materials-tab">
+						@if (!Model.StudyMaterialAccesses.Any())
+						{
+							<div class="text-center py-5">
+								<i class="fas fa-book fa-3x text-muted mb-3"></i>
+								<h5 class="text-muted">No Study Material Purchases Found</h5>
+								<p class="text-muted">No users have purchased study materials yet.</p>
+							</div>
+						}
+						else
+						{
+							<div class="table-responsive">
+								<table class="table table-bordered" id="studyMaterialsTable" width="100%" cellspacing="0">
+									<thead>
+										<tr>
+											<th>Student</th>
+											<th>Study Material</th>
+											<th>Board & Subject</th>
+											<th>Price</th>
+											<th>Payment Status</th>
+											<th>Purchase Date</th>
+											<th>Order ID</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach (var item in Model.StudyMaterialAccesses)
+										{
+											<tr>
+												<td>
+													<div class="d-flex align-items-center">
+														<div class="avatar-sm bg-light rounded mr-3">
+															<span class="avatar-title bg-primary rounded">
+																<i class="fas fa-user"></i>
+															</span>
+														</div>
+														<div>
+															<h6 class="mb-0">@item.User?.FullName</h6>
+															<small class="text-muted">@item.User?.Email</small>
+														</div>
+													</div>
+												</td>
+												<td>
+													<div class="d-flex align-items-center">
+														<div class="avatar-sm bg-light rounded mr-3">
+															@if (!string.IsNullOrEmpty(item.StudyMaterial?.ThumbnailImage))
+															{
+																<img src="@item.StudyMaterial.ThumbnailImage" alt="@item.StudyMaterial.Name" class="avatar-title rounded" height="40px;">
+															}
+															else
+															{
+																<span class="avatar-title bg-primary rounded">
+																	<i class="fas fa-book-open"></i>
+																</span>
+															}
+														</div>
+														<div>
+															<h6 class="mb-0">@item.StudyMaterial?.Name</h6>
+														</div>
+													</div>
+												</td>
+												<td>
+													<div>
+														<span class="badge badge-light">@item.StudyMaterial?.Board?.Name</span>
+														@if (item.StudyMaterial?.Subject != null)
+														{
+															<span class="badge badge-light ml-1">@item.StudyMaterial.Subject.Name</span>
+														}
+														@if (item.StudyMaterial?.Standard != null)
+														{
+															<span class="badge badge-light ml-1">@item.StudyMaterial.Standard.Name</span>
+														}
+													</div>
+												</td>
+												<td>
+													@if (item.StudyMaterial?.FinalPrice.HasValue == true)
+													{
+														<span class="font-weight-bold">₹@item.StudyMaterial.FinalPrice.Value.ToString("N2")</span>
+														@if (item.StudyMaterial.DiscountAmount > 0)
+														{
+															<small class="text-muted text-decoration-line-through d-block">₹@item.StudyMaterial.BasePrice?.ToString("N2")</small>
+														}
+													}
+													else
+													{
+														<span class="text-muted">Free</span>
+													}
+												</td>
+												<td>
+													@{
+														var statusClass = item.PaymentStatus switch
+														{
+															"SUCCESS" => "badge-success",
+															"PENDING" => "badge-warning",
+															"Failed" => "badge-danger",
+															_ => "badge-secondary"
+														};
+													}
+													<span class="badge @statusClass">@item.PaymentStatus</span>
+												</td>
+												<td>
+													<div>
+														<span class="font-weight-medium">@item.PurchasedAt.ToString("MMM dd, yyyy")</span>
+														<small class="text-muted d-block">@item.PurchasedAt.ToString("hh:mm tt")</small>
+													</div>
+												</td>
+												<td>
+													<small class="text-muted">@item.OrderId</small>
+												</td>
+											</tr>
+										}
+									</tbody>
+								</table>
+							</div>
+						}
+					</div>
+
+					<div class="tab-pane fade" id="flash-cards" role="tabpanel" aria-labelledby="flash-cards-tab">
+						@if (!Model.FlashCardAccesses.Any())
+						{
+							<div class="text-center py-5">
+								<i class="fas fa-clone fa-3x text-muted mb-3"></i>
+								<h5 class="text-muted">No Flash Card Purchases Found</h5>
+								<p class="text-muted">No users have purchased flash cards yet.</p>
+							</div>
+						}
+						else
+						{
+							<div class="table-responsive">
+								<table class="table table-bordered" id="flashCardsTable" width="100%" cellspacing="0">
+									<thead>
+										<tr>
+											<th>User</th>
+											<th>Flash Card</th>
+											<th>Board & Subject</th>
+											<th>Price</th>
+											<th>Payment Status</th>
+											<th>Purchase Date</th>
+											<th>Order ID</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach (var item in Model.FlashCardAccesses)
+										{
+											<tr>
+												<td>
+													<div class="d-flex align-items-center">
+														<div class="avatar-sm bg-light rounded mr-3">
+															<span class="avatar-title bg-primary rounded">
+																<i class="fas fa-user"></i>
+															</span>
+														</div>
+														<div>
+															<h6 class="mb-0">@item.User?.FullName</h6>
+															<small class="text-muted">@item.User?.Email</small>
+														</div>
+													</div>
+												</td>
+												<td>
+													<div class="d-flex align-items-center">
+														<div class="avatar-sm bg-light rounded mr-3">
+															@if (!string.IsNullOrEmpty(item.FlashCard?.QuestionImagePath))
+															{
+																<img src="@item.FlashCard.QuestionImagePath" alt="@item.FlashCard.Name" class="avatar-title rounded" height="40px;">
+															}
+															else
+															{
+																<span class="avatar-title bg-primary rounded">
+																	<i class="fas fa-clone"></i>
+																</span>
+															}
+														</div>
+														<div>
+															<h6 class="mb-0">@item.FlashCard?.Name</h6>
+														</div>
+													</div>
+												</td>
+												<td>
+													<div>
+														<span class="badge badge-light">@item.FlashCard?.Board?.Name</span>
+														@if (item.FlashCard?.Subject != null)
+														{
+															<span class="badge badge-light ml-1">@item.FlashCard.Subject.Name</span>
+														}
+														@if (item.FlashCard?.Standard != null)
+														{
+															<span class="badge badge-light ml-1">@item.FlashCard.Standard.Name</span>
+														}
+													</div>
+												</td>
+												<td>
+													@if (item.FlashCard?.FinalPrice.HasValue == true)
+													{
+														<span class="font-weight-bold">₹@item.FlashCard.FinalPrice.Value.ToString("N2")</span>
+														@if (item.FlashCard.DiscountAmount > 0)
+														{
+															<small class="text-muted text-decoration-line-through d-block">₹@item.FlashCard.BasePrice?.ToString("N2")</small>
+														}
+													}
+													else
+													{
+														<span class="text-muted">Free</span>
+													}
+												</td>
+												<td>
+													@{
+														var statusClass = item.PaymentStatus switch
+														{
+															"SUCCESS" => "badge-success",
+															"PENDING" => "badge-warning",
+															"Failed" => "badge-danger",
+															_ => "badge-secondary"
+														};
+													}
+													<span class="badge @statusClass">@item.PaymentStatus</span>
+												</td>
+												<td>
+													<div>
+														<span class="font-weight-medium">@item.PurchasedAt.ToString("MMM dd, yyyy")</span>
+														<small class="text-muted d-block">@item.PurchasedAt.ToString("hh:mm tt")</small>
+													</div>
+												</td>
+												<td>
+													<small class="text-muted">@item.OrderId</small>
+												</td>
+											</tr>
+										}
+									</tbody>
+								</table>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+		$(document).ready(function() {
+			$('#studyMaterialsTable').DataTable({
+				"order": [[5, "desc"]],
+				"pageLength": 25,
+				"responsive": true
+			});
+
+			$('#flashCardsTable').DataTable({
+				"order": [[5, "desc"]],
+				"pageLength": 25,
+				"responsive": true
+			});
+
+			$('#searchInput').on('keyup', function() {
+				var value = $(this).val().toLowerCase();
+				var activeTab = $('.tab-pane.active');
+				var table = activeTab.find('table').DataTable();
+				table.search(value).draw();
+			});
+
+			$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				$('#searchInput').val('').trigger('keyup');
+			});
+		});
+	</script>
+}

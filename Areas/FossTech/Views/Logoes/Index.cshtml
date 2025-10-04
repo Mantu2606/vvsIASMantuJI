@@ -1,0 +1,95 @@
+﻿@model IEnumerable<FossTech.Models.Logo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="col-sm-12">
+    <!-- Zero config.table start -->
+    <div class="card">
+        <div class="card-header pb-1">
+            <h2 class="text-center">Logo & Favicon Image</h2>
+            @if (!Model.Any())
+            {
+                <a class="btn btn-primary float-right" asp-action="Create">Create New</a>
+            }
+
+        </div>
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table id="simpletable" class="table nowrap">
+                    <thead>
+                        <tr>
+                            <th>
+                                Logo Image
+                            </th>
+                            @*<th>
+                                    Logo Footer
+                                </th>*@
+                            <th>
+                                Favicon Image
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    <img src="@Url.Content(item.HeaderLogo)" height="100" width="auto" />
+                                    <hr />
+                                   
+                                    <p class="text-left mt-5">
+                                        Supported format: .jpeg, .png or .gif <br />
+                                        Recommended dimension: Square (200x200 px) <br />
+                                        Max file size:500 KB 
+                                    </p>
+                                </td>
+                                @*<td>
+                                        <img src="@Url.Content(item.FooterLogo)" height="90" width="90" />
+                                    </td>*@
+                            <td class="text-center">
+                                <img src="@Url.Content(item.Favicon)" height="100" width="auto" />
+                                <hr />
+                                <p class="text-left mt-5">
+                                    Supported format: .jpeg, .png or .gif <br />
+                                    Recommended dimension: Square (200x200 px) <br />
+                                    Max file size:500 KB
+                                </p>
+                            </td>
+                                <td class="dropdown">
+                                    <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li> <a class="dropdown-item text-primary" asp-action="Details" asp-route-id="@item.Id"><i class="icofont icofont-eye-alt"></i>View</a></li>
+                                        <li><a class="dropdown-item text-success" asp-action="Edit" asp-route-id="@item.Id"><i class="icofont icofont-edit"></i>Edit</a></li>
+                                        <li><a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="icofont icofont-ui-delete"></i>Delete</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+
+    <style>
+        #simpletable
+        .dropdown button {
+            padding: 10px;
+        }
+            #simpletable
+            .dropdown button i {
+                font-size: 25px;
+            }
+        #simpletable
+        .dropdown button{
+            margin-top: 100px;
+        }
+    </style>
+
+}

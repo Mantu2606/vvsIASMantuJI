@@ -1,0 +1,507 @@
+﻿@model FossTech.ViewModels.NavViewModel
+
+<style>
+    /* fixed social*/
+    #fixed-social {
+        position: fixed;
+        top: 300px;
+        right: 0;
+        z-index: 999;
+    }
+
+        #fixed-social a {
+            color: #fff;
+            display: block;
+            height: 40px;
+            position: relative;
+            text-align: center;
+            line-height: 40px;
+            width: 40px;
+            margin-bottom: 1px;
+        }
+
+            #fixed-social a:hover > span {
+                visibility: visible;
+                right: 41px;
+                opacity: 1;
+            }
+
+            #fixed-social a span {
+                line-height: 40px;
+                right: 60px;
+                position: absolute;
+                text-align: center;
+                width: 120px;
+                visibility: hidden;
+                transition-duration: 0.5s;
+                z-index: 1;
+                opacity: 0;
+            }
+
+    .fixed-facebook {
+        background-color: #3b5998;
+    }
+
+        .fixed-facebook span {
+            background-color: #3b5998;
+        }
+
+    .fixed-twitter {
+        background-color: #00acee;
+    }
+
+        .fixed-twitter span {
+            background-color: #00acee;
+        }
+
+
+
+    .fixed-linkedin {
+        background-color: #0072b1;
+    }
+
+        .fixed-linkedin span {
+            background-color: #0072b1;
+        }
+
+    .fixed-instagrem {
+        background-color: #bc2a8d;
+    }
+
+        .fixed-instagrem span {
+            background-color: #bc2a8d;
+        }
+
+    .fixed-youtube {
+        background-color: red;
+    }
+
+        .fixed-youtube span {
+        background-color: red;
+    }
+    .fixed-phone {
+        background-color: #41A5EE;
+    }
+
+        .fixed-phone span {
+            background-color: #41A5EE;
+        }
+
+    /*end fixed social*/
+
+    .float {
+        position: fixed;
+        bottom: 15px;
+        left: 20px;
+        color: #25d366;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 45px;
+        z-index: 10000;
+    }
+
+    .my-float {
+        margin-top: 16px;
+    }
+
+    .float1 {
+        position: fixed;
+        bottom: 15px;
+        right: 20px;
+        color: #41A5EE;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 45px;
+        z-index: 10000;
+    }
+
+    .my-float1 {
+        margin-top: 16px;
+    }
+
+    .iframeeee iframe {
+        height: 200px;
+        width: 100%;
+    }
+     .footer {
+        background:var(--footerbackground);
+            color: #f2f2f2;
+            padding: 5px 0;
+            text-align: center;
+        }
+        .footer a {
+            color: #fdc200;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+        @@media (min-width: 768px) {
+            .footer p {
+                font-size: 14px;
+            }
+        }
+
+    .text-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px; /* Space between text container and WhatsApp button */
+        white-space: nowrap;
+        background: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: opacity 0.3s ease;
+        opacity: 1; /* Ensure the text-container is initially visible */
+    }
+
+    .whatsapp-text {
+        color: black; /* Black text color */
+        font-size: 16px;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .close-btn {
+        color: black; /* Black close button color */
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+        .close-btn:hover {
+            color: #ddd;
+        }
+
+    .float {
+        color: #25d366;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 45px;
+    }
+</style>
+
+<!-- FOOTER SECTION STARTS HERE -->
+<footer class="tl-footer tl-4-footer" style="background: var(--footerbackground);">
+    <div class="tl-footer-top">
+        <div class="container">
+            <div class="row gy-5 justify-content-between my-1">
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <h5 class="tl-footer-widget-title tl-4-footer-widget-title">@Model.WebSetting.FooterTitle1</h5>
+                    <div class="tl-footer-widget tl-4-footer-widget" style="font-size:15px">
+                        <div class="tl-4-footer-descr">
+                            @if (Model.Branches.Any())
+                            {
+                                var firstBranch = Model.Branches.First();
+                                <div class="col-12 mb-3">
+                                    <div class="d-flex">
+                                        <i class="fa-solid fa-location-dot" style="color: var(--footertext);margin-top: 4px;"></i>
+                                        <a href="@firstBranch.GoogleMapLink" target="_blank" style="color: var(--footertext);">
+                                            <div class="ms-3" style="color: var(--footertext);">@firstBranch.Address</div>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+
+                        @if (Model.BusinessProfile.RegisteredContactNumber != null)
+                        {
+                            <div class="col-12 mb-2">
+                                <div class="d-flex">
+                                    <i class="fa fa-phone" style="color: var(--footertext);margin-top: 4px;"></i>
+                                    <div class="ms-3">
+                                        <a href="tel:@Model.BusinessProfile.RegisteredContactNumber" target="_blank" style="color: var(--footertext);">@Model.BusinessProfile.RegisteredContactNumber</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.BusinessProfile.AlternateContactNumber != null)
+                        {
+                            <div class="col-12 mb-2">
+                                <div class="d-flex">
+                                    <i class="fa fa-phone" style="color: var(--footertext);margin-top: 4px;"></i>
+                                    <div class="ms-3">
+                                        <a href="tel:@Model.BusinessProfile.AlternateContactNumber" style="color: var(--footertext);">@Model.BusinessProfile.AlternateContactNumber</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.BusinessProfile.AlternateContactNumber1 != null)
+                        {
+                            <div class="col-12 mb-2">
+                                <div class="d-flex">
+                                    <i class="fa fa-phone" style="color: var(--footertext);margin-top: 4px;"></i>
+                                    <div class="ms-3">
+                                        <a href="tel:@Model.BusinessProfile.AlternateContactNumber1" style="color: var(--footertext);">@Model.BusinessProfile.AlternateContactNumber1</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.BusinessProfile.EmailAddress != null)
+                        {
+                            <div class="col-12 mb-2">
+                                <div class="d-flex">
+                                    <i class="fa-solid fa-envelope" style="color: var(--footertext);margin-top: 4px;"></i>
+                                    <div class="ms-3">
+                                        <a href="mailto:@Model.BusinessProfile.EmailAddress" style="color: var(--footertext);">@Model.BusinessProfile.EmailAddress</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.BusinessProfile.WorkingHours != null)
+                        {
+                            <div class="col-12 mb-2">
+                                <div class="d-flex">
+                                    <i class="fa-solid fa-clock" style="color: var(--footertext);margin-top: 4px;"></i>
+                                    <div class="ms-3" style="color: var(--footertext);">
+                                        <span>@Model.BusinessProfile.WorkingHours</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.BusinessProfile.OtherWebsite != null)
+                        {
+                            <div class="col-12 mb-2">
+                                <div class="d-flex">
+                                    <i class="fa fa-globe"></i>
+                                    <div class="ms-3">
+                                        <a target="_blank" href="@Model.BusinessProfile.OtherWebsite">@Model.BusinessProfile.OtherWebsite</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="tl-4-footer-socials col-12">
+                            <ul class="list-inline" style="margin-top: 30px;">
+                                <li class="list-inline-item"><a href="@Model.BusinessProfile.TwitterLink"><i class="fa-brands fa-twitter"></i></a></li>
+                                <li class="list-inline-item"><a href="@Model.BusinessProfile.FacebookPageLink"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                <li class="list-inline-item"><a href="@Model.BusinessProfile.LinkedInLink"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                <li class="list-inline-item"><a href="@Model.BusinessProfile.InstagramPageLink"><i class="fa-brands fa-instagram"></i></a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-5 order-1 order-sm-2 order-lg-1">
+                    <div class="row gy-5">
+                        <div class="col-4 col-xxs-12">
+                            <div class="tl-footer-widget tl-4-footer-widget">
+                                <h5 class="tl-footer-widget-title tl-4-footer-widget-title">@Model.WebSetting.FooterTitle2</h5>
+                                <ul class="tl-footer-links tl-4-footer-links" style="font-size:15px;">
+                                    @foreach (var item in Model.ShowFooter)
+                                    {
+
+                                        <li style="color:var(--footertext);">
+                                            <i class="fas fa-arrow-right"></i>  <a href="@item.Url" style="color:var(--footertext);">
+                                                @item.Name
+                                            </a>
+                                        </li>
+
+                                    }
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-arrow-right"></i>  Other Pages
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            @foreach (var item in Model.Pages)
+                                            {
+                                                <a style="color: var(--footerbackground) !important;" class="dropdown-item" asp-route-slug="@item.Slug" asp-action="Details" asp-controller="Page">
+                                                    @item.Name
+                                                </a>
+                                            }
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                        </div>
+                        <div class="col-8 col-xxs-12">
+                            <div class="tl-footer-widget tl-4-footer-widget">
+                                <h5 class="tl-footer-widget-title tl-4-footer-widget-title">@Model.WebSetting.FooterTitle3</h5>
+                                <ul class="tl-footer-links tl-4-footer-links" style="font-size: 15px;">
+                                   
+                                        @foreach (var item in Model.Sections)
+                                        {
+                                        <li style="color: var(--footertext);" >
+                                            <div class="d-flex ">
+                                                <i class="fas fa-arrow-right" style="color: var(--footertext); margin-right: 8px;"></i>
+                                                <a asp-controller="Home" asp-action="Index" asp-route-category="@item.Slug" style="color: var(--footertext);">
+                                                    @item.Name
+                                                </a>
+                                            </div>
+                                        </li>
+
+                                        }
+                                   
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-6 col-12 order-2 order-sm-1 order-lg-2">
+                    <div class="tl-footer-widget tl-4-footer-widget">
+                        <h5 class="tl-footer-widget-title tl-4-footer-widget-title">@Model.WebSetting.FooterTitle4</h5>
+
+                        <ul id="product-list" class="tl-footer-links tl-4-footer-links" style="font-size:15px;">
+                            @foreach (var item in Model.Products.Take(14).OrderBy(x=>x.SortOrder))
+                            {
+                                <li style="color:var(--footertext);">
+                                    <i class="fas fa-arrow-right"></i> <a asp-controller="Courses" asp-action="Details" asp-route-id="@item.Id" style="color:var(--footertext);">
+                                        @item.Name
+                                    </a>
+                                </li>
+                            }
+                            @if (Model.Products.Count() > 15)
+                            {
+                                <li id="view-more-item" style="display: block;">
+                                    <button id="view-more-button" class="btn btn-primary" style="width: 100%; border: none; background: none; color: var(--footertext); text-align: left;">
+                                        <i class="fas fa-arrow-right"></i> View More Courses
+                                    </button>
+                                </li>
+                            }
+                            <ul id="more-products-list" class="tl-footer-links tl-4-footer-links" style="font-size:15px; display: none;">
+                                @foreach (var item in Model.Products.Skip(15))
+                                {
+                                    <li style="color:var(--footertext);">
+                                        <i class="fas fa-arrow-right"></i> <a asp-controller="Courses" asp-action="Details" asp-route-id="@item.Id" style="color:var(--footertext);">
+                                            @item.Name
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container-fluid">
+            <div class="row gy-4 align-items-center">
+                <div class="col-12">
+                    <p class="text-white">
+                        © Copyright <span id="currentYear"></span> @DateTime.Now.Year @Model.BusinessProfile.Copyright All rights reserved |
+                        Design & Developed By <a href="https://fosstechuzon.com/"><u>FossTechUzon</u></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   @*  <div class="tl-footer-bottom tl-4-footer-bottom">
+        <div class="container-fluid">
+            <div class="row gy-4 align-items-center">
+                <div class="col-12">
+                    <p style="color: var(--footertext);font-size: 23px" class="col-lg-12 footer-text m-0 text-center">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        © Copyright @DateTime.Now.Year @Model.BusinessProfile.BusinessName All rights reserved | Design & Developed By <a href="https://fosstechuzon.com/">FossTechUzon</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div> *@
+</footer>
+<!-- FOOTER SECTION STARTS HERE -->
+<!--================ End footer Area  =================-->
+
+
+<div id="fixed-social">
+    @if (Model.BusinessProfile.FacebookPageLink != null)
+    {
+        <div>
+            <a href="@Model.BusinessProfile.FacebookPageLink" class="fixed-facebook" target="_blank"><i class="fab fa-facebook"></i> <span>Facebook</span></a>
+        </div>
+    }
+    @if (Model.BusinessProfile.TwitterLink != null)
+    {
+        <div>
+            <a href="@Model.BusinessProfile.TwitterLink" class="fixed-twitter" target="_blank"><i class="fab fa-twitter"></i> <span>Twitter</span></a>
+        </div>
+    }
+    @if (Model.BusinessProfile.LinkedInLink != null)
+    {
+        <div>
+            <a href="@Model.BusinessProfile.LinkedInLink" class="fixed-linkedin" target="_blank"><i class="fab fa-linkedin"></i> <span>LinkedIn</span></a>
+        </div>
+    }
+    @if (Model.BusinessProfile.InstagramPageLink != null)
+    {
+        <div>
+            <a href="@Model.BusinessProfile.InstagramPageLink" class="fixed-instagrem" target="_blank"><i class="fab fa-instagram"></i> <span>Instagram</span></a>
+        </div>
+    }
+    @if (Model.BusinessProfile.YoutubeLink != null)
+    {
+        <div>
+            <a href="@Model.BusinessProfile.YoutubeLink" class="fixed-youtube" target="_blank"><i class="fab fa-youtube"></i> <span>YouTube</span></a>
+        </div>
+    }
+</div>
+
+<a onclick="handleClick('Whatsapp')" id="whatsappLink" href="https://api.whatsapp.com/send?phone=@Model.BusinessProfile.WhatsAppNumber&text=HEYY" class="float">
+ @*    <img height="60px" src="~/whatsapp1.png" /> *@
+    <div id="whatsappTextContainer" class="text-container">
+        <span class="whatsapp-text">Chat with us</span>
+        <span class="close-btn" onclick="closeText(event)">×</span>
+    </div>
+   <i class="fab fa-whatsapp"></i>
+   
+    @*<i class="fa fa-whatsapp my-float"></i>*@
+</a>
+
+<a onclick="handleClick('Call')" id="phoneLink" href="tel:@Model.BusinessProfile.RegisteredContactNumber" class="float1">
+    <i class="fa fa-phone-square my-float1"></i>
+</a>
+
+<script>
+    function closeText(event) {
+        event.preventDefault();
+        event.stopPropagation(); // Prevent the link from being followed
+        document.getElementById('whatsappTextContainer').style.display = 'none';
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var viewMoreButton = document.getElementById("view-more-button");
+        var moreProductsList = document.getElementById("more-products-list");
+        var viewMoreItem = document.getElementById("view-more-item");
+        var productList = document.getElementById("product-list");
+
+        if (viewMoreButton) {
+            viewMoreButton.addEventListener("click", function () {
+                if (moreProductsList.style.display === "none") {
+                    moreProductsList.style.display = "block";
+                    viewMoreButton.textContent = "View Less Courses";
+                    viewMoreButton.insertAdjacentHTML('beforeend', ' <i class="fas fa-arrow-up"></i>');
+                    // Move the button to the end of the list
+                    productList.appendChild(viewMoreItem);
+                } else {
+                    moreProductsList.style.display = "none";
+                    viewMoreButton.textContent = "View More Courses";
+                    viewMoreButton.insertAdjacentHTML('beforeend', ' <i class="fas fa-arrow-right"></i>');
+                    // Move the button back to its original position
+                    productList.insertBefore(viewMoreItem, moreProductsList);
+                }
+            });
+        }
+    });
+</script>
+
+

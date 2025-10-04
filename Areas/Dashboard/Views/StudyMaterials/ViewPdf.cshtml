@@ -1,0 +1,32 @@
+﻿@model FossTech.Models.StudyMaterialModels.StudyMaterial
+
+@{
+    ViewData["Title"] = "View PDF";
+}
+
+<h2>@Model.Name</h2>
+
+<!-- PDF.js container -->
+<canvas id="pdfViewer" width="100%" height="600px"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+<script>
+    var url = '@Model.PDFs';  // The URL of the PDF file
+
+    pdfjsLib.getDocument(url).promise.then(function (pdf) {
+        // Fetch the first page
+        pdf.getPage(1).then(function (page) {
+            var scale = 1.5;  // Adjust the scale for better readability
+            var viewport = page.getViewport({ scale: scale });
+            var canvas = document.getElementById('pdfViewer');
+            var context = canvas.getContext('2d');
+
+            // Set canvas size
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            // Render the page
+            page.render({ canvasContext: context, viewport: viewport });
+        });
+    });
+</script>

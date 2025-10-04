@@ -1,0 +1,51 @@
+﻿@using FossTech.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@using Microsoft.AspNetCore.Http
+@using Microsoft.EntityFrameworkCore
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    var user = await UserManager?.Users?.FirstOrDefaultAsync(a => a.Id == UserManager.GetUserId(User));
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+            <img style="height: 26px;width: 26px;" src="/admin.png" alt="">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            @if (user != null && user.Id != null && await UserManager?.IsInRoleAsync(user, "Admin"))
+            {
+                <a class="dropdown-item" asp-area="FossTech" asp-controller="FossTech" asp-action="Index">Admin Panel</a>
+            }
+
+            @if (user != null && user.Id != null &&
+           (await UserManager?.IsInRoleAsync(user, "User") ||
+           await UserManager?.IsInRoleAsync(user, "OutSideUser")))
+            {
+                <a class="dropdown-item" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+            }
+
+            <a class="dropdown-item" asp-controller="Account" asp-action="Profile">My Account</a>
+            <a href="#" class="dropdown-item" onclick="document.getElementById('logout').submit();return false;">Logout</a>
+
+            <form id="logout" class="d-none" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+                <button type="submit" class="nav-link btn btn-link dropdown-item">Logout</button>
+            </form>
+        </div>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a href="@Url.Action("Login", "Account")" class="btn mr-2" style="background:var(--footerbackground);color:#fff;">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </a>
+        <a href="@Url.Action("Register", "Account")" class="btn" style="background:#ef7f1a;color:#fff">
+            <i class="fas fa-user-plus"></i> Register
+        </a>
+    </li>
+}

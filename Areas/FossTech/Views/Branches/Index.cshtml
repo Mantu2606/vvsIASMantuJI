@@ -1,0 +1,194 @@
+﻿@model IEnumerable<FossTech.Models.Branch>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="col-sm-12">
+    <!-- Zero config.table start -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="m-0">Branches</h5>
+            <div>
+                <button id="deleteButton" class="btn btn-primary" style="background-color: red; border: none;">Delete Selected</button>
+                <a class="btn btn-primary" style="border: none;" asp-action="Create">Create New</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table id="simpletable" class="display nowrap" width="100%">
+                    <thead>
+                        <tr>
+                            <th><input style="width:30px; height: 40px; " type="checkbox" id="selectAll" /></th>
+                            <th>Actions</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Section)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SortOrder)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BranchName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Mobile)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.GoogleIframe)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="form-check">
+                                    <div class="" style="padding-left: inherit;">
+                                        <input data-id="@item.Id" class="check-input checkbox-item" style="width:30px; height: 40px; " type="checkbox">
+                                    </div>
+                                </td>
+                                <td class="dropdown">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                                    <div class="dropdown-menu dropdown-menu-right b-none contact-menu" x-placement="top-end" style="position: absolute; transform: translate3d(-77px, -95px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                        @* <a class="dropdown-item text-primary" asp-action="Details" asp-route-id="@item.Id"><i class="icofont icofont-eye-alt"></i>View</a> *@
+                                        <a class="dropdown-item text-success" asp-action="Edit" asp-route-id="@item.Id"><i class="icofont icofont-edit"></i>Edit</a>
+                                        <a class="dropdown-item text-primary" asp-action="Details" asp-route-id="@item.Id"><i class="icofont icofont-ui-delete"></i>Details</a>
+                                        <a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="icofont icofont-ui-delete"></i>Delete</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Section.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SortOrder)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BranchName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Mobile)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.GoogleIframe)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section styles {
+    <link rel="stylesheet" type="text/css" href="/lib/DataTables/DataTables-1.10.20/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="/lib/DataTables/Buttons-1.6.1/css/buttons.dataTables.min.css" />
+}
+
+@section Scripts {
+    <script type="text/javascript" src="/lib/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/lib/DataTables/JSZip-2.5.0/jszip.min.js"></script>
+    <script type="text/javascript" src="/lib/DataTables/Buttons-1.6.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="/lib/DataTables/pdfmake-0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="/lib/DataTables/pdfmake-0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="/lib/DataTables/Buttons-1.6.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="/lib/DataTables/Buttons-1.6.1/js/buttons.print.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#simpletable').DataTable({
+                dom: 'lBfrtip',
+                buttons: [{
+                    extend: 'pdf',
+                    title: 'items',
+                    filename: "@DateTime.Now.ToFileTime()",
+                    exportOptions: {
+                        columns: [0, 1, 2]
+                    }
+                }, {
+                    extend: 'excel',
+                    title: 'items',
+                    filename: "@DateTime.Now.ToFileTime()",
+                    exportOptions: {
+                        columns: [0, 1, 2]
+                    }
+                }, {
+                    extend: 'csv',
+                    title: 'items',
+                    filename: "@DateTime.Now.ToFileTime()",
+                    exportOptions: {
+                        columns: [0, 1, 2]
+                    }
+                },
+                {
+                    extend: 'print',
+                    title: 'items',
+                    filename: "@DateTime.Now.ToFileTime()",
+                    exportOptions: {
+                        columns: [0, 1, 2]
+                    }
+                }],
+                "order": [],
+                "columnDefs": [{
+                    "targets": 'no-sort',
+                    "orderable": false,
+                }],
+
+            });
+
+
+            // Select or deselect all checkboxes when the "Select All" checkbox is clicked
+            $('#selectAll').change(function () {
+                $('.checkbox-item').prop('checked', $(this).prop('checked'));
+            });
+
+            var itemIds = [];
+
+            // Add click event handler to the delete button
+            $('#deleteButton').click(function () {
+                var selectedItems = $('.checkbox-item:checked');
+
+                selectedItems.each(function () {
+                    var leadId = parseInt($(this).attr("data-id"));
+                    itemIds.push(leadId);
+                });
+
+                // Send the selected item IDs to the server for deletion
+                $.ajax({
+                    url: '/FossTech/Branches/DeleteSelected',
+                    type: 'POST', // Add this line if necessary
+                    data: { leadIds: itemIds },
+                    success: function (response) {
+
+                        if (response == "Success") {
+                            selectedItems.closest('tr').remove();
+                            itemIds = [];
+                            window.location.reload();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle the error response
+                        console.log(error);
+                    }
+                });
+
+            });
+
+        });
+
+    </script>
+} 

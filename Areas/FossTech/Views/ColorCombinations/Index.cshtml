@@ -1,0 +1,70 @@
+﻿@model FossTech.Models.ColorCombination
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <h1>Color Combination</h1>
+        </div>
+        <div class="card-body">
+            <form asp-action="Index">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="HeaderBackground" class="control-label"></label>
+                    <input type="color" asp-for="HeaderBackground" class="form-control" />
+                    <span asp-validation-for="HeaderBackground" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HeaderText" class="control-label"></label>
+                    <input type="color" asp-for="HeaderText" class="form-control" />
+                    <span asp-validation-for="HeaderText" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FooterBackground" class="control-label"></label>
+                    <input type="color" asp-for="FooterBackground" class="form-control" />
+                    <span asp-validation-for="FooterBackground" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FooterText" class="control-label"></label>
+                    <input type="color" asp-for="FooterText" class="form-control" />
+                    <span asp-validation-for="FooterText" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ButtonBackground" class="control-label"></label>
+                    <input type="color" asp-for="ButtonBackground" class="form-control" />
+                    <span asp-validation-for="ButtonBackground" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ButtonText" class="control-label"></label>
+                    <input type="color" asp-for="ButtonText" class="form-control" />
+                    <span asp-validation-for="ButtonText" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HoverColor" class="control-label"></label>
+                    <input type="color" asp-for="HoverColor" class="form-control" />
+                    <span asp-validation-for="HoverColor" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Acedemic" class="control-label"></label>
+                    <input type="color" asp-for="Acedemic" class="form-control" />
+
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

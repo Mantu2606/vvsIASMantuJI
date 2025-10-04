@@ -1,0 +1,145 @@
+﻿@model FossTech.Models.BusinessProfile
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>BusinessProfile</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="BusinessName" class="control-label"></label>
+                <input asp-for="BusinessName" class="form-control" />
+                <span asp-validation-for="BusinessName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label"></label>
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AlternateEmailAddress" class="control-label"></label>
+                <input asp-for="AlternateEmailAddress" class="form-control" />
+                <span asp-validation-for="AlternateEmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AlternateEmailAddress1" class="control-label"></label>
+                <input asp-for="AlternateEmailAddress1" class="form-control" />
+                <span asp-validation-for="AlternateEmailAddress1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegisteredContactNumber" class="control-label"></label>
+                <input asp-for="RegisteredContactNumber" class="form-control" />
+                <span asp-validation-for="RegisteredContactNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AlternateContactNumber" class="control-label"></label>
+                <input asp-for="AlternateContactNumber" class="form-control" />
+                <span asp-validation-for="AlternateContactNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AlternateContactNumber1" class="control-label"></label>
+                <input asp-for="AlternateContactNumber1" class="form-control" />
+                <span asp-validation-for="AlternateContactNumber1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WhatsAppNumber" class="control-label"></label>
+                <input asp-for="WhatsAppNumber" class="form-control" />
+                <span asp-validation-for="WhatsAppNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BusinessWhatsAppNumber" class="control-label"></label>
+                <input asp-for="BusinessWhatsAppNumber" class="form-control" />
+                <span asp-validation-for="BusinessWhatsAppNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BusinessWhatsAppNumber1" class="control-label"></label>
+                <input asp-for="BusinessWhatsAppNumber1" class="form-control" />
+                <span asp-validation-for="BusinessWhatsAppNumber1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FacebookPageLink" class="control-label"></label>
+                <input asp-for="FacebookPageLink" class="form-control" />
+                <span asp-validation-for="FacebookPageLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InstagramPageLink" class="control-label"></label>
+                <input asp-for="InstagramPageLink" class="form-control" />
+                <span asp-validation-for="InstagramPageLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TwitterLink" class="control-label"></label>
+                <input asp-for="TwitterLink" class="form-control" />
+                <span asp-validation-for="TwitterLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkedInLink" class="control-label"></label>
+                <input asp-for="LinkedInLink" class="form-control" />
+                <span asp-validation-for="LinkedInLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YoutubeLink" class="control-label"></label>
+                <input asp-for="YoutubeLink" class="form-control" />
+                <span asp-validation-for="YoutubeLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OtherWebsite" class="control-label"></label>
+                <input asp-for="OtherWebsite" class="form-control" />
+                <span asp-validation-for="OtherWebsite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                        <label asp-for="GoogleMap" class="control-label"></label>
+                        <input asp-for="GoogleMap" class="form-control" style="border-radius: 10px;" />
+                        <span asp-validation-for="GoogleMap" class="text-danger"></span>
+                    </div>
+            <div class="form-group">
+                <label asp-for="WorkingHours" class="control-label"></label>
+                <input asp-for="WorkingHours" class="form-control" />
+                <span asp-validation-for="WorkingHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Copyright" class="control-label"></label>
+                <input asp-for="Copyright" class="form-control" />
+                <span asp-validation-for="Copyright" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedAt" class="control-label"></label>
+                <input asp-for="CreatedAt" class="form-control" />
+                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastModified" class="control-label"></label>
+                <input asp-for="LastModified" class="form-control" />
+                <span asp-validation-for="LastModified" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SectionId" class="control-label"></label>
+                <select asp-for="SectionId" class="form-control" asp-items="ViewBag.SectionId"></select>
+                <span asp-validation-for="SectionId" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

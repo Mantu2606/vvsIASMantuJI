@@ -1,0 +1,82 @@
+﻿@model IEnumerable<FossTech.Models.Video>
+
+@{
+    ViewData["Title"] = "Videos";
+}
+
+
+
+<style>
+    
+    .iframeeeeeee iframe{
+        height: 200px;
+        width: 100%;
+        border-radius: 20px;
+    }
+
+    .testimonials {
+        padding: 100px 0;
+    }
+
+        .testimonials h3 {
+            margin-bottom: 20px;
+        }
+
+        .testimonials .card {
+            border-bottom: 3px #007bff solid !important;
+            transition: 0.5s;
+            margin-top: 60px;
+        }
+
+            .testimonials .card i {
+                background-color: #007bff;
+                color: #ffffff;
+                width: 75px;
+                height: 75px;
+                line-height: 75px;
+                margin: -40px auto 0 auto;
+            }
+</style>
+<!--================Home Banner Area =================-->
+<section class="banner_area my-3">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center" style="background:aliceblue">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        @* <h2>Videos</h2> *@
+                        <div class="page_link">
+                            <a asp-controller="Home" asp-action="Index" style="margin:0 5px">Home</a>/
+                            <a asp-controller="Videos" asp-action="Index">Videos</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+<div>
+    <div class="container mt-5">
+
+        <div class="mt-n6 bg-white mb-5 rounded-3 shadow-sm p-5">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card border-light bg-light text-center iframeeeeeee">
+                            @Html.Raw(item.Code)
+                            <div class="card-body blockquote">
+                                @* <p style="font-size: 15px;" class="card-text">@item.Description</p> *@
+                                <footer class="blockquote-footer"><cite title="Source Title">@item.Title</cite></footer>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /.content end -->

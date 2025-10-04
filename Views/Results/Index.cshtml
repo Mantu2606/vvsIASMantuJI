@@ -1,0 +1,188 @@
+﻿@model List<FossTech.Models.OurTopper>
+@{
+    ViewData["Title"] = "Results";
+}
+<style>
+    .single_course {
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+        .single_course:hover {
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+    /* Image styles */
+    .image_wrapper {
+        position: relative;
+        overflow: hidden;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .course_image {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .image_overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .single_course:hover .image_overlay {
+        opacity: 1;
+    }
+
+    /* Course content styles */
+    .course_content {
+        padding: 20px;
+    }
+
+    .price {
+        display: block;
+        font-size: 14px;
+        color: #4caf50;
+        margin-bottom: 8px;
+    }
+
+    .tag {
+        font-size: 12px;
+        /* color: #777777;
+        background-color: #f0f0f0; */
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+
+    h4 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #555555;
+        margin-bottom: 0;
+    }
+
+</style>
+<section class="banner_area my-3">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center" style="background:aliceblue">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        <div class="page_link">
+                            <a asp-controller="Home" asp-action="Index" style="margin:0 5px;">Home</a>/
+                            <a asp-controller="Results" asp-action="Index">Results</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal to display the full image -->
+<div class="modal" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+         
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" class="img-fluid" alt="Full View Image" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-end">
+    <div class="col-md-8">
+        <form method="get" class="d-flex align-items-center justify-content-end">
+            <div class="form-group mb-2 mr-2">
+                @Html.DropDownList("topperYear", (SelectList)ViewData["TopperYears"], "Select Year", new { @class = "form-control" })
+            </div>
+            <button type="submit" class="btn btn-primary mb-2 ms-2">Show Toppers</button>
+        </form>
+    </div>
+</div>
+
+@if (Model.Any())
+{
+    <div class="popular_courses my-4">
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
+                        <div class="single_course">
+                            <div class="course_head">
+                                <div class="" style="position: relative;">
+                                    @if (item.ShowStar)
+                                    {
+                                        <div style="display: flex; justify-content: center; align-items: center; height: 100%; position: relative;">
+                                            <img class="img-fluid course_image" src="@item.Image" alt="@item.Name"
+                                                 style="position: relative; z-index: 1; max-width: 60% !important; height: auto; top:50px" />
+                                        </div>
+                                        <img src="~/star.png" alt="Star" class="star-icon"
+                                             style="position: absolute; top: 52%; left: 50%; transform: translate(-49%, -48%); max-width: 200%; height: 140%; z-index: 0;" />
+                                    }
+                                    else
+                                    {
+                                        <img class="img-fluid course_image" src="@item.Image" alt="@item.Name"
+                                             style="position: relative; z-index: 1; cursor: pointer;" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="course_content" style="position:relative;top:10px">
+                                <span class="price">@item.Percentage</span>
+                                <span class="tag mb-2 d-inline-block">@item.SchoolName</span>
+                                <h4 class="mb-2" style="font-size:15px">
+                                    <a>@item.Name</a>
+                                </h4>
+                                <p class="mb-3">
+                                    @Html.Raw(item.Description)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts{
+ 
+    <script>
+        const courseImages = document.querySelectorAll('.course_image');
+
+        courseImages.forEach(image => {
+            image.addEventListener('click', function() {
+                const imageUrl = this.src;
+                const modalImage = document.getElementById('modalImage');
+                modalImage.src = imageUrl;
+                const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+                imageModal.show();
+            });
+        });
+    </script>
+
+}

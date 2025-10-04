@@ -1,0 +1,123 @@
+﻿@model FossTech.Areas.Dashboard.ViewModels.UpdateStudentProfileViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-12 col-md-8 col-sm-12">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+        <form asp-controller="Profile" asp-action="Index" method="post" enctype="multipart/form-data">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="card-title">Update Profile Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="FirstName" class="form-label"></label>
+                            <input asp-for="FirstName" class="form-control" placeholder="Enter First Name" />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label asp-for="LastName" class="form-label"></label>
+                            <input asp-for="LastName" class="form-control" placeholder="Enter Last Name" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" readonly placeholder="Email (cannot be changed)" />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label asp-for="PhoneNumber" class="form-label"></label>
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="Enter Mobile Number" />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ProfilePhoto" class="form-label"></label>
+                        @if (Model.ProfilePhoto != null)
+                        {
+                            <div class="mb-2">
+                                <img src="@Url.Content("~/Images/Profiles/" + Model.ProfilePhoto)" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 150px; height: 150px;" />
+                                <small class="form-text text-muted">Your current profile picture.</small>
+                            </div>
+                        }
+                        else
+                        {
+                            <small class="form-text text-muted">No profile picture uploaded yet.</small>
+                        }
+                        <input type="file" asp-for="ProfilePhoto" class="form-control" />
+                        <small class="form-text text-muted">Upload a new profile picture (optional)</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="CurrentPassword" class="form-label"></label>
+                            <input asp-for="CurrentPassword" type="password" class="form-control" placeholder="Enter Current Password" />
+                            <i class="fas fa-eye" id="toggleEye" onclick="togglePasswordVisibility('CurrentPassword', 'toggleEye')" style="position: absolute; right: 10px; top: 42px; cursor: pointer;"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="NewPassword" class="form-label"></label>
+                            <input asp-for="NewPassword" type="password" class="form-control" placeholder="Enter New Password" id="NewPassword" />
+                            <span id="NewPasswordError" class="text-danger" style="display:none;">New password cannot be the same as the current password.</span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="ConfirmNewPassword" class="form-label"></label>
+                            <input asp-for="ConfirmNewPassword" type="password" class="form-control" placeholder="Confirm New Password" id="ConfirmNewPassword" />
+                            <span id="ConfirmPasswordError" class="text-danger" style="display:none;">Passwords do not match.</span>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        function togglePasswordVisibility(passwordFieldId) {
+            var passwordField = document.getElementById(passwordFieldId);
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+    <script>
+        document.getElementById('ConfirmNewPassword').addEventListener('input', validatePasswordMatch);
+        document.getElementById('NewPassword').addEventListener('input', validatePasswordMatch);
+
+        function validatePasswordMatch() {
+            var newPassword = document.getElementById('NewPassword').value;
+            var confirmNewPassword = document.getElementById('ConfirmNewPassword').value;
+            if (newPassword !== confirmNewPassword) {
+                document.getElementById('ConfirmPasswordError').style.display = 'block';
+            } else {
+                document.getElementById('ConfirmPasswordError').style.display = 'none';
+            }
+            var currentPassword = document.getElementById('CurrentPassword').value;
+            if (newPassword === currentPassword) {
+                document.getElementById('NewPasswordError').style.display = 'block';
+            } else {
+                document.getElementById('NewPasswordError').style.display = 'none';
+            }
+        }
+    </script>
+}

@@ -1,0 +1,162 @@
+﻿@model IEnumerable<FossTech.Models.StudyMaterialModels.StudyMaterial>
+
+@{
+    ViewData["Title"] = "Study Materials";
+    var unlockedIds = ViewBag.UnlockedStudyMaterialIds as List<int> ?? new List<int>();
+}
+
+<div class="mb-4">
+    <input type="text" id="searchInput" class="form-control shadow-sm" placeholder="Search for Study materials...">
+</div>
+
+<div class="row d-flex justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm border-light rounded">
+                <img src="@Url.Content(item.ThumbnailImage ?? "/images/default-thumbnail.png")"
+                     class="card-img-top rounded" alt="Thumbnail">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">
+                        <i class="fas fa-book"></i> @item.Name
+                    </h5>
+
+                    @if (User.IsInRole("isStudent") || unlockedIds.Contains(item.Id) || ViewBag.Showall == true || item.Id == Model.First().Id)
+                    {
+                        <a href="#" class="open-pdf-modal btn btn-outline-info btn-block"
+                           data-pdf="@Url.Content(item.PDFs.First().PDF)"
+                           data-title="@item.Name">
+                            <i class="fas fa-file-pdf"></i> View PDF
+                        </a>
+                    }
+                    else if (item.FinalPrice != null && item.FinalPrice > 0)
+                    {
+                        <button class="btn btn-warning btn-block pay-now-btn"
+                                data-id="@item.Id">
+                            <i class="fas fa-lock"></i> Unlock - @item.FinalPrice?.ToString("C")
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-danger btn-block"
+                                onclick="sendEnquiry('@item.Name')">
+                            <i class="fas fa-lock"></i> Locked
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    
+    </div>
+
+<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">PDF Viewer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="pdfIframe" src="" width="100%" height="500px" style="border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Styles {
+    <style>
+        @@media (max-width: 768px) {
+            .card-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .card-title {
+                font-size: 1rem;
+            }
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        $(document).on("click", ".open-pdf-modal", function () {
+            var pdfUrl = $(this).data("pdf");
+            var title = $(this).data("title");
+            $("#pdfIframe").attr("src", pdfUrl);
+            $('#pdfModal').modal('show');
+            $('#pdfModalLabel').text("Viewing: " + title);
+        });
+
+        $('#searchInput').on('input', function () {
+            var searchValue = $(this).val().toLowerCase();
+            $('.card').filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(searchValue) > -1);
+            });
+        });
+    </script>
+
+    <script>
+        function sendEnquiry(itemName) {
+            const userId = '@ViewBag.User.Id';  
+            const userName = '@ViewBag.User.UserName';
+            const fullName = '@ViewBag.User.FullName';
+            const userEmail = '@ViewBag.User.Email';  
+            const userPhone = '@ViewBag.User.PhoneNumber'; 
+            const defaultMessage = "The study material is locked, and the user is requesting access.";
+
+            const enquiryData = {
+                UserName: userName,
+                Name: fullName,
+                MobileNumber: userPhone,
+                MaterialName: itemName,
+                Message: defaultMessage,
+                UserId: userId 
+            };
+
+            $.ajax({
+                url: '@Url.Action("SendEnquiry", "StudyMaterials")',  
+                type: 'POST',
+                data: JSON.stringify(enquiryData),
+                contentType: 'application/json',
+                success: function(response) {
+                    toastr.success('Enquiry sent successfully!');
+                },
+                error: function(xhr, status, error) {
+                    toastr.error('Error sending enquiry: ' + error);
+                }
+            });
+        }
+    </script>
+    <script src="https://mercury-stg.phonepe.com/web/bundle/checkout.js" defer></script>
+
+    <script>
+        $(document).on("click", ".pay-now-btn", function () {
+          const itemId = $(this).data("id");
+          
+          $.ajax({
+            url: '/Dashboard/StudyMaterials/InitiatePayment',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ id: itemId}),
+            success: function (response) {
+              if(response.redirectTo)
+              location.href = response.redirectTo
+              else {
+                toastr.error("Something went wrong while processing payment.");
+              }
+            },
+            error: function () {
+              toastr.error("Something went wrong while processing payment.");
+            }
+          });
+        });
+    </script>
+
+
+}

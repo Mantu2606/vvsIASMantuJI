@@ -1,0 +1,337 @@
+﻿@model FossTech.Controllers.TeacherViewModel
+@{
+    ViewBag.Title = "Teacher";
+}
+
+<style>
+    /* Example custom CSS */
+    .testimonial_area h3 {
+        color: #333;
+        font-size: 1.5em;
+    }
+
+    .testimonial_area p {
+        color: #666;
+        font-size: 1em;
+    }
+
+    .testimonial_area .nav-tabs .nav-link {
+        color: #333;
+        /* font-weight: bold; */
+        font-size: 14px
+    }
+
+        .testimonial_area .nav-tabs .nav-link.active {
+            background-color: var(--buttonbackground); /* Adjust color as per your design */
+            color: #fff;
+        }
+    /* Main Title */
+    .main_title h2 {
+        font-size: 30px;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    /* Trainer Card */
+    .single-trainer {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        /*  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+        .single-trainer:hover {
+            transform: translateY(-5px);
+            /*  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                } */
+
+            .single-trainer .thumb
+
+    {
+        overflow: hidden;
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+    }
+
+    .single-trainer .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .meta-text {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .trainer-name {
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+
+    .trainer-designation {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .single-trainer {
+            margin-bottom: 30px;
+        }
+    }
+
+</style>
+<!--================Home Banner Area =================-->
+<section class="banner_area my-3">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center" style="background:aliceblue">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        @* <h2>Teachers</h2> *@
+                        <div class="page_link">
+                            <a asp-controller="Home" asp-action="Index" style="color:black;margin:0 5px;">Home</a>/
+                            <a asp-controller="Teachers" asp-action="Index" style="color:black">Teachers</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (Model.Director.Any())
+{
+    <div class="testimonial_area section_gap mb-5">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-12">
+                    <div class="main_title text-center" style="background-color: var(--footerbackground); ">
+                        <h2 class="mb-0" style=" color:var(--buttontext);"> Founder & Co-Founder</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-3">
+                @foreach (var item in Model.Director)
+                {
+                    <div class="col-12 col-md-6 mb-4">
+                        <div class="card shadow-sm border-0" style="transition: transform 0.2s; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);">
+                            <div class="row g-0">
+                                <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+                                    <a asp-controller="Teachers" asp-action="Details" asp-route-id="@item.Id" asp-route-slug="@item.Slug">
+                                        <img src="@item.Image" class="img-fluid rounded" alt="Director Image" style="border-radius: 8px; max-width: 80%; height: auto;" />
+                                    </a>
+                                </div>
+
+                                <div class="col-12 col-md-8">
+                                    <div class="card-body" style="background-color: #f8f9fa;">
+                                        <a asp-controller="Teachers" asp-action="Details" asp-route-id="@item.Id" asp-route-slug="@item.Slug">
+                                            <h5 class="card-title" style="font-size: 1.8rem; font-weight: bold; color: var(--buttonbackground)">@item.Name</h5>
+                                            <p class="card-text text-muted" style="font-size: 1.1rem;">@item.Designation</p>
+                                            <p class="mb-1" style="font-size: 0.9rem;">
+                                                <span class="text-info"><i class="fas fa-building"></i> @item.Department</span> |
+                                                <span class="text-info"><i class="fas fa-graduation-cap"></i> @item.Education</span>
+                                            </p>
+                                        </a>
+
+                                        <div class="text-justify description"
+                                             style="font-size: 0.95rem; line-height: 1.6; color:black; overflow: hidden; max-height: 4.8em; transition: max-height 0.3s ease;"
+                                             id="desc-@item.Id">
+                                            @Html.Raw(item.Description)
+                                        </div>
+
+                                        <a href="javascript:void(0);" class="text-info" id="toggle-desc-@item.Id" onclick="toggleDescription('@item.Id')">Show More</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <script>
+                function toggleDescription(itemId) {
+                    var description = document.getElementById('desc-' + itemId);
+                    var toggleButton = document.getElementById('toggle-desc-' + itemId);
+
+                    // Get the current max-height value
+                    var currentHeight = description.style.maxHeight;
+
+                    // If it's collapsed, expand it
+                    if (currentHeight === '4.8em' || currentHeight === '') {
+                        description.style.maxHeight = 'none';  // Show full content
+                        toggleButton.textContent = 'Show Less'; // Change to 'Show Less'
+                    } else {
+                        description.style.maxHeight = '4.8em';
+                        toggleButton.textContent = 'Show More';
+                    }
+                }
+            </script>
+
+
+
+        </div>
+    </div>
+
+}
+@if (Model.HOD.Any())
+{
+    <div class="testimonial_area section_gap mb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="main_title text-center" style="background-color: var(--footerbackground); ">
+                        <h2 class="mb-0" style="font-size: 30px; color:var(--buttontext);">CORE TEAM</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row noback my-3">
+                <div class="col-12">
+                    <div class="row">
+                        @foreach (var item in Model.HOD)
+                        {
+                            <div class="col-12 col-md-6 mb-4">
+                                <div class="row">
+                                    <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+                                        <a asp-controller="Teachers" asp-action="Details" asp-route-id="@item.Id" asp-route-slug="@item.Slug">
+                                            <img src="@item.Image" class="img-fluid rounded" alt="@item.Name" style="max-width: 80%; height: auto;" />
+                                        </a>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <div class="card-body" style="background-color: #f8f9fa;">
+                                            <a asp-controller="Teachers" asp-action="Details" asp-route-id="@item.Id" asp-route-slug="@item.Slug">
+                                                <h5 class="card-title" style="font-size: 1.8rem; font-weight: bold; color: var(--buttonbackground);">@item.Name</h5>
+                                                <p class="card-text text-muted" style="font-size: 1.1rem;">@item.Designation</p>
+                                                <p class="mb-1" style="font-size: 0.9rem;">
+                                                    <span class="text-info"><i class="fas fa-building"></i> @item.Department</span> |
+                                                    <span class="text-info"><i class="fas fa-graduation-cap"></i> @item.Education</span>
+                                                </p>
+                                            </a>
+
+                                            <div class="description"
+                                                 style="font-size: 0.95rem; line-height: 1.6; overflow: hidden; max-height: 4.8em;"
+                                                 id="desc-@item.Id">
+                                                @Html.Raw(item.Description)
+                                            </div>
+
+                                            <a href="javascript:void(0);" class="text-info" id="toggle-desc-@item.Id" onclick="toggleDescription('@item.Id')">Show More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@if (Model.Team.Any())
+{
+    <div class="testimonial_area section_gap mb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="main_title text-center" style="background-color: var(--footerbackground);">
+                        <h2 class="mb-0" style="font-size: 30px; color:var(--buttontext);">TEAM VEdA</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row noback my-3">
+                <div class="col-12">
+                    <div class="row">
+                        @foreach (var item in Model.Team)
+                        {
+                            <div class="col-12 col-md-6 mb-4">
+                                <div class="row">
+                                    <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+                                        <a asp-controller="Teachers" asp-action="Details" asp-route-id="@item.Id" asp-route-slug="@item.Slug">
+                                            <img src="@item.Image" class="img-fluid rounded" alt="@item.Name" style="max-width: 80%; height: auto;" />
+                                        </a>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <div class="card-body" style="background-color: #f8f9fa;">
+                                            <a asp-controller="Teachers" asp-action="Details" asp-route-id="@item.Id" asp-route-slug="@item.Slug">
+                                                <h5 class="card-title" style="font-size: 1.8rem; font-weight: bold; color: var(--buttonbackground);">@item.Name</h5>
+                                                <p class="card-text text-muted" style="font-size: 1.1rem;">@item.Subject</p>
+                                                <p class="mb-1" style="font-size: 0.9rem;">
+                                                    <span class="text-info"><i class="fas fa-building"></i> @item.Designation</span> |
+                                                    <span class="text-info"><i class="fas fa-graduation-cap"></i> @item.Experience</span>
+                                                </p>
+                                            </a>
+
+                                            <div class="description" id="description-@item.Id" style="font-size: 0.95rem; line-height: 1.6; max-height: 75px; overflow: hidden; transition: max-height 0.3s ease-in-out;">
+                                                @Html.Raw(item.Description)
+                                            </div>
+                                            <a href="javascript:void(0);" class="toggle-description" data-target="description-@item.Id" style="font-size: 0.9rem; color: var(--buttonbackground);">
+                                                Show More
+                                            </a>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    <script>
+        function toggleDescription(itemId) {
+            var description = document.getElementById('desc-' + itemId);
+            var toggleButton = document.getElementById('toggle-desc-' + itemId);
+
+            var currentHeight = description.style.maxHeight;
+
+            if (currentHeight === '4.8em' || currentHeight === '') {
+                description.style.maxHeight = 'none';
+                toggleButton.textContent = 'Show Less';
+            } else {
+                description.style.maxHeight = '4.8em';
+                toggleButton.textContent = 'Show More';
+            }
+        }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleLinks = document.querySelectorAll(".toggle-description");
+
+            toggleLinks.forEach(function(link) {
+                link.addEventListener("click", function() {
+                    const targetId = this.getAttribute("data-target");
+                    const description = document.getElementById(targetId);
+                    const isExpanded = description.style.maxHeight === "none";
+
+                    if (isExpanded) {
+                        description.style.maxHeight = "75px"; // original collapsed height
+                        this.innerHTML = "Show More";
+                    } else {
+                        description.style.maxHeight = "none"; // expanded height
+                        this.innerHTML = "Show Less";
+                    }
+                });
+            });
+        });
+    </script>
+
+}

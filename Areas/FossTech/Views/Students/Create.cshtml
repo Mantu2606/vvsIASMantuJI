@@ -1,0 +1,160 @@
+﻿@model FossTech.Areas.FossTech.ViewModels.StudentProfileViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header pb-1">
+
+            <h2>Create User</h2>
+        </div>
+        <div class="card-body">
+
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3 row">
+                    <div class="col-lg-4">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" style="border-radius: 10px;" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="ProfilePhoto" class="control-label"></label>
+                        <input asp-for="ProfilePhoto" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 row">
+                    <div class="col-lg-4">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="MobileNumber" class="control-label"></label>
+                        <input asp-for="MobileNumber" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="DateOfBirth" class="control-label"></label>
+                        <input asp-for="DateOfBirth" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 row">
+                    <div class="col-lg-3">
+                        <label asp-for="Gender" class="control-label"></label>
+                        <select asp-for="Gender" class="form-control" style=" border-radius: 10px;">
+                            <option value="">-- Select --</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-3 mb-3">
+                        <label asp-for="BranchId">Branch</label>
+                        <select data-style="btn-info" asp-for="BranchId" style="border-radius: 10px;" class="selectpicker form-control" asp-items="ViewBag.Branches"></select>
+                        <span asp-validation-for="BranchId" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-3 mb-3">
+                        <label asp-for="BoardId">Select Board</label>
+                        <select data-style="btn-info" asp-for="BoardId" style="border-radius:10px" class="selectpicker form-control" asp-items="ViewBag.BoardId" onchange="getStandards()"></select>
+                        <span asp-validation-for="BoardId" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-3 mb-3 ">
+                        <label asp-for="StandardId"></label>
+                        <select data-style="btn-info" asp-for="StandardId" style="border-radius:10px" class="form-control selectpicker" asp-items="ViewBag.Standards"></select>
+                    </div>
+                </div>
+
+
+              <div class="row">
+                @*   <div class="form-group col-lg-6">
+                      <label asp-for="StandardId"></label>
+                      <select data-style="btn-info" asp-for="StandardId" style="border-radius:10px" class="form-control selectpicker" asp-items="ViewBag.Standards"></select>
+                  </div> *@
+              @*   <div class="form-group mb-3 col-lg-6">
+                    <label asp-for="Courses"></label>
+                    <select multiple="multiple" data-style="btn-info" asp-for="Courses" style="border-radius: 10px;" class="selectpicker form-control" asp-items="ViewBag.Products"></select>
+                    <span asp-validation-for="Courses" class="text-danger"></span>
+                </div> *@
+               </div>
+
+                <div class="form-group mb-3 row">
+                    <div class="col-lg-6">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" style="border-radius: 10px;" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="ConfirmPassword" class="control-label"></label>
+                        <input asp-for="ConfirmPassword" class="form-control" style=" border-radius: 10px;" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!-- Basic Form Inputs card end -->
+
+</div>
+<div class="mt-3">
+    <a asp-action="Index" class="btn btn-info">Back to List</a>
+</div>
+
+@section styles
+{
+    <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    @{
+
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="~/lib/select2/js/select2.min.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+
+            $("#Roles").select2();
+            $("#Courses").select2();
+        });
+        function getStandards() {
+            var boardId = $('select[name="BoardId"]').val();
+            if (boardId) {
+                $.getJSON('@Url.Action("GetStandardsByBoardId", "StudyMaterials")', { boardId: boardId }, function(data) {
+                    var options = '<option value="">Select Standard</option>';
+                    $.each(data, function(i, item) {
+                        options += '<option value="' + item.id + '">' + item.name + '</option>';
+                    });
+                    $('select[name="StandardId"]').html(options);
+                    getSubjects(); 
+                });
+            } else {
+                $('select[name="StandardId"]').html('<option value="">Select Standard</option>');
+                $('select[name="SubjectId"]').html('<option value="">Select Subject</option>');
+                $('select[name="ChapterId"]').html('<option value="">Select Chapter</option>');
+            }
+        }
+    </script>
+
+}

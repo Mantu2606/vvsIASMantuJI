@@ -1,0 +1,31 @@
+﻿@model FossTech.Models.ProductModels.Product
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_Layout2";
+}
+
+
+<div id="app">
+    <product-create></product-create>
+</div>
+
+
+@section styles
+{
+    <link href="~/lib/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+}
+
+@section Scripts {
+    <script src="~/lib/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+    <script src="~/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+   
+
+    <script type="text/javascript">
+
+       
+    </script>
+}

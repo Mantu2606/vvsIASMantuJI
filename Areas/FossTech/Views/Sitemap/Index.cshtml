@@ -1,0 +1,18 @@
+﻿<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header pb -1">
+            <h2>
+                SEO Function
+            </h2>
+        </div>
+        <div class="card-body">
+            <div class="text-center">
+                <a class="btn py-3 px-5 btn-primary font-weight-bolder" asp-action="CreateSitemapInRootDirectory">Generate sitemap.xml</a>
+
+                <br />
+                <br />
+                <p>After sitemap generated from above Button <a class="btn btn-primary btn-sm" target="_blank" href="https://www.google.com/ping?sitemap=@Context.Request.Scheme://@Context.Request.Host/sitemap.xml">Click here</a> to Ping google</p>
+            </div>
+        </div>
+    </div>
+</div>

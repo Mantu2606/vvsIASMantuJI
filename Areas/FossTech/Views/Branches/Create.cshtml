@@ -1,0 +1,79 @@
+﻿@model FossTech.Models.Branch
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="col-sm-12">
+    <!-- Basic Form Inputs card start -->
+    <div class="card">
+        <div class="card-header">
+
+            <h1>Add</h1>
+            <h4>Branches</h4>
+            <hr />
+        </div>
+        <div class="card-body">
+
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="form-group col-12 col-md-6">
+                        <label asp-for="BranchName" class="control-label"></label>
+                        <input asp-for="BranchName" class="form-control" />
+                        <span asp-validation-for="BranchName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-6">
+                        <label asp-for="SortOrder" class="control-label"></label>
+                        <input asp-for="SortOrder" class="form-control" />
+                        <span asp-validation-for="SortOrder" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-12 col-md-6">
+                        <label asp-for="Mobile" class="control-label"></label>
+                        <input asp-for="Mobile" class="form-control" />
+                        <span asp-validation-for="Mobile" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-12 col-md-6">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GoogleMapLink" class="control-label"></label>
+                    <input asp-for="GoogleMapLink" class="form-control" />
+                    <span asp-validation-for="GoogleMapLink" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GoogleIframe" class="control-label"></label>
+                    <input asp-for="GoogleIframe" class="form-control" />
+                    <span asp-validation-for="GoogleIframe" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label"> Section</label>
+                    <select asp-for="SectionId" class="form-control" asp-items="ViewBag.Sections"></select>
+                </div>
+                
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a class="btn btn-default" asp-action="Index">Back to List</a>
+    </div>
+
+</div>

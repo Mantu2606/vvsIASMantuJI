@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="Anil z" name="author">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+ 
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:400,700,900,400i%7CPlayfair+Display:400,700,700i">
+    <link rel="stylesheet" href="~/css/bootstrap.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+    @await RenderSectionAsync("MetaTags", false)
+
+    @await Component.InvokeAsync("Seo")
+    @await Component.InvokeAsync("Favicon")
+
+    
+<style>
+   
+    .login-col {
+        background: #fff;
+        padding-bottom: 90px;
+    }
+    input {
+        border-radius: 10px !important;
+    }
+    .different_login {
+        position: relative;
+    }
+    .different_login span {
+         display: block;
+        text-align: center;
+        text-transform: uppercase;
+    }
+   .different_login span:before {
+       content: "";
+        display: block;
+        width: 46%;
+        height: 2px;
+        background: #000;
+        left: 0;
+        top: 50%;
+        position: absolute;
+      }
+.different_login span:after {
+    content: "";
+    display: block;
+    width: 46%;
+    height: 2px;
+    background: #000;
+    right: 0;
+    top: 50%;
+    position: absolute;
+    }
+    .novi-background {
+        background-image: url("/big-city.jpg");
+            background-size: cover;
+        background-position: bottom;
+    }
+
+    footer {
+       position: fixed;
+        bottom: 0;
+        left: 0;
+        background-color: blue;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        font-weight: bold;
+        padding: 10px;
+    }
+    footer i {
+        font-size: 20px;
+        color: #fff;
+        margin-left: 5px;
+    }
+    footer a, footer a:hover {
+        color: #fff;
+    }
+    .socila-media {
+        margin: 15px; 
+        padding: 0;
+         margin: 0;
+    }
+    .socila-media li{
+        display: inline-block;
+       
+    }
+
+     @@media only screen and (max-width: 720px) {
+          svg {
+            display: none;
+          }
+          .login-col {
+              width: 100%;
+              background: #fff;
+              padding: 35px;
+             padding-bottom: 122px;
+          }
+          footer {
+              display: block !important;
+              text-align:center !important;
+              padding: 5px;
+          }
+           footer span{
+              text-align:center !important;
+          }
+        }
+</style>
+
+    @await RenderSectionAsync("Styles", required: false)
+
+    @await Component.InvokeAsync("HeaderCode")
+
+</head>
+
+
+<body>
+
+    <!-- Page-->
+    <div class="page">
+       
+
+        @await RenderSectionAsync("PageHeader", required: false)
+        @RenderBody()
+      
+<footer>
+            <div class="col-md-4">
+            <ul class="socila-media">
+                <li>
+                    <a href="https://www.facebook.com/fosstechuzon" target="_blank"><i class="fab fa-facebook"></i></a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/fosstechuzon" target="_blank"><i class="fab fa-instagram"></i></a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/company/fosstechuzon" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </li>
+                 <li>
+                    <a href="https://twitter.com/fosstechuzon" target="_blank"><i class="fab fa-twitter"></i></a>
+                </li>
+                <li>
+                    /FossTechUzon
+                </li>
+            </ul>
+        </div>
+    <div class="col-md-4 text-center">
+        <span>
+        <a href="https://www.fosstechuzon.com" target="_blank">www.fosstechuzon.com</a>
+    </span>
+    </div>
+    <div class="col-md-4 text-right">
+        <span>
+        <p>Copyright &copy FossTechUzon LLP - All Rights Reserved</p>
+    </span>
+    </div>
+    
+     
+</footer>
+
+    </div>
+       
+        <script src="~/js/core.min.js"></script>
+      
+        @if (TempData["_alert.type"] != null)
+        {
+            <script src="~/lib/notify/notify.min.js"></script>
+            <script>
+                $(document).ready(function() {
+	                $.notify.defaults({ globalPosition: 'bottom right' });
+                    $.notify('@TempData["_alert.title"]', '@TempData["_alert.type"]')
+                });
+            </script>
+        }
+
+        @await RenderSectionAsync("Scripts", required: false)
+
+        @await Component.InvokeAsync("FooterCode")
+
+</body>
+</html>

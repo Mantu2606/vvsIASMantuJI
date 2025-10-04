@@ -1,0 +1,27 @@
+﻿@model FossTech.Models.HeaderCode
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header pb-1">
+            <h2>Header Codes</h2>
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="card-body">
+            <form asp-action="Index">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group mb-3">
+                    <label asp-for="Code" class="control-label"></label>
+                    <textarea rows="10" asp-for="Code" class="form-control" ></textarea>
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
